@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Category } from "./category";
 
 Entity();
 export class Product {
