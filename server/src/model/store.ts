@@ -12,7 +12,7 @@ import { Order } from "./order";
 import { Cart } from "./cart";
 
 @Entity("store")
-export class Store extends Record {
+export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,6 +24,9 @@ export class Store extends Record {
 
   @Column()
   phone: string;
+
+  @Column(() => Record)
+  record: Record;
 
   // One-to-Many relationship with User
   @OneToMany(() => User, (user) => user.store)

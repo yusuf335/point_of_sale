@@ -1,4 +1,11 @@
-import { Entity, Column, OneToMany, ManyToOne } from "typeorm";
+import {
+  Entity,
+  Column,
+  OneToMany,
+  ManyToOne,
+  Collection,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -8,12 +15,18 @@ import { Product } from "./product";
 import { Store } from "./store";
 
 @Entity("category")
-export class Category extends Record {
+export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   name!: string;
 
   @Column()
   description!: string;
+
+  @Column(() => Record)
+  record: Record;
 
   // One-to-Many relationship with Product
   @OneToMany(() => Product, (product) => product.category)

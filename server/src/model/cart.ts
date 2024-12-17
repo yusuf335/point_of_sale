@@ -1,4 +1,4 @@
-import { Entity, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -7,7 +7,13 @@ import { Record } from "./utils/Record";
 import { Store } from "./store";
 
 @Entity("cart")
-export class Cart extends Record {
+export class Cart {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column(() => Record)
+  record: Record;
+
   @ManyToOne(() => Store, (store) => store.carts, { onDelete: "CASCADE" })
   store: Store;
 }

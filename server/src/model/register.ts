@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -7,7 +14,16 @@ import { Record } from "./utils/Record";
 import { Store } from "./store";
 
 @Entity("register")
-export class Register extends Record {
+export class Register {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn()
+  sessionStarted: Date;
+
+  @UpdateDateColumn()
+  sessionEnded: Date;
+
   @ManyToOne(() => Store, (store) => store.registers, { onDelete: "CASCADE" })
   store: Store;
 }

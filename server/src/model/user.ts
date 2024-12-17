@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -13,7 +13,10 @@ export enum UserRole {
 }
 
 @Entity("user")
-export class User extends Record {
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   name!: string;
 
@@ -37,6 +40,9 @@ export class User extends Record {
 
   @Column({ default: false })
   isVerified!: boolean;
+
+  @Column(() => Record)
+  record: Record;
 
   @ManyToOne(() => Store, (store) => store.users, { onDelete: "CASCADE" })
   store: Store;

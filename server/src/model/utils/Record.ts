@@ -7,9 +7,6 @@ import {
 
 @Entity("recod")
 export class Record {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
   @CreateDateColumn()
   createdAt!: Date;
 
