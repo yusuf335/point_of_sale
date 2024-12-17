@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, Column } from "typeorm";
+import { Record } from "./utils/Record";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -6,11 +7,8 @@ export enum UserRole {
   CASHIER = "cashier",
 }
 
-@Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
+@Entity("user")
+export class User extends Record {
   @Column()
   name!: string;
 
@@ -34,7 +32,4 @@ export class User {
 
   @Column({ default: false })
   isVerified!: boolean;
-
-  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
-  createdAt!: Date;
 }

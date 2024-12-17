@@ -1,11 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { Category } from "./category";
+import { Entity, Column } from "typeorm";
+import { Record } from "./utils/Record";
 
 Entity();
-export class Product {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
+export class Product extends Record {
   @Column()
   name!: string;
 
@@ -20,7 +17,4 @@ export class Product {
 
   @Column()
   stock!: number;
-
-  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
-  createdAt!: Date;
 }
