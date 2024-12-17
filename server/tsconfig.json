@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "lib": ["ES6"],
+    "lib": ["ES6", "ES5", "DOM"],
     "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "node",
@@ -17,5 +17,7 @@
 
     /* Type Checking */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["src/**/*"], // Include all files in the 'src' folder
+  "exclude": ["node_modules"] // Exclude 'node_modules'
 }

@@ -4,9 +4,8 @@
   "description": "Point of sales",
   "main": "app.js",
   "scripts": {
-    "compile": "tsc",
-    "dev": "ts-node-dev --respawn ./src/server.ts",
-    "start": "npm run compile && nodemon ./dist/server.js"
+    "start": "node ./dist/index.js",
+    "dev": "nodemon"
   },
   "author": "Mohammad Yusuf Been Hashem",
   "license": "ISC",
@@ -19,6 +18,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.9.0",
+    "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.5",
     "reflect-metadata": "^0.2.2",

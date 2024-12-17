@@ -20,4 +20,7 @@ export class Product {
 
   @Column()
   stock!: number;
+
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
+  createdAt!: Date;
 }

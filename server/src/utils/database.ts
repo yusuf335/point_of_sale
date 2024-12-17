@@ -10,7 +10,7 @@ const databaseConnection = async () => {
     database: process.env.DB_NAME,
     synchronize: true, // Don't use this in production
     logging: false,
-    entities: [], // Add your entity files here
+    entities: ["../model/*"], // Add your entity files here
   });
 
   await AppDataSource.initialize();

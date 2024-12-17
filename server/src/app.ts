@@ -1,11 +1,12 @@
 import "dotenv/config";
+import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import cors from "cors";
 import http from "http";
-import { schema } from "./graphql/schema";
+import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 
 const app = express();
@@ -20,7 +21,7 @@ app.use(cors<cors.CorsRequest>(), express.json());
 
 // Apollo Server Setup
 const server = new ApolloServer({
-  typeDefs: schema,
+  typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });

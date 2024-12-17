@@ -1,12 +1,12 @@
-import { buildSchema } from "graphql";
+import gql from "graphql-tag";
 
-export const schema = buildSchema(`#graphql
+export const typeDefs = gql`
   type Query {
     hello: String
     job: Job
   }
 
-  type Job{
+  type Job {
     id: ID!
     title: String!
     company: String!
@@ -14,4 +14,4 @@ export const schema = buildSchema(`#graphql
     description: String!
     date: String!
   }
-`);
+`;
