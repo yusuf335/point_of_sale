@@ -1,6 +1,4 @@
 import { DataSource } from "typeorm";
-import { User } from "../model/user";
-import { Product } from "../model/product";
 
 const databaseConnection = async () => {
   const AppDataSource = new DataSource({
@@ -10,9 +8,9 @@ const databaseConnection = async () => {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+    entities: ["dist/model/*.js"], // Add your entity files here
     synchronize: true, // Don't use this in production
     logging: false,
-    entities: [User, Product], // Add your entity files here
   });
 
   await AppDataSource.initialize();

@@ -1,5 +1,10 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
+
+// Utils Models
 import { Record } from "./utils/Record";
+
+// Import Models
+import { Store } from "./store";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -32,4 +37,7 @@ export class User extends Record {
 
   @Column({ default: false })
   isVerified!: boolean;
+
+  @ManyToOne(() => Store, (store) => store.users, { onDelete: "CASCADE" })
+  store: Store;
 }
