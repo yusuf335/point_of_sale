@@ -4,8 +4,8 @@ const s = StoreServices.getInstance();
 
 export const resolvers = {
   Query: {
-    store: async () => {
-      const store = await s.getStore(1);
+    store: async (_: any, { id }) => {
+      const store = await s.getStore(id);
 
       return {
         id: store.id,

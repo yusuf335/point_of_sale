@@ -2,6 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "@apollo/server";
+import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import cors from "cors";
@@ -23,6 +24,7 @@ app.use(cors<cors.CorsRequest>(), express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  cache: new InMemoryLRUCache(),
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 

@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const typeDefs = gql`
   type Query {
-    store: Store
+    store(id: ID!): Store
     stores: [Store]
     user: User
     users: [User]
