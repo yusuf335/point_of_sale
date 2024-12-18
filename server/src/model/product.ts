@@ -9,24 +9,31 @@ import { Store } from "./store";
 
 @Entity("product")
 export class Product {
+  // Primary key
   @PrimaryGeneratedColumn()
   id: number;
 
+  // Name of the product
   @Column()
   name!: string;
 
+  // Description of the product
   @Column()
   description!: string;
 
+  // Price of the product
   @Column("decimal", { precision: 10, scale: 2 })
   price!: number;
 
+  // Image of the product
   @Column()
   image!: string;
 
-  @Column()
-  stock!: number;
+  // Stock of the product
+  @Column({ type: "int", default: 0 })
+  stock: number;
 
+  // Record of the product
   @Column(() => Record)
   record: Record;
 

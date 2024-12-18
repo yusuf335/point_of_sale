@@ -1,10 +1,17 @@
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
 
 // Import Models
 import { Store } from "./store";
+import { Register } from "./register";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -46,4 +53,7 @@ export class User {
 
   @ManyToOne(() => Store, (store) => store.users, { onDelete: "CASCADE" })
   store: Store;
+
+  @OneToMany(() => Register, (register) => register.user)
+  registers: Register[];
 }

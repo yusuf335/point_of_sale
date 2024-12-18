@@ -16,15 +16,19 @@ import { Store } from "./store";
 
 @Entity("category")
 export class Category {
+  // Primary key
   @PrimaryGeneratedColumn()
   id: number;
 
+  // Name of the category
   @Column()
   name!: string;
 
+  // Description of the category
   @Column()
   description!: string;
 
+  // Record of the category
   @Column(() => Record)
   record: Record;
 
