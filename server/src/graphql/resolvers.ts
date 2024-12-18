@@ -1,14 +1,35 @@
+import { StoreServices } from "../services/store.services";
+
+const s = StoreServices.getInstance();
+
 export const resolvers = {
   Query: {
-    hello: () => "Hello World",
-    job: () => {
+    store: async () => {
+      const store = await s.getStore(1);
+
       return {
-        title: "Software Engineer",
-        company: "Google",
-        location: "Mountain View, CA",
-        description: "Work on the Google Search Engine",
-        date: "2021-10-01",
+        id: store.id,
+        name: store.name,
+        address: store.address,
+        phone: store.phone,
+        maxRegisters: store.maxRegisters,
+        createdAt: store.record.createdAt,
+        updatedAt: store.record.updatedAt,
       };
+    },
+
+    stores: async () => {
+      const stores = await s.getStores();
+
+      return stores.map((store) => ({
+        id: store.id,
+        name: store.name,
+        address: store.address,
+        phone: store.phone,
+        maxRegisters: store.maxRegisters,
+        createdAt: store.record.createdAt,
+        updatedAt: store.record.updatedAt,
+      }));
     },
   },
 };

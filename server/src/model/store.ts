@@ -18,7 +18,7 @@ export class Store {
   id: number;
 
   // Name of the store
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   // Address of the store
@@ -37,8 +37,8 @@ export class Store {
   record: Record;
 
   // One-to-Many relationship with User
-  @OneToMany(() => User, (user) => user.store)
-  users: User[];
+  // @OneToMany(() => User, (user) => user.store)
+  // users: User[];
 
   // One-to-Many relationship with Category
   @OneToMany(() => Category, (category) => category.store)

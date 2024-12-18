@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -14,7 +7,7 @@ import { Record } from "./utils/Record";
 import { Store } from "./store";
 import { Order } from "./order";
 
-@Entity("cartItem")
+@Entity("cart_item")
 export class CartItem {
   // Primary key
   @PrimaryGeneratedColumn()

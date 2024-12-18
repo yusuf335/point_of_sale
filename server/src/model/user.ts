@@ -4,6 +4,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 
 // Utils Models
@@ -51,7 +53,8 @@ export class User {
   @Column(() => Record)
   record: Record;
 
-  @ManyToOne(() => Store, (store) => store.users, { onDelete: "CASCADE" })
+  @ManyToMany(() => Store)
+  @JoinTable()
   store: Store;
 
   @OneToMany(() => Register, (register) => register.user)
