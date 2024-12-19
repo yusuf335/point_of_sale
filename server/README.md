@@ -1,4 +1,4 @@
-# Point of Sales Backend
+# Point of Sales (POS) Server
 
 This project is a web application that leverages REST APIs and GraphQL for data management and communication between the client and the server. It is designed to provide a scalable and maintainable architecture for managing user data, authentication, and other core business logic. The application is built with TypeScript and organized into modular components for easy collaboration and extensibility.
 
