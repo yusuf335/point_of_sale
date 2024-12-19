@@ -5,6 +5,7 @@ export const typeDefs = gql`
     # Store
     store(id: ID!): Store
     stores: [Store]
+    storeUsers(storeId: ID!): [User]
     # User
     user: User
     users: [User]

@@ -4,6 +4,7 @@ const storeInstance = StoreServices.getInstance();
 
 export const resolvers = {
   Query: {
+    // Get a store by id
     store: async (_: any, { id }) => {
       const store = await storeInstance.getStore(id);
 
@@ -18,6 +19,7 @@ export const resolvers = {
       };
     },
 
+    // Get all stores
     stores: async () => {
       const stores = await storeInstance.getStores();
 
@@ -32,6 +34,23 @@ export const resolvers = {
       }));
     },
 
+    // Get all users in a store
+    storeUsers: async (_: any, { storeId }) => {
+      const users = await storeInstance.getUsersByStore(storeId);
+
+      return users.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        isVerified: user.isVerified,
+        createdAt: user.record.createdAt,
+        updatedAt: user.record.updatedAt,
+      }));
+    },
+
+    // Get all stores by user
     userStores: async (_: any, { userId }) => {
       const stores = await storeInstance.getStoreByUser(userId);
 

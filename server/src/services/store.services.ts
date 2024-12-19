@@ -58,7 +58,7 @@ export class StoreServices {
   }
 
   //   Fetch all users in a store
-  async getUsers(storeId: number): Promise<User[]> {
+  async getUsersByStore(storeId: number): Promise<User[]> {
     const users = this.userRepo
       .createQueryBuilder("user")
       .innerJoin("user.stores", "store")
