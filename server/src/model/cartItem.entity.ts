@@ -35,6 +35,10 @@ export class CartItemEntity {
   @Column({ type: "int" })
   quantity: number;
 
+  // Total price of the product
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  totalPrice: number;
+
   // Record of the product
   @Column(() => RecordEntity)
   record: RecordEntity;
