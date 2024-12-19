@@ -7,14 +7,14 @@ import {
 } from "typeorm";
 
 // Utils Models
-import { Record } from "./utils/Record";
+import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
-import { Store } from "./store";
-import { Order } from "./order";
+import { StoreEntity } from "./store.entity";
+import { OrderEntity } from "./order.entity";
 
 @Entity("cart_item")
-export class CartItem {
+export class CartItemEntity {
   // Primary key
   @PrimaryGeneratedColumn()
   id: number;
@@ -36,15 +36,19 @@ export class CartItem {
   quantity: number;
 
   // Record of the product
-  @Column(() => Record)
-  record: Record;
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 
   // Many-to-One relationship with Store
-  @ManyToOne(() => Store, (store) => store.cartItems, { onDelete: "CASCADE" })
+  @ManyToOne(() => StoreEntity, (store) => store.cartItems, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "store_id" })
-  store: Store;
+  store: StoreEntity;
 
   // Many-to-One relationship with Order
-  @ManyToOne(() => Order, (order) => order.cartItems, { onDelete: "CASCADE" })
-  order: Order;
+  @ManyToOne(() => OrderEntity, (order) => order.cartItems, {
+    onDelete: "CASCADE",
+  })
+  order: OrderEntity;
 }

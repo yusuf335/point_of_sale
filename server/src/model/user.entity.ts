@@ -9,11 +9,11 @@ import {
 } from "typeorm";
 
 // Utils Models
-import { Record } from "./utils/Record";
+import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
-import { Store } from "./store";
-import { Register } from "./register";
+import { StoreEntity } from "./store.entity";
+import { RegisterEntity } from "./register.entity";
 
 export enum UserRole {
   ADMIN = "admin",
@@ -22,7 +22,7 @@ export enum UserRole {
 }
 
 @Entity("user")
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -50,13 +50,13 @@ export class User {
   @Column({ default: false })
   isVerified!: boolean;
 
-  @Column(() => Record)
-  record: Record;
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 
-  @ManyToMany(() => Store, (store) => store.users)
+  @ManyToMany(() => StoreEntity, (store) => store.users)
   @JoinTable()
-  stores: Store[];
+  stores: StoreEntity[];
 
-  @OneToMany(() => Register, (register) => register.user)
-  registers: Register[];
+  @OneToMany(() => RegisterEntity, (register) => register.user)
+  registers: RegisterEntity[];
 }

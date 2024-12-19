@@ -8,12 +8,12 @@ import {
 } from "typeorm";
 
 // Utils Models
-import { Record } from "./utils/Record";
+import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
-import { Store } from "./store";
-import { Register } from "./register";
-import { CartItem } from "./cartItem";
+import { StoreEntity } from "./store.entity";
+import { RegisterEntity } from "./register.entity";
+import { CartItemEntity } from "./cartItem.entity";
 
 // Define status
 export enum orderStatus {
@@ -24,14 +24,14 @@ export enum orderStatus {
 }
 
 @Entity("order")
-export class Order {
+export class OrderEntity {
   // Primary key
   @PrimaryGeneratedColumn()
   id: number;
 
   // Record of the order
-  @Column(() => Record)
-  record: Record;
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 
   // Total price of the order
   @Column("decimal", { precision: 10, scale: 2 })
@@ -50,23 +50,25 @@ export class Order {
   message: string;
 
   // Many-to-One relationship with Store
-  @ManyToOne(() => Store, (store) => store.orders, { onDelete: "CASCADE" })
+  @ManyToOne(() => StoreEntity, (store) => store.orders, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "store_id" })
-  store: Store;
+  store: StoreEntity;
 
   // Many-to-One relationship with Register
-  @ManyToOne(() => Register, (register) => register.orders, {
+  @ManyToOne(() => RegisterEntity, (register) => register.orders, {
     onDelete: "SET NULL",
   })
   @JoinColumn({ name: "register_id" })
-  register: Register;
+  register: RegisterEntity;
 
   // One-to-Many relationship with Cart
-  @OneToMany(() => CartItem, (cartItem) => cartItem.order, {
+  @OneToMany(() => CartItemEntity, (cartItem) => cartItem.order, {
     cascade: true,
     eager: true,
   })
-  cartItems: CartItem[];
+  cartItems: CartItemEntity[];
 
   // Method to calculate total
   // This method calculates the total price of the order by summing the price of each item in the cart

@@ -6,7 +6,7 @@ import {
 } from "typeorm";
 
 @Entity("recod")
-export class Record {
+export class RecordEntity {
   @CreateDateColumn({
     name: "created_at",
   })

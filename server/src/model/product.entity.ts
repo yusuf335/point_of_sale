@@ -7,14 +7,14 @@ import {
 } from "typeorm";
 
 // Utils Models
-import { Record } from "./utils/Record";
+import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
-import { Category } from "./category";
-import { Store } from "./store";
+import { CategoryEntity } from "./category.entity";
+import { StoreEntity } from "./store.entity";
 
 @Entity("product")
-export class Product {
+export class ProductEntity {
   // Primary key
   @PrimaryGeneratedColumn()
   id: number;
@@ -40,18 +40,20 @@ export class Product {
   stock: number;
 
   // Record of the product
-  @Column(() => Record)
-  record: Record;
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 
   // Many-to-One relationship with Category
-  @ManyToOne(() => Category, (category) => category.products, {
+  @ManyToOne(() => CategoryEntity, (category) => category.products, {
     onDelete: "CASCADE",
   })
   @JoinColumn({ name: "category_id" })
-  category: Category;
+  category: CategoryEntity;
 
   // Many-to-One relationship with Store
-  @ManyToOne(() => Store, (store) => store.products, { onDelete: "CASCADE" })
+  @ManyToOne(() => StoreEntity, (store) => store.products, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "store_id" })
-  store: Store;
+  store: StoreEntity;
 }
