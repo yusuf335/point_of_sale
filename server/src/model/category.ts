@@ -5,6 +5,7 @@ import {
   ManyToOne,
   Collection,
   PrimaryGeneratedColumn,
+  JoinColumn,
 } from "typeorm";
 
 // Utils Models
@@ -40,5 +41,6 @@ export class Category {
   @ManyToOne(() => Store, (store) => store.categories, {
     onDelete: "CASCADE",
   })
+  @JoinColumn({ name: "store_id" })
   store: Store;
 }

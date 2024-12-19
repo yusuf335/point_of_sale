@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -50,12 +51,14 @@ export class Order {
 
   // Many-to-One relationship with Store
   @ManyToOne(() => Store, (store) => store.orders, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "store_id" })
   store: Store;
 
   // Many-to-One relationship with Register
   @ManyToOne(() => Register, (register) => register.orders, {
     onDelete: "SET NULL",
   })
+  @JoinColumn({ name: "register_id" })
   register: Register;
 
   // One-to-Many relationship with Cart

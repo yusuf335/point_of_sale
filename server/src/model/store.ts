@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
 
 // Utils models
 import { Record } from "./utils/Record";
@@ -36,9 +43,9 @@ export class Store {
   @Column(() => Record)
   record: Record;
 
-  // One-to-Many relationship with User
-  // @OneToMany(() => User, (user) => user.store)
-  // users: User[];
+  // Bi-directional Many-to-Many relationship with User
+  @ManyToMany(() => User, (user) => user.stores)
+  users: User[];
 
   // One-to-Many relationship with Category
   @OneToMany(() => Category, (category) => category.store)

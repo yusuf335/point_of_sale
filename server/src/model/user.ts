@@ -53,9 +53,9 @@ export class User {
   @Column(() => Record)
   record: Record;
 
-  @ManyToMany(() => Store)
+  @ManyToMany(() => Store, (store) => store.users)
   @JoinTable()
-  store: Store;
+  stores: Store[];
 
   @OneToMany(() => Register, (register) => register.user)
   registers: Register[];

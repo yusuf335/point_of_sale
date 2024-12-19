@@ -2,17 +2,26 @@ import gql from "graphql-tag";
 
 export const typeDefs = gql`
   type Query {
+    # Store
     store(id: ID!): Store
     stores: [Store]
+    # User
     user: User
     users: [User]
+    userStores(userId: ID!): [Store]
+    # Category
     category: Category
     categories: [Category]
+    # Product
     product: Product
-    regiter: Register
+    # Register
+    register: Register
+    registers: [Register]
+    # Order
     order: Order
     orders: [Order]
-    chatItems: [CartItem]
+    # CartItem
+    cartItems: [CartItem]
   }
 
   type Store {

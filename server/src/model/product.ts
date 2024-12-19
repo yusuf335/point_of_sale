@@ -1,4 +1,10 @@
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from "typeorm";
 
 // Utils Models
 import { Record } from "./utils/Record";
@@ -41,9 +47,11 @@ export class Product {
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: "CASCADE",
   })
+  @JoinColumn({ name: "category_id" })
   category: Category;
 
   // Many-to-One relationship with Store
   @ManyToOne(() => Store, (store) => store.products, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "store_id" })
   store: Store;
 }

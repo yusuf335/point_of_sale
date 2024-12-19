@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -33,10 +34,12 @@ export class Register {
 
   // Many-to-One relationship with Store
   @ManyToOne(() => Store, (store) => store.registers, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "store_id" })
   store: Store;
 
   // Many-to-One relationship with User
   @ManyToOne(() => User, (user) => user.registers, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   // One-to-Many relationship with Order
