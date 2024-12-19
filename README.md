@@ -62,14 +62,14 @@ Before you begin, ensure you have the following installed:
 
 2. Install dependencies open two terminal inside point_of_sale directory:
 
-- client/frontend
+- client
 
   ```
   cd client
   npm install
   ```
 
-- server/backend
+- server
 
   ```
   cd server
