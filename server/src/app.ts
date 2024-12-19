@@ -10,6 +10,10 @@ import http from "http";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 
+// Import Routes
+import authRoutes from "./router/auth.router";
+
+// Express App Setup
 const app = express();
 
 // Our httpServer handles incoming requests to our Express app.
@@ -28,8 +32,13 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
+// Rest API Routes
+app.use("/api/v1/auth", authRoutes);
+
+// Apollo Server Startup
 async function setupApolloServer() {
   await server.start();
+  // GraphQL API Routes
   app.use("/graphql", expressMiddleware(server));
 }
 
