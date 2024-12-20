@@ -8,7 +8,7 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import cors from "cors";
 import http from "http";
 import typeDefs from "./graphql/schema/index";
-import { resolvers } from "./graphql/resolvers";
+import { resolvers } from "./graphql/resolvers/index";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
