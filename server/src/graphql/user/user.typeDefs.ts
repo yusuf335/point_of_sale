@@ -1,6 +1,13 @@
 import { gql } from "graphql-tag";
 
-export const UserTypes = gql`
+export const UserTypeDefs = gql`
+  type Query {
+    # User
+    user: User
+    users: [User]
+    userStores(userId: ID!): [Store]
+  }
+
   type User {
     id: ID!
     name: String

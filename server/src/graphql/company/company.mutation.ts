@@ -1,4 +1,4 @@
-import { CompanyServices } from "../../../services/company.services";
+import { CompanyServices } from "../../services/company.services";
 
 const companyInstance = CompanyServices.getInstance();
 

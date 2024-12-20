@@ -1,6 +1,12 @@
 import { gql } from "graphql-tag";
 
-export const OrderTypes = gql`
+export const OrderTypeDefs = gql`
+  type Query {
+    # Order
+    order: Order
+    orders: [Order]
+  }
+
   type Order {
     id: ID!
     total: Float

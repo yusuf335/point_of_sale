@@ -1,6 +1,12 @@
 import { gql } from "graphql-tag";
 
-export const RegisterTypes = gql`
+export const RegisterTypeDefs = gql`
+  type Query {
+    # Register
+    register: Register
+    registers: [Register]
+  }
+
   type Register {
     id: ID!
     sessionStarted: String

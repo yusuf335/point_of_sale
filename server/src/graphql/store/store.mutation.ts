@@ -1,4 +1,4 @@
-import { StoreServices } from "../../../services/store.services";
+import { StoreServices } from "../../services/store.services";
 
 const storeInstance = StoreServices.getInstance();
 

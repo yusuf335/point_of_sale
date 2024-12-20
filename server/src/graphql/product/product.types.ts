@@ -1,6 +1,11 @@
 import { gql } from "graphql-tag";
 
-export const ProductTypes = gql`
+export const ProductTypeDefs = gql`
+  type Query {
+    # Product
+    product: Product
+  }
+
   type Product {
     id: ID!
     name: String

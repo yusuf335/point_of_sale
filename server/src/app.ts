@@ -7,8 +7,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import cors from "cors";
 import http from "http";
-import typeDefs from "./graphql/schema/index";
-import { resolvers } from "./graphql/resolvers/index";
+import { typeDefs, resolvers } from "./graphql/index";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
