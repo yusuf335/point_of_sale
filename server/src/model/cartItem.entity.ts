@@ -10,7 +10,6 @@ import {
 import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
-import { StoreEntity } from "./store.entity";
 import { OrderEntity } from "./order.entity";
 
 @Entity("cart_item")
@@ -39,20 +38,14 @@ export class CartItemEntity {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   totalPrice: number;
 
-  // Record of the product
-  @Column(() => RecordEntity)
-  record: RecordEntity;
-
-  // Many-to-One relationship with Store
-  @ManyToOne(() => StoreEntity, (store) => store.cartItems, {
-    onDelete: "CASCADE",
-  })
-  @JoinColumn({ name: "store_id" })
-  store: StoreEntity;
-
   // Many-to-One relationship with Order
   @ManyToOne(() => OrderEntity, (order) => order.cartItems, {
     onDelete: "CASCADE",
   })
+  @JoinColumn({ name: "order_id" })
   order: OrderEntity;
+
+  // Record of the product
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 }

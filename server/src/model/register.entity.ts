@@ -41,7 +41,7 @@ export class RegisterEntity {
 
   // Many-to-One relationship with User
   @ManyToOne(() => UserEntity, (user) => user.registers, {
-    onDelete: "CASCADE",
+    onDelete: "SET NULL",
   })
   @JoinColumn({ name: "user_id" })
   user: UserEntity;

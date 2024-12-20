@@ -47,7 +47,7 @@ export class OrderEntity {
 
   // Reason for failure
   @Column({ nullable: true })
-  message: string;
+  note: string;
 
   // Many-to-One relationship with Store
   @ManyToOne(() => StoreEntity, (store) => store.orders, {

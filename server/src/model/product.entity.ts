@@ -4,6 +4,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+  OneToOne,
 } from "typeorm";
 
 // Utils Models
@@ -11,7 +15,8 @@ import { RecordEntity } from "./utils/Record.entity";
 
 // Import Models
 import { CategoryEntity } from "./category.entity";
-import { StoreEntity } from "./store.entity";
+import { CompanyEntity } from "./company.entity";
+import { ProductStockEntity } from "./productStock.entity";
 
 @Entity("product")
 export class ProductEntity {
@@ -35,14 +40,6 @@ export class ProductEntity {
   @Column()
   image!: string;
 
-  // Stock of the product
-  @Column({ type: "int", default: 0 })
-  stock: number;
-
-  // Record of the product
-  @Column(() => RecordEntity)
-  record: RecordEntity;
-
   // Many-to-One relationship with Category
   @ManyToOne(() => CategoryEntity, (category) => category.products, {
     onDelete: "CASCADE",
@@ -51,9 +48,18 @@ export class ProductEntity {
   category: CategoryEntity;
 
   // Many-to-One relationship with Store
-  @ManyToOne(() => StoreEntity, (store) => store.products, {
+  @ManyToOne(() => CompanyEntity, (company) => company.products, {
     onDelete: "CASCADE",
   })
-  @JoinColumn({ name: "store_id" })
-  store: StoreEntity;
+  @JoinColumn({ name: "company_id" })
+  company: CompanyEntity;
+
+  // One-to-Many relationship with ProductStock
+  @OneToMany(() => ProductStockEntity, (productStock) => productStock.product)
+  @JoinColumn({ name: "product_stock_id" })
+  productStock: ProductStockEntity;
+
+  // Record of the product
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 }

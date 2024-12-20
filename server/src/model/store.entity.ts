@@ -4,7 +4,8 @@ import {
   Column,
   OneToMany,
   ManyToMany,
-  JoinTable,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 
 // Utils models
@@ -12,11 +13,10 @@ import { RecordEntity } from "./utils/Record.entity";
 
 // Import models
 import { UserEntity } from "./user.entity";
-import { CategoryEntity } from "./category.entity";
-import { ProductEntity } from "./product.entity";
+import { ProductStockEntity } from "./productStock.entity";
 import { RegisterEntity } from "./register.entity";
 import { OrderEntity } from "./order.entity";
-import { CartItemEntity } from "./cartItem.entity";
+import { CompanyEntity } from "./company.entity";
 
 @Entity("store")
 export class StoreEntity {
@@ -36,24 +36,24 @@ export class StoreEntity {
   @Column()
   phone: string;
 
+  // Maximum number of registers in the store
   @Column({ type: "int" })
   maxRegisters: number;
 
-  // Record of the store
-  @Column(() => RecordEntity)
-  record: RecordEntity;
+  // Many to One relationship with Company
+  @ManyToOne(() => CompanyEntity, (company) => company.stores, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({ name: "company_id" })
+  company: CompanyEntity;
 
-  // Bi-directional Many-to-Many relationship with User
-  @ManyToMany(() => UserEntity, (user) => user.stores)
+  // One-to-Many relationship with User
+  @OneToMany(() => UserEntity, (user) => user.stores)
   users: UserEntity[];
 
-  // One-to-Many relationship with Category
-  @OneToMany(() => CategoryEntity, (category) => category.store)
-  categories: CategoryEntity[];
-
-  // One-to-Many relationship with Product
-  @OneToMany(() => ProductEntity, (product) => product.store)
-  products: ProductEntity[];
+  // One-to-Many relationship with Product Stock
+  @OneToMany(() => ProductStockEntity, (productStock) => productStock.store)
+  productStocks: ProductStockEntity[];
 
   // One-to-Many relationship with Register
   @OneToMany(() => RegisterEntity, (register) => register.store)
@@ -63,7 +63,7 @@ export class StoreEntity {
   @OneToMany(() => OrderEntity, (order) => order.store)
   orders: OrderEntity[];
 
-  // One-to-Many relationship with Cart
-  @OneToMany(() => CartItemEntity, (cartItem) => cartItem.store)
-  cartItems: CartItemEntity[];
+  // Record of the store
+  @Column(() => RecordEntity)
+  record: RecordEntity;
 }
