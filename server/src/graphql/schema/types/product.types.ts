@@ -1,14 +1,15 @@
 import { gql } from "graphql-tag";
 
-export const CartItem = gql`
-  type CartItem {
+export const ProductTypes = gql`
+  type Product {
     id: ID!
-    productId: Int
     name: String
+    description: String
     price: Float
-    quantity: Int
+    image: String
+    stock: Int
+    category: Category
     store: Store
-    order: Order
     createdAt: String
     updatedAt: String
   }

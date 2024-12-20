@@ -2,7 +2,7 @@ import { StoreServices } from "../../../services/store.services";
 
 const storeInstance = StoreServices.getInstance();
 
-export const storeResolvers = {
+export const storeQueryResolvers = {
   // Get a store by id
   store: async (_: any, { id }) => {
     const store = await storeInstance.getStore(id);

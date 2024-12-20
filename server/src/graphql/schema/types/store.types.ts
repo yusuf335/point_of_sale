@@ -1,15 +1,12 @@
 import { gql } from "graphql-tag";
 
-export const Company = gql`
-  type Company {
+export const StoreTypes = gql`
+  type Store {
     id: ID!
     name: String
     address: String
     phone: String
-    stores: [Store]
-    users: [User]
-    products: [Product]
-    categories: [Category]
+    maxRegisters: Int
     createdAt: String
     updatedAt: String
   }

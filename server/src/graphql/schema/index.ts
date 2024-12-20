@@ -1,25 +1,25 @@
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 import { Query } from "./query";
-import { Company } from "./types/company";
-import { Store } from "./types/store";
-import { User } from "./types/user";
-import { Category } from "./types/category";
-import { Product } from "./types/product";
-import { Register } from "./types/register";
-import { Order } from "./types/order";
-import { CartItem } from "./types/cartItem";
+import { CompanyTypes } from "./types/company.types";
+import { StoreTypes } from "./types/store.types";
+import { UserTypes } from "./types/user.types";
+import { CategoryTypes } from "./types/category.types";
+import { ProductTypes } from "./types/product.types";
+import { RegisterTypes } from "./types/register.types";
+import { OrderTypes } from "./types/order.types";
+import { CartItemTypes } from "./types/cartItem.types";
 
 const typeDefs = mergeTypeDefs([
   Query,
-  Company,
-  Store,
-  User,
-  Category,
-  Product,
-  Register,
-  Order,
-  CartItem,
+  CompanyTypes,
+  StoreTypes,
+  UserTypes,
+  CategoryTypes,
+  ProductTypes,
+  RegisterTypes,
+  OrderTypes,
+  CartItemTypes,
 ]);
 
 export default typeDefs;

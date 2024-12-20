@@ -1,7 +1,7 @@
-import { storeResolvers } from "./query/store";
+import { storeQueryResolvers } from "./query/store.query";
 
 export const resolvers = {
   Query: {
-    ...storeResolvers,
+    ...storeQueryResolvers,
   },
 };
