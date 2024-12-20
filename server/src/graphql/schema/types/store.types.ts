@@ -7,6 +7,7 @@ export const StoreTypes = gql`
     address: String
     phone: String
     maxRegisters: Int
+    company: Company
     createdAt: String
     updatedAt: String
   }

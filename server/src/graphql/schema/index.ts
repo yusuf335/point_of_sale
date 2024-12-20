@@ -1,6 +1,7 @@
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 import { Query } from "./query";
+import { Mutation } from "./mutation";
 import { CompanyTypes } from "./types/company.types";
 import { StoreTypes } from "./types/store.types";
 import { UserTypes } from "./types/user.types";
@@ -12,6 +13,7 @@ import { CartItemTypes } from "./types/cartItem.types";
 
 const typeDefs = mergeTypeDefs([
   Query,
+  Mutation,
   CompanyTypes,
   StoreTypes,
   UserTypes,

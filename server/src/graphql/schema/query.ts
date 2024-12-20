@@ -2,6 +2,9 @@ import { gql } from "graphql-tag";
 
 export const Query = gql`
   type Query {
+    # Company
+    company(id: ID!): Company
+    companies: [Company]
     # Store
     store(id: ID!): Store
     stores: [Store]

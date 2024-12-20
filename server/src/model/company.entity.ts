@@ -11,7 +11,7 @@ import { CategoryEntity } from "./category.entity";
 
 @Entity("company")
 export class CompanyEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -23,16 +23,20 @@ export class CompanyEntity {
   @Column()
   phone: string;
 
-  @OneToMany(() => StoreEntity, (store) => store.company)
+  @OneToMany(() => StoreEntity, (store) => store.company, { nullable: true })
   stores: StoreEntity[];
 
-  @OneToMany(() => UserEntity, (user) => user.company)
+  @OneToMany(() => UserEntity, (user) => user.company, { nullable: true })
   users: UserEntity[];
 
-  @OneToMany(() => ProductEntity, (product) => product.company)
+  @OneToMany(() => ProductEntity, (product) => product.company, {
+    nullable: true,
+  })
   products: ProductEntity[];
 
-  @OneToMany(() => CategoryEntity, (category) => category.company)
+  @OneToMany(() => CategoryEntity, (category) => category.company, {
+    nullable: true,
+  })
   categories: CategoryEntity[];
 
   @Column(() => RecordEntity)
