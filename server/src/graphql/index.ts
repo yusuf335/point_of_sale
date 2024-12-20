@@ -4,11 +4,11 @@ import { mergeTypeDefs } from "@graphql-tools/merge";
 import { CompanyTypeDefs } from "./company/company.typeDefs";
 import { StoreTypeDefs } from "./store/store.typeDefs";
 import { UserTypeDefs } from "./user/user.typeDefs";
-import { CategoryTypeDefs } from "./category/category.types";
-import { ProductTypeDefs } from "./product/product.types";
-import { RegisterTypeDefs } from "./register/register.types";
-import { OrderTypeDefs } from "./order/order.types";
-import { CartItemTypeDefs } from "./cartItem/cartItem.types";
+import { CategoryTypeDefs } from "./category/category.typeDefs";
+import { ProductTypeDefs } from "./product/product.typeDefs";
+import { RegisterTypeDefs } from "./register/register.typeDefs";
+import { OrderTypeDefs } from "./order/order.typeDefs";
+import { CartItemTypeDefs } from "./cartItem/cartItem.typeDefs";
 
 //  Import Queries
 import { companyQueries } from "./company/company.query";
