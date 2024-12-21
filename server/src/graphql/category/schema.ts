@@ -16,7 +16,7 @@ export const CategoryTypeDefs = gql`
     name: String
     "Category Description"
     description: String
-    "Category Image"
+    "Category Company ID that the category belongs to"
     company: Company!
     "Category Creation Date"
     createdAt: String
