@@ -11,7 +11,7 @@ export const CategoryTypeDefs = gql`
     id: ID!
     name: String
     description: String
-    store: Store
+    store: Store!
     createdAt: String
     updatedAt: String
   }

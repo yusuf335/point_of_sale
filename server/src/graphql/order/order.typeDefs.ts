@@ -13,8 +13,8 @@ export const OrderTypeDefs = gql`
     paymentMethod: String
     status: String
     message: String
-    store: Store
-    register: Register
+    store: Store!
+    register: Register!
     createdAt: String
     updatedAt: String
   }

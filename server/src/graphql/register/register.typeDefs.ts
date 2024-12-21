@@ -12,8 +12,8 @@ export const RegisterTypeDefs = gql`
     sessionStarted: String
     sessionEnded: String
     total: Float
-    user: User
-    store: Store
+    user: User!
+    store: Store!
     orders: [Order]
     createdAt: String
     updatedAt: String

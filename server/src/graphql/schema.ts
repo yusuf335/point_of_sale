@@ -1,7 +1,7 @@
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 // Import TypeDefs, Queries and Mutations
-import { CompanyTypeDefs } from "./company/company.typeDefs";
+import { CompanyTypeDefs } from "./company/schema";
 import { StoreTypeDefs } from "./store/store.typeDefs";
 import { UserTypeDefs } from "./user/user.typeDefs";
 import { CategoryTypeDefs } from "./category/category.typeDefs";
@@ -10,15 +10,7 @@ import { RegisterTypeDefs } from "./register/register.typeDefs";
 import { OrderTypeDefs } from "./order/order.typeDefs";
 import { CartItemTypeDefs } from "./cartItem/cartItem.typeDefs";
 
-//  Import Queries
-import { companyQueries } from "./company/company.query";
-import { storeQueries } from "./store/store.query";
-
-// Import Mutations
-import { companyMutations } from "./company/company.mutation";
-import { storeMutations } from "./store/store.mutation";
-
-export const typeDefs = mergeTypeDefs([
+const typeDefs = mergeTypeDefs([
   CompanyTypeDefs,
   StoreTypeDefs,
   UserTypeDefs,
@@ -29,13 +21,5 @@ export const typeDefs = mergeTypeDefs([
   CartItemTypeDefs,
 ]);
 
-export const resolvers = {
-  Query: {
-    ...companyQueries,
-    ...storeQueries,
-  },
-  Mutation: {
-    ...companyMutations,
-    ...storeMutations,
-  },
-};
+// This ensures typeDefs is a string containing the full schema.
+export default typeDefs;

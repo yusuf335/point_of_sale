@@ -13,6 +13,7 @@ export const UserTypeDefs = gql`
     name: String
     email: String
     role: String
+    company: Company!
     store: [Store]
     isActive: Boolean
     isVerified: Boolean

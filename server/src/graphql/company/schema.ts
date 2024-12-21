@@ -1,13 +1,13 @@
 import { gql } from "graphql-tag";
 
 export const CompanyTypeDefs = gql`
-  type Query {
+  extend type Query {
     # Company
     company(id: ID!): Company
     companies: [Company]
   }
 
-  type Mutation {
+  extend type Mutation {
     # Company
     createCompany(name: String!, address: String!, phone: String!): Company
   }

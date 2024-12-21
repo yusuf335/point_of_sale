@@ -13,8 +13,8 @@ export const ProductTypeDefs = gql`
     price: Float
     image: String
     stock: Int
-    category: Category
-    store: Store
+    category: Category!
+    store: Store!
     createdAt: String
     updatedAt: String
   }

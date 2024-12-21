@@ -12,8 +12,8 @@ export const CartItemTypeDefs = gql`
     name: String
     price: Float
     quantity: Int
-    store: Store
-    order: Order
+    store: Store!
+    order: Order!
     createdAt: String
     updatedAt: String
   }

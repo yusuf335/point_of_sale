@@ -2,12 +2,12 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "@apollo/server";
-import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import cors from "cors";
 import http from "http";
-import { typeDefs, resolvers } from "./graphql/index";
+import typeDefs from "./graphql/schema";
+import resolvers from "./graphql/resolvers";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
@@ -27,7 +27,6 @@ app.use(cors<cors.CorsRequest>(), express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cache: new InMemoryLRUCache(),
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
