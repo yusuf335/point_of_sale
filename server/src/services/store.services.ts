@@ -1,15 +1,24 @@
+import { Repository } from "typeorm";
+import { DataSource } from "apollo-datasource";
+import { AppDataSource } from "../utils/database";
+
+// Import Entity
 import { CompanyEntity } from "../model/company.entity";
 import { StoreEntity } from "../model/store.entity";
 import { UserEntity } from "../model/user.entity";
-import { AppDataSource } from "../utils/database";
 
-export class StoreServices {
+export class StoreServices extends DataSource {
   private static instance: StoreServices;
-  private companyRepo = AppDataSource.getRepository(CompanyEntity);
-  private storeRepo = AppDataSource.getRepository(StoreEntity);
-  private userRepo = AppDataSource.getRepository(UserEntity);
+  private companyRepo: Repository<CompanyEntity>;
+  private storeRepo: Repository<StoreEntity>;
+  private userRepo: Repository<UserEntity>;
 
-  private constructor() {}
+  private constructor() {
+    super();
+    this.companyRepo = AppDataSource.getRepository(CompanyEntity);
+    this.storeRepo = AppDataSource.getRepository(StoreEntity);
+    this.userRepo = AppDataSource.getRepository(UserEntity);
+  }
 
   //   Singleton pattern
   static getInstance(): StoreServices {

@@ -9,6 +9,10 @@ import http from "http";
 import typeDefs from "./graphql/schema";
 import resolvers from "./graphql/resolvers";
 
+// Import DataSources
+import { CompanyServices } from "./services/company.services";
+import { StoreServices } from "./services/store.services";
+
 // Import Routes
 import authRoutes from "./router/auth.router";
 
@@ -27,6 +31,7 @@ app.use(cors<cors.CorsRequest>(), express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
@@ -37,7 +42,18 @@ app.use("/api/v1/auth", authRoutes);
 async function setupApolloServer() {
   await server.start();
   // GraphQL API Routes
-  app.use("/graphql", expressMiddleware(server));
+  app.use(
+    "/graphql",
+    expressMiddleware(server, {
+      context: async () => {
+        return {
+          dataSources: {
+            companyAPI: CompanyServices.getInstance(),
+          },
+        };
+      },
+    })
+  );
 }
 
 export { app, httpServer, setupApolloServer };

@@ -1,11 +1,18 @@
+import { Repository } from "typeorm";
+import { DataSource } from "apollo-datasource";
 import { AppDataSource } from "../utils/database";
+
+// Import Entity
 import { CompanyEntity } from "../model/company.entity";
 
-export class CompanyServices {
+export class CompanyServices extends DataSource {
   private static instance: CompanyServices;
-  private companyRepo = AppDataSource.getRepository(CompanyEntity);
+  private companyRepo: Repository<CompanyEntity>;
 
-  private constructor() {}
+  private constructor() {
+    super();
+    this.companyRepo = AppDataSource.getRepository(CompanyEntity);
+  }
 
   static getInstance(): CompanyServices {
     if (!CompanyServices.instance) {
