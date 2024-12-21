@@ -2,7 +2,7 @@ import { mergeTypeDefs } from "@graphql-tools/merge";
 
 // Import TypeDefs, Queries and Mutations
 import { CompanyTypeDefs } from "./company/schema";
-import { StoreTypeDefs } from "./store/store.typeDefs";
+import { StoreTypeDefs } from "./store/schema";
 import { UserTypeDefs } from "./user/schema";
 import { CategoryTypeDefs } from "./category/schema";
 import { ProductTypeDefs } from "./product/schema";

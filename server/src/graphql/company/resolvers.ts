@@ -5,7 +5,7 @@ const companyInstance = CompanyServices.getInstance();
 
 export const companyResolver: Resolvers = {
   Query: {
-    // Get a company by id
+    // Get a company by ID
     company: async (_: any, { id }, { dataSources }) => {
       return dataSources.companyAPI.getCompany(id);
     },

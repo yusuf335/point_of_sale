@@ -38,6 +38,12 @@ const server = new ApolloServer({
 // Rest API Routes
 app.use("/api/v1/auth", authRoutes);
 
+// Graphql DataSources
+const dataSources = {
+  companyAPI: CompanyServices.getInstance(),
+  storeAPI: StoreServices.getInstance(),
+};
+
 // Apollo Server Startup
 async function setupApolloServer() {
   await server.start();
@@ -47,9 +53,7 @@ async function setupApolloServer() {
     expressMiddleware(server, {
       context: async () => {
         return {
-          dataSources: {
-            companyAPI: CompanyServices.getInstance(),
-          },
+          dataSources,
         };
       },
     })
