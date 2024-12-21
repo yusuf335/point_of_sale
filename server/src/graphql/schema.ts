@@ -3,12 +3,12 @@ import { mergeTypeDefs } from "@graphql-tools/merge";
 // Import TypeDefs, Queries and Mutations
 import { CompanyTypeDefs } from "./company/schema";
 import { StoreTypeDefs } from "./store/store.typeDefs";
-import { UserTypeDefs } from "./user/user.typeDefs";
-import { CategoryTypeDefs } from "./category/category.typeDefs";
-import { ProductTypeDefs } from "./product/product.typeDefs";
-import { RegisterTypeDefs } from "./register/register.typeDefs";
-import { OrderTypeDefs } from "./order/order.typeDefs";
-import { CartItemTypeDefs } from "./cartItem/cartItem.typeDefs";
+import { UserTypeDefs } from "./user/schema";
+import { CategoryTypeDefs } from "./category/schema";
+import { ProductTypeDefs } from "./product/schema";
+import { RegisterTypeDefs } from "./register/schema";
+import { OrderTypeDefs } from "./order/schema";
+import { CartItemTypeDefs } from "./cartItem/schema";
 
 const typeDefs = mergeTypeDefs([
   CompanyTypeDefs,
