@@ -9,7 +9,7 @@ export const userResolver: Resolvers = {
 
     // Get user by ID
     user: async (_, { id }, { dataSources }) => {
-      const user = await dataSources.userAPI.getUserByID(id);
+      const user = await dataSources.userAPI.getUserById(id);
       return user;
     },
 

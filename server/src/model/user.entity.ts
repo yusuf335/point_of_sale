@@ -23,11 +23,6 @@ export enum UserRole {
   Manager = "MANAGER",
 }
 
-export enum UserStatus {
-  Active = "ACTIVE",
-  Inactive = "INACTIVE",
-}
-
 @Entity("user")
 export class UserEntity {
   // Primary key
@@ -57,8 +52,8 @@ export class UserEntity {
   role!: UserRole;
 
   // Is the user active
-  @Column({ type: "enum", enum: UserStatus, default: UserStatus.Active })
-  isActive!: UserStatus;
+  @Column({ default: true })
+  isActive!: boolean;
 
   // Is the user verified
   @Column({ default: false })

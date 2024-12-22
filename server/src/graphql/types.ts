@@ -514,7 +514,7 @@ export type User = {
   /** User ID */
   id: Scalars['Int']['output'];
   /** User Active Status */
-  isActive?: Maybe<UserStatus>;
+  isActive?: Maybe<Scalars['Boolean']['output']>;
   /** User Verification Status */
   isVerified?: Maybe<Scalars['Boolean']['output']>;
   /** User Name */
@@ -532,12 +532,6 @@ export enum UserRole {
   Admin = 'ADMIN',
   Cashier = 'CASHIER',
   Manager = 'MANAGER'
-}
-
-/** User Status Enum */
-export enum UserStatus {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE'
 }
 
 
@@ -627,7 +621,6 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
   UserRole: UserRole;
-  UserStatus: UserStatus;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -791,7 +784,7 @@ export type UserResolvers<ContextType = DataSourcesContext, ParentType extends R
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  isActive?: Resolver<Maybe<ResolversTypes['UserStatus']>, ParentType, ContextType>;
+  isActive?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   isVerified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>;

@@ -20,7 +20,9 @@ import { CartItemService } from "./services/cartItem.services";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
-import { register } from "module";
+
+// Import Auth Middleware
+import { verifyToken, generateToken } from "./utils/auth/jwt";
 
 // Express App Setup
 const app = express();
@@ -54,6 +56,8 @@ const dataSources = {
   cartAPI: CartItemService.getInstance(),
 };
 
+// console.log(generateToken({ userId: "3", role: "admin", isActive: true }));
+
 // Apollo Server Startup
 async function setupApolloServer() {
   await server.start();
@@ -61,10 +65,37 @@ async function setupApolloServer() {
   app.use(
     "/graphql",
     expressMiddleware(server, {
-      context: async () => {
-        return {
-          dataSources,
-        };
+      context: async ({ req }) => {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        // Check if token is provided
+        if (!token) throw new Error("No token provided");
+
+        try {
+          // Verify token
+          const user = verifyToken(token) as {
+            userId: string;
+            role: string;
+            isActive: boolean;
+          };
+
+          // Check if user is active in the token before proceeding to query the database
+          if (!user.isActive) throw new Error("Account is inactive");
+
+          // // Get User active info from database using the userId
+          const userIsActive =
+            await UserServices.getInstance().getUserRoleAndStatus(+user.userId);
+
+          // // Check if user is active or not from the database response
+          if (!userIsActive.isActive) throw new Error("Account is inactive");
+
+          return {
+            user,
+            dataSources,
+          };
+        } catch (error) {
+          throw new Error("Invalid token");
+        }
       },
     })
   );

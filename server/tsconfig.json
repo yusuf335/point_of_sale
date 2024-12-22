@@ -16,7 +16,10 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
     /* Type Checking */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+
+    /* Module Resolution */
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": ["src/**/*"], // Include all files in the 'src' folder
   "exclude": ["node_modules"] // Exclude 'node_modules'

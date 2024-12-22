@@ -81,10 +81,11 @@ export class UserServices extends DataSource {
   }
 
   // Get user by ID
-  async getUserByID(id: number): Promise<UserEntity> {
+  async getUserById(id: number): Promise<UserEntity> {
     const user = await this.userRepo.findOne({
       where: { id },
       relations: ["company", "store"],
+      select: [],
     });
 
     if (!user) {
@@ -105,6 +106,14 @@ export class UserServices extends DataSource {
   async getUsersByStore(storeId: number): Promise<UserEntity[]> {
     return await this.userRepo.find({
       where: { store: { id: storeId } },
+    });
+  }
+
+  // Get user Role and isActive status
+  async getUserRoleAndStatus(id: number): Promise<UserEntity> {
+    return await this.userRepo.findOne({
+      where: { id },
+      select: ["role", "isActive"],
     });
   }
 }

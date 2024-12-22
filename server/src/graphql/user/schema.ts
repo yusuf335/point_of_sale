@@ -57,12 +57,6 @@ export const UserTypeDefs = gql`
     CASHIER
   }
 
-  "User Status Enum"
-  enum UserStatus {
-    ACTIVE
-    INACTIVE
-  }
-
   "User Schema"
   type User {
     "User ID"
@@ -78,7 +72,7 @@ export const UserTypeDefs = gql`
     "User Store"
     store: Store
     "User Active Status"
-    isActive: UserStatus
+    isActive: Boolean
     "User Verification Status"
     isVerified: Boolean
     "User Created At"
