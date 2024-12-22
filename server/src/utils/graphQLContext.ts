@@ -23,7 +23,7 @@ export const graphQLContext = async ({ req }) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   // Check if token is provided
-  if (!token) throw new Error("No token provided");
+  if (!token) throw new CustomError("Invalid token", "INVALID_TOKEN", 401);
 
   try {
     // Verify token
@@ -35,7 +35,7 @@ export const graphQLContext = async ({ req }) => {
 
     // Check if user is active in the token before proceeding to query the database
     if (!user.isActive)
-      throw new CustomError("No token provided", "NO_TOKEN", 401);
+      throw new CustomError("Account is inactive", "ACCOUNT_INACTIVE", 403);
 
     // Get User active info from database using the userId
     // In production Memory Database can be used and replace the real database for example Redis
@@ -48,7 +48,7 @@ export const graphQLContext = async ({ req }) => {
       throw new CustomError("Account is inactive", "ACCOUNT_INACTIVE", 403);
 
     return {
-      user,
+      userInfo: user,
       dataSources,
     };
   } catch (error) {

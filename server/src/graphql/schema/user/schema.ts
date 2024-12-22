@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const UserTypeDefs = gql`
   type Query {
     "User By ID for Admin"
-    user(id: Int!): User
+    userById: User
 
     "All Users for Admin"
     users: [User]
@@ -32,8 +32,6 @@ export const UserTypeDefs = gql`
 
     "Update User for Admin"
     updateUser(
-      "Enter User ID"
-      id: Int!
       "Enter User Name"
       name: String!
       "Enter User Email"

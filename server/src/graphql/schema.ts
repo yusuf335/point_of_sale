@@ -1,14 +1,14 @@
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 // Import TypeDefs, Queries and Mutations
-import { CompanyTypeDefs } from "./company/schema";
-import { StoreTypeDefs } from "./store/schema";
-import { UserTypeDefs } from "./user/schema";
-import { CategoryTypeDefs } from "./category/schema";
-import { ProductTypeDefs } from "./product/schema";
-import { RegisterTypeDefs } from "./register/schema";
-import { OrderTypeDefs } from "./order/schema";
-import { CartItemTypeDefs } from "./cartItem/schema";
+import { CompanyTypeDefs } from "./schema/company/schema";
+import { StoreTypeDefs } from "./schema/store/schema";
+import { UserTypeDefs } from "./schema/user/schema";
+import { CategoryTypeDefs } from "./schema/category/schema";
+import { ProductTypeDefs } from "./schema/product/schema";
+import { RegisterTypeDefs } from "./schema/register/schema";
+import { OrderTypeDefs } from "./schema/order/schema";
+import { CartItemTypeDefs } from "./schema/cartItem/schema";
 
 const typeDefs = mergeTypeDefs([
   CompanyTypeDefs,

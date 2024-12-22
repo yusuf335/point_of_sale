@@ -1,20 +1,20 @@
-import { Resolvers } from "../types";
+import { Resolvers } from "../../types";
 
 export const userResolver: Resolvers = {
   Query: {
     // Get all users
-    users: async (_, __, { dataSources }: any) => {
+    users: async (_, __, { dataSources }) => {
       return dataSources.userAPI.getUsers();
     },
 
     // Get user by ID
-    user: async (_, { id }, { dataSources }) => {
-      const user = await dataSources.userAPI.getUserById(id);
+    userById: async (_, __, { userInfo, dataSources }) => {
+      const user = await dataSources.userAPI.getUserById(userInfo.userId);
       return user;
     },
 
     // Get all users by company ID
-    usersByCompany: async (_, { companyId }, { dataSources }: any) => {
+    usersByCompany: async (_, { companyId }, { dataSources }) => {
       return dataSources.userAPI.getUsersByCompany(companyId);
     },
 
@@ -43,11 +43,11 @@ export const userResolver: Resolvers = {
     // Update a user
     updateUser: async (
       _,
-      { id, name, email, role, companyId, storeId },
-      { dataSources }
+      { name, email, role, companyId, storeId },
+      { userInfo, dataSources }
     ) => {
       return dataSources.userAPI.updateUser(
-        id,
+        userInfo.userId,
         name,
         email,
         role,

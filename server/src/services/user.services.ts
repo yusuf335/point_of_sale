@@ -106,7 +106,7 @@ export class UserServices extends DataSource {
     });
 
     if (!user) {
-      throw new Error("User not found");
+      throw new CustomError("User not found", "NOT_FOUND", 404);
     }
 
     return user;

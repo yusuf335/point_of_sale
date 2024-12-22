@@ -311,7 +311,6 @@ export type MutationUpdateStoreArgs = {
 export type MutationUpdateUserArgs = {
   companyId: Scalars['Int']['input'];
   email: Scalars['String']['input'];
-  id: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   role: UserRole;
   storeId: Scalars['Int']['input'];
@@ -392,7 +391,7 @@ export type Query = {
   /** Get all Stores for a Company by Company ID */
   stores?: Maybe<Array<Maybe<Store>>>;
   /** User By ID for Admin */
-  user?: Maybe<User>;
+  userById?: Maybe<User>;
   /** All Users for Admin */
   users?: Maybe<Array<Maybe<User>>>;
   /** Get all user by Company ID */
@@ -445,11 +444,6 @@ export type QueryStoreArgs = {
 
 export type QueryStoresArgs = {
   companyID: Scalars['Int']['input'];
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['Int']['input'];
 };
 
 
@@ -707,7 +701,7 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   updateProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id'>>;
   updateRegister?: Resolver<Maybe<ResolversTypes['Register']>, ParentType, ContextType, RequireFields<MutationUpdateRegisterArgs, 'id'>>;
   updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'address' | 'id' | 'maxRegisters' | 'name' | 'phone'>>;
-  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'companyId' | 'email' | 'id' | 'name' | 'role' | 'storeId'>>;
+  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'companyId' | 'email' | 'name' | 'role' | 'storeId'>>;
 };
 
 export type OrderResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
@@ -750,7 +744,7 @@ export type QueryResolvers<ContextType = DataSourcesContext, ParentType extends 
   registersByStore?: Resolver<Maybe<Array<Maybe<ResolversTypes['Register']>>>, ParentType, ContextType, RequireFields<QueryRegistersByStoreArgs, 'storeId'>>;
   store?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<QueryStoreArgs, 'id'>>;
   stores?: Resolver<Maybe<Array<Maybe<ResolversTypes['Store']>>>, ParentType, ContextType, RequireFields<QueryStoresArgs, 'companyID'>>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   usersByCompany?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUsersByCompanyArgs, 'companyId'>>;
   usersByStore?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUsersByStoreArgs, 'storeId'>>;
