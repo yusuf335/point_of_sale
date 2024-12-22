@@ -1,17 +1,14 @@
 export class CustomError extends Error {
-  extensions: Record<string, any>;
+  extensions: { code: string; statusCode: number };
 
   constructor(
     message: string,
     public code: string,
-    public statusCode?: number
+    public statusCode: number = 500
   ) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
-
-    this.extensions = {
-      code,
-      statusCode,
-    };
+    this.name = "CustomError";
+    this.extensions = { code, statusCode };
   }
 }

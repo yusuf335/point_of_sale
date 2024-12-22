@@ -2,15 +2,25 @@ import { Repository } from "typeorm";
 import { DataSource } from "apollo-datasource";
 import { AppDataSource } from "../utils/database";
 
+// Import Entities
 import { UserEntity, UserRole } from "../model/user.entity";
+import { CompanyEntity } from "../model/company.entity";
+import { StoreEntity } from "../model/store.entity";
+
+// Import Custom Error
+import { CustomError } from "../utils/customError";
 
 export class UserServices extends DataSource {
   private static instance: UserServices;
   private userRepo: Repository<UserEntity>;
+  private companyRepo: Repository<CompanyEntity>;
+  private storeRepo: Repository<StoreEntity>;
 
   private constructor() {
     super();
     this.userRepo = AppDataSource.getRepository(UserEntity);
+    this.companyRepo = AppDataSource.getRepository(CompanyEntity);
+    this.storeRepo = AppDataSource.getRepository(StoreEntity);
   }
 
   static getInstance(): UserServices {
@@ -49,15 +59,23 @@ export class UserServices extends DataSource {
   ): Promise<UserEntity> {
     const user = await this.userRepo.findOne({ where: { id } });
 
+    // Get company and store by ID to update user
+    const updateCompany = await this.companyRepo.findOne({
+      where: { id: company },
+    });
+    const updateStore = await this.storeRepo.findOne({
+      where: { id: storeId },
+    });
+
     if (!user) {
-      throw new Error("User not found");
+      throw new CustomError("User not found", "NOT_FOUND", 404);
     }
 
     user.name = name;
     user.email = email;
     user.role = role;
-    user.company.id = company;
-    user.store.id = storeId;
+    user.company = updateCompany;
+    user.store = updateStore;
 
     return await this.userRepo.save(user);
   }
@@ -85,7 +103,6 @@ export class UserServices extends DataSource {
     const user = await this.userRepo.findOne({
       where: { id },
       relations: ["company", "store"],
-      select: [],
     });
 
     if (!user) {

@@ -38,21 +38,11 @@ const server = new ApolloServer({
   cache: new InMemoryLRUCache(),
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   formatError: (error: GraphQLError) => {
-    // Check if the error has an originalError and it's an instance of CustomError
-    const originalError = error.originalError;
-
-    if (originalError instanceof CustomError) {
-      return {
-        message: originalError.message,
-        code: originalError.code,
-        statusCode: originalError.statusCode || 500,
-      };
-    }
-
     // Default fallback for unexpected errors
     return {
       message: error.message,
-      code: "INTERNAL_SERVER_ERROR",
+      code: error?.extensions.code || "INTERNAL_SERVER_ERROR",
+      statusCode: error?.extensions.statusCode || 500,
     };
   },
 });
