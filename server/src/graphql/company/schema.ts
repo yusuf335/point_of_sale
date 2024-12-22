@@ -3,13 +3,13 @@ import { gql } from "graphql-tag";
 export const CompanyTypeDefs = gql`
   extend type Query {
     "Get a Company by ID"
-    company(id: ID!): Company
-    "Get all Companies for Super Admin"
+    company(id: Int): Company
+    "Get all Companies"
     companies: [Company]
   }
 
   extend type Mutation {
-    "Create a new Company by Super Admin"
+    "Create a new Company"
     createCompany(
       "Enter Company Name"
       name: String!
@@ -18,12 +18,27 @@ export const CompanyTypeDefs = gql`
       "Enter Company Phone"
       phone: String!
     ): Company
+
+    "Update Company"
+    updateCompany(
+      "Enter Company ID"
+      id: Int!
+      "Enter Company Name"
+      name: String!
+      "Enter Company Address"
+      address: String!
+      "Enter Company Phone"
+      phone: String!
+    ): Company
+
+    "Delete Company"
+    deleteCompany("Enter Company ID" id: Int!): Company
   }
 
   "Company has many Stores, Users, Products, and Categories."
   type Company {
     "Company ID"
-    id: ID!
+    id: Int!
     "Company Name"
     name: String
     "Company Address"
@@ -32,11 +47,11 @@ export const CompanyTypeDefs = gql`
     phone: String
     "Company Stores"
     stores: [Store]
-    "Company Users"
+    "Users in Company"
     users: [User]
-    "Company Products"
+    "Products in Company"
     products: [Product]
-    "Company Categories"
+    "Categories in Company"
     categories: [Category]
     "Company Created At"
     createdAt: String

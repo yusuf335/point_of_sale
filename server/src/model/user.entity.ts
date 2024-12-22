@@ -18,14 +18,14 @@ import { StoreEntity } from "./store.entity";
 import { RegisterEntity } from "./register.entity";
 
 export enum UserRole {
-  ADMIN = "admin",
-  MANAGER = "manager",
-  CASHIER = "cashier",
+  Admin = "ADMIN",
+  Cashier = "CASHIER",
+  Manager = "MANAGER",
 }
 
 export enum UserStatus {
-  ACTIVE = "active",
-  INACTIVE = "inactive",
+  Active = "ACTIVE",
+  Inactive = "INACTIVE",
 }
 
 @Entity("user")
@@ -52,12 +52,12 @@ export class UserEntity {
   @Column({
     type: "enum",
     enum: UserRole,
-    default: UserRole.CASHIER,
+    default: UserRole.Cashier,
   })
   role!: UserRole;
 
   // Is the user active
-  @Column({ type: "enum", enum: UserStatus, default: UserStatus.ACTIVE })
+  @Column({ type: "enum", enum: UserStatus, default: UserStatus.Active })
   isActive!: UserStatus;
 
   // Is the user verified
@@ -80,7 +80,7 @@ export class UserEntity {
   // Many-to-Many relationship with Store
   @ManyToOne(() => StoreEntity, (store) => store.users)
   @JoinColumn({ name: "store_id" })
-  stores: StoreEntity[];
+  store: StoreEntity;
 
   // One-to-Many relationship with Register
   @OneToMany(() => RegisterEntity, (register) => register.user)

@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const RegisterTypeDefs = gql`
   type Query {
     "Register by ID for a Store"
-    register(id: ID!): Register
+    register(id: Int!): Register
     "List of Registers by Store"
     registers: [Register]
   }
@@ -11,7 +11,7 @@ export const RegisterTypeDefs = gql`
   "Register Type Definition for a Store Register"
   type Register {
     "Register ID"
-    id: ID!
+    id: Int!
     "Register Session Started"
     sessionStarted: String
     "Register Session Ended"

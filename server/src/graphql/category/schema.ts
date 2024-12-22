@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const CategoryTypeDefs = gql`
   type Query {
     "Category by ID for a Company"
-    category(id: ID!): Category
+    category(id: Int!): Category
     "List of Categories for a Company"
     categories: [Category]
   }
@@ -11,7 +11,7 @@ export const CategoryTypeDefs = gql`
   "Category Type Definition for a Company Category"
   type Category {
     "Category ID"
-    id: ID!
+    id: Int!
     "Category Name"
     name: String
     "Category Description"

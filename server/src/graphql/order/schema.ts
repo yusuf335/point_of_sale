@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const OrderTypeDefs = gql`
   type Query {
     "Order by ID for a Store"
-    order(id: ID!): Order
+    order(id: Int!): Order
     "List of Orders by Store"
     orders: [Order]
   }
@@ -11,7 +11,7 @@ export const OrderTypeDefs = gql`
   "Order Type Definition for a Store Order"
   type Order {
     "Order ID"
-    id: ID!
+    id: Int!
     "Total Amount of Order"
     total: Float
     "Payment Method"

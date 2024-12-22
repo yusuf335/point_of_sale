@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const ProductTypeDefs = gql`
   type Query {
     "Product by ID for a Company"
-    product(id: ID!): Product
+    product(id: Int!): Product
     "List of Products for a Company"
     products: [Product]
   }
@@ -11,7 +11,7 @@ export const ProductTypeDefs = gql`
   "Product Type Definition for a Company Product"
   type Product {
     "Product ID"
-    id: ID!
+    id: Int!
     "Product Name"
     name: String
     "Product Description"

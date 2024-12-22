@@ -48,7 +48,7 @@ export class StoreEntity {
   company: CompanyEntity;
 
   // One-to-Many relationship with User
-  @OneToMany(() => UserEntity, (user) => user.stores)
+  @OneToMany(() => UserEntity, (user) => user.store)
   users: UserEntity[];
 
   // One-to-Many relationship with Product Stock

@@ -1,18 +1,26 @@
-import { StoreServices } from "../../services/store.services";
 import { Resolvers } from "../types";
-
-const storeInstance = StoreServices.getInstance();
 
 export const storeResolver: Resolvers = {
   Query: {
     // Get a store by id
     store: async (_, { id }, { dataSources }) => {
-      return dataSources.storeAPI.getStore(id);
-    },
+      const store = await dataSources.storeAPI.getStoreByID(id);
 
+      return {
+        ...store,
+        createdAt: store.record?.createdAt.toISOString(),
+        updatedAt: store.record?.updatedAt.toISOString(),
+      };
+    },
     // Get all stores
     stores: async (_, __, { dataSources }) => {
-      return dataSources.storeAPI.getStores();
+      const stores = await dataSources.storeAPI.getStores();
+
+      return stores.map((store) => ({
+        ...store,
+        createdAt: store.record?.createdAt.toISOString(),
+        updatedAt: store.record?.updatedAt.toISOString(),
+      }));
     },
   },
 

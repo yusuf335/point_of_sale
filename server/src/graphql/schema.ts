@@ -21,5 +21,4 @@ const typeDefs = mergeTypeDefs([
   CartItemTypeDefs,
 ]);
 
-// This ensures typeDefs is a string containing the full schema.
 export default typeDefs;

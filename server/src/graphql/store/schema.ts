@@ -3,11 +3,9 @@ import { gql } from "graphql-tag";
 export const StoreTypeDefs = gql`
   type Query {
     "Get a Store by ID"
-    store(id: ID!): Store
+    store(id: Int!): Store
     "Get all Stores for a Company by Company ID"
-    stores(companyID: ID!): [Store]
-    "Get all Users in a Store"
-    storeUsers(storeId: ID!): [User]
+    stores(companyID: Int!): [Store]
   }
 
   type Mutation {
@@ -29,7 +27,7 @@ export const StoreTypeDefs = gql`
   "Store belongs to a Company and has many Users, Products, Categories, Registers, Orders, and CartItems."
   type Store {
     "Store ID"
-    id: ID!
+    id: Int!
     "Store Name"
     name: String
     "Store Address"

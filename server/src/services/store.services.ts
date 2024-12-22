@@ -50,12 +50,47 @@ export class StoreServices extends DataSource {
     return await this.storeRepo.save(store);
   }
 
+  // Update a store
+  async updateStore(
+    id: number,
+    name: string,
+    address: string,
+    phone: string,
+    maxRegisters: number
+  ): Promise<StoreEntity> {
+    const store = await this.storeRepo.findOne({
+      where: { id },
+    });
+
+    store.name = name;
+    store.address = address;
+    store.phone = phone;
+    store.maxRegisters = maxRegisters;
+
+    return await this.storeRepo.save(store);
+  }
+
+  //  Delete a store
+  async deleteStore(id: number): Promise<StoreEntity> {
+    const store = await this.storeRepo.findOne({ where: { id } });
+
+    if (!store) {
+      throw new Error("Store not found");
+    }
+
+    await this.storeRepo.delete(store.id);
+
+    return store;
+  }
+
   //   Get a store by id
-  async getStore(id: number): Promise<StoreEntity> {
-    return await this.storeRepo.findOne({
+  async getStoreByID(id: number): Promise<StoreEntity> {
+    const store = await this.storeRepo.findOne({
       where: { id },
       relations: ["company"],
     });
+
+    return store;
   }
 
   //   Get all stores

@@ -3,6 +3,7 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import cors from "cors";
 import http from "http";
@@ -12,6 +13,7 @@ import resolvers from "./graphql/resolvers";
 // Import DataSources
 import { CompanyServices } from "./services/company.services";
 import { StoreServices } from "./services/store.services";
+import { UserServices } from "./services/user.services";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
@@ -31,7 +33,7 @@ app.use(cors<cors.CorsRequest>(), express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-
+  cache: new InMemoryLRUCache(),
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
@@ -42,6 +44,7 @@ app.use("/api/v1/auth", authRoutes);
 const dataSources = {
   companyAPI: CompanyServices.getInstance(),
   storeAPI: StoreServices.getInstance(),
+  userAPI: UserServices.getInstance(),
 };
 
 // Apollo Server Startup

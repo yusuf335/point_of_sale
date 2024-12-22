@@ -9,7 +9,7 @@ export const CartItemTypeDefs = gql`
   "Cart Item "
   type CartItem {
     "Cart Item ID"
-    id: ID!
+    id: Int!
     "Product ID"
     productId: Int
     "Product Name"

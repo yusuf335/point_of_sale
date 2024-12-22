@@ -55,9 +55,25 @@ export class CompanyServices extends DataSource {
     return await this.companyRepo.save(company);
   }
 
+  //  Delete a company
+  async deleteCompany(id: number): Promise<CompanyEntity> {
+    const company = await this.companyRepo.findOne({ where: { id } });
+
+    if (!company) {
+      throw new Error("Company not found");
+    }
+
+    await this.companyRepo.delete(company.id);
+
+    return company;
+  }
+
   //   Get a company by id
   async getCompany(id: number): Promise<CompanyEntity> {
-    const company = await this.companyRepo.findOne({ where: { id } });
+    const company = await this.companyRepo.findOne({
+      where: { id },
+      relations: ["stores", "users", "products", "categories"],
+    });
 
     if (!company) {
       throw new Error("Company not found");
@@ -68,6 +84,12 @@ export class CompanyServices extends DataSource {
 
   //   Get all companies
   async getCompanies(): Promise<CompanyEntity[]> {
-    return await this.companyRepo.find();
+    const companies = await this.companyRepo.find();
+
+    if (!companies) {
+      throw new Error("Company not found");
+    }
+
+    return companies;
   }
 }
