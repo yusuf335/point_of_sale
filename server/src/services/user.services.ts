@@ -14,10 +14,10 @@ export class UserServices extends DataSource {
   }
 
   static getInstance(): UserServices {
-    if (!UserServices.instance) {
-      UserServices.instance = new UserServices();
+    if (!this.instance) {
+      this.instance = new UserServices();
     }
-    return UserServices.instance;
+    return this.instance;
   }
 
   // Create a new user
@@ -25,12 +25,14 @@ export class UserServices extends DataSource {
     name: string,
     email: string,
     role: UserRole,
+    companyId: number,
     storeId: number
   ): Promise<UserEntity> {
     const user = new UserEntity();
     user.name = name;
     user.email = email;
     user.role = role;
+    user.company.id = companyId;
     user.store.id = storeId;
 
     return await this.userRepo.save(user);
@@ -42,6 +44,7 @@ export class UserServices extends DataSource {
     name: string,
     email: string,
     role: UserRole,
+    company: number,
     storeId: number
   ): Promise<UserEntity> {
     const user = await this.userRepo.findOne({ where: { id } });
@@ -53,6 +56,7 @@ export class UserServices extends DataSource {
     user.name = name;
     user.email = email;
     user.role = role;
+    user.company.id = company;
     user.store.id = storeId;
 
     return await this.userRepo.save(user);

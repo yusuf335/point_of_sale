@@ -7,6 +7,9 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-resolvers"],
       config: {
         contextType: "./context#DataSourcesContext",
+        scalars: {
+          Date: "Date", // Map the custom scalar to a TypeScript type
+        },
       },
     },
   },

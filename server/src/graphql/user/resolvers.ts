@@ -23,4 +23,42 @@ export const userResolver: Resolvers = {
       return dataSources.userAPI.getUsersByStore(storeId);
     },
   },
+
+  Mutation: {
+    // Create a user
+    createUser: async (
+      _,
+      { name, email, role, companyId, storeId },
+      { dataSources }
+    ) => {
+      return dataSources.userAPI.createUser(
+        name,
+        email,
+        role,
+        companyId,
+        storeId
+      );
+    },
+
+    // Update a user
+    updateUser: async (
+      _,
+      { id, name, email, role, companyId, storeId },
+      { dataSources }
+    ) => {
+      return dataSources.userAPI.updateUser(
+        id,
+        name,
+        email,
+        role,
+        companyId,
+        storeId
+      );
+    },
+
+    // Delete a user
+    deleteUser: async (_, { id }, { dataSources }: any) => {
+      return dataSources.userAPI.deleteUser(id);
+    },
+  },
 };

@@ -1,11 +1,36 @@
 import { gql } from "graphql-tag";
 
 export const RegisterTypeDefs = gql`
+  scalar Date
+
   type Query {
     "Register by ID for a Store"
-    register(id: Int!): Register
-    "List of Registers by Store"
-    registers: [Register]
+    registerByID(registerId: Int!): Register
+    "List of Registers for a Store"
+    registersByStore(storeId: Int!, userId: Int): [Register]
+  }
+
+  type Mutation {
+    "Create a Register for a Store"
+    createRegister(
+      "Enter the User ID for the Register"
+      user: Int!
+      "Enter the Store ID for the Register"
+      store: Int!
+    ): Register
+
+    "Update a Register for a Store"
+    updateRegister(
+      "Enter the Register ID"
+      id: Int!
+      "Enter the Register Session Ended"
+      sessionEnded: String
+      "Enter the Register Total Amount"
+      total: Float
+    ): Register
+
+    "Delete a Register for a Store"
+    deleteRegister(id: Int!): Register
   }
 
   "Register Type Definition for a Store Register"
@@ -13,9 +38,9 @@ export const RegisterTypeDefs = gql`
     "Register ID"
     id: Int!
     "Register Session Started"
-    sessionStarted: String
+    sessionStarted: Date
     "Register Session Ended"
-    sessionEnded: String
+    sessionEnded: Date
     "Register Total Amount"
     total: Float
     "User ID for Register"
@@ -24,9 +49,5 @@ export const RegisterTypeDefs = gql`
     store: Store!
     "List of Orders for Register"
     orders: [Order]
-    "Register Creation Date"
-    createdAt: String
-    "Register Updated Date"
-    updatedAt: String
   }
 `;

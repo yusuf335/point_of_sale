@@ -39,5 +39,25 @@ export const storeResolver: Resolvers = {
         companyId
       );
     },
+
+    // Update a store
+    updateStore: async (
+      _,
+      { id, name, address, phone, maxRegisters },
+      { dataSources }
+    ) => {
+      return dataSources.storeAPI.updateStore(
+        id,
+        name,
+        address,
+        phone,
+        maxRegisters
+      );
+    },
+
+    // Delete a store
+    deleteStore: async (_, { id }, { dataSources }) => {
+      return dataSources.storeAPI.deleteStore(id);
+    },
   },
 };

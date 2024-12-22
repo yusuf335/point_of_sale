@@ -4,6 +4,7 @@ export const StoreTypeDefs = gql`
   type Query {
     "Get a Store by ID"
     store(id: Int!): Store
+
     "Get all Stores for a Company by Company ID"
     stores(companyID: Int!): [Store]
   }
@@ -22,6 +23,23 @@ export const StoreTypeDefs = gql`
       "Enter Company ID that the store belongs to"
       companyId: Int!
     ): Store
+
+    "Update a Store by Admin."
+    updateStore(
+      "Enter Store ID"
+      id: Int!
+      "Enter Store Name"
+      name: String!
+      "Enter Store Address"
+      address: String!
+      "Enter Store Phone"
+      phone: String!
+      "Enter Store Max Registers. Which is the maximum number of registers that can be created in the store."
+      maxRegisters: Int!
+    ): Store
+
+    "Delete a Store by Admin."
+    deleteStore(id: Int!): Store
   }
 
   "Store belongs to a Company and has many Users, Products, Categories, Registers, Orders, and CartItems."

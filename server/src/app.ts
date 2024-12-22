@@ -14,9 +14,13 @@ import resolvers from "./graphql/resolvers";
 import { CompanyServices } from "./services/company.services";
 import { StoreServices } from "./services/store.services";
 import { UserServices } from "./services/user.services";
+import { ProductService } from "./services/product.services";
+import { RegisterService } from "./services/register.services";
+import { CartItemService } from "./services/cartItem.services";
 
 // Import Routes
 import authRoutes from "./router/auth.router";
+import { register } from "module";
 
 // Express App Setup
 const app = express();
@@ -45,6 +49,9 @@ const dataSources = {
   companyAPI: CompanyServices.getInstance(),
   storeAPI: StoreServices.getInstance(),
   userAPI: UserServices.getInstance(),
+  productAPI: ProductService.getInstance(),
+  registerAPI: RegisterService.getInstance(),
+  cartAPI: CartItemService.getInstance(),
 };
 
 // Apollo Server Startup

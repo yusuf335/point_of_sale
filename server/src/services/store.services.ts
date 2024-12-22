@@ -22,11 +22,11 @@ export class StoreServices extends DataSource {
 
   //   Singleton pattern
   static getInstance(): StoreServices {
-    if (!StoreServices.instance) {
-      StoreServices.instance = new StoreServices();
+    if (!this.instance) {
+      this.instance = new StoreServices();
     }
 
-    return StoreServices.instance;
+    return this.instance;
   }
 
   //   Create a new store

@@ -8,6 +8,44 @@ export const ProductTypeDefs = gql`
     products: [Product]
   }
 
+  type Mutation {
+    "Create a Product for a Company"
+    createProduct(
+      "Enter the Product Name"
+      name: String!
+      "Enter the Product Description"
+      description: String!
+      "Enter the Product Price"
+      price: Float!
+      "Enter the Product Image"
+      image: String!
+      "Enter the Product Category"
+      category: Int!
+      "Enter the Product Company ID"
+      company: Int!
+    ): Product
+
+    "Update a Product for a Company"
+    updateProduct(
+      "Enter the Product ID"
+      id: Int!
+      "Enter the Product Name"
+      name: String
+      "Enter the Product Description"
+      description: String
+      "Enter the Product Price"
+      price: Float
+      "Enter the Product Image"
+      image: String
+      "Enter the Product Category"
+      category: Int
+      "Enter the Product Company ID"
+      company: Int
+    ): Product
+
+    "Delete a Product for a Company"
+    deleteProduct(id: Int!): Company
+  }
   "Product Type Definition for a Company Product"
   type Product {
     "Product ID"

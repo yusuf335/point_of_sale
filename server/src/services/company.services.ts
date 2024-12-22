@@ -15,10 +15,10 @@ export class CompanyServices extends DataSource {
   }
 
   static getInstance(): CompanyServices {
-    if (!CompanyServices.instance) {
-      CompanyServices.instance = new CompanyServices();
+    if (!this.instance) {
+      this.instance = new CompanyServices();
     }
-    return CompanyServices.instance;
+    return this.instance;
   }
 
   //   Create a new company

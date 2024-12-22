@@ -8,6 +8,33 @@ export const CategoryTypeDefs = gql`
     categories: [Category]
   }
 
+  type Mutation {
+    "Create a Category for a Company"
+    createCategory(
+      "Enter the Category Name"
+      name: String!
+      "Enter the Category Description"
+      description: String!
+      "Enter the Category Company ID"
+      company: Int!
+    ): Category
+
+    "Update a Category for a Company"
+    updateCategory(
+      "Enter Category ID"
+      id: Int!
+      "Enter the Category Name"
+      name: String
+      "Enter the Category Name"
+      description: String
+      "Enter the Category Description"
+      company: Int!
+    ): Category
+
+    "Delete a Category for a Company"
+    deleteCategory(id: Int!): Boolean
+  }
+
   "Category Type Definition for a Company Category"
   type Category {
     "Category ID"

@@ -4,6 +4,7 @@ export const CompanyTypeDefs = gql`
   extend type Query {
     "Get a Company by ID"
     company(id: Int): Company
+
     "Get all Companies"
     companies: [Company]
   }

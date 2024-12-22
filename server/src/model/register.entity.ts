@@ -21,15 +21,15 @@ export class RegisterEntity {
   id: number;
 
   // Session started
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: true })
   sessionStarted: Date;
 
   // Session ended
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   sessionEnded: Date;
 
   // Total of the register
-  @Column({ type: "decimal", precision: 10, scale: 2 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   total: number;
 
   // Many-to-One relationship with Store
