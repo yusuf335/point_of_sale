@@ -18,29 +18,6 @@ export type Scalars = {
   Date: { input: Date; output: Date; }
 };
 
-/** Cart Item  */
-export type CartItem = {
-  __typename?: 'CartItem';
-  /** Date and time when the cart item was created */
-  createdAt?: Maybe<Scalars['String']['output']>;
-  /** Cart Item ID */
-  id: Scalars['Int']['output'];
-  /** Product Name */
-  name?: Maybe<Scalars['String']['output']>;
-  /** Order ID where the cart item belongs */
-  order: Order;
-  /** Product Price */
-  price?: Maybe<Scalars['Float']['output']>;
-  /** Product ID */
-  productId?: Maybe<Scalars['Int']['output']>;
-  /** Product Quantity */
-  quantity?: Maybe<Scalars['Int']['output']>;
-  /** Total Price */
-  totalPrice?: Maybe<Scalars['Float']['output']>;
-  /** Date and time when the cart item was last updated */
-  updatedAt?: Maybe<Scalars['String']['output']>;
-};
-
 /** Category Type Definition for a Company Category */
 export type Category = {
   __typename?: 'Category';
@@ -85,8 +62,6 @@ export type Company = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /** Create a Cart Item */
-  createCartItem?: Maybe<CartItem>;
   /** Create a Category for a Company */
   createCategory?: Maybe<Category>;
   /** Create a new Company */
@@ -101,8 +76,6 @@ export type Mutation = {
   createStore?: Maybe<Store>;
   /** Create User for Admin */
   createUser?: Maybe<User>;
-  /** Delete a Cart Item */
-  deleteCartItem?: Maybe<Scalars['Boolean']['output']>;
   /** Delete a Category for a Company */
   deleteCategory?: Maybe<Scalars['Boolean']['output']>;
   /** Delete Company */
@@ -117,8 +90,6 @@ export type Mutation = {
   deleteStore?: Maybe<Store>;
   /** Delete User for Admin */
   deleteUser?: Maybe<User>;
-  /** Update a Cart Item */
-  updateCartItem?: Maybe<CartItem>;
   /** Update a Category for a Company */
   updateCategory?: Maybe<Category>;
   /** Update Company */
@@ -133,16 +104,6 @@ export type Mutation = {
   updateStore?: Maybe<Store>;
   /** Update User for Admin */
   updateUser?: Maybe<User>;
-};
-
-
-export type MutationCreateCartItemArgs = {
-  name: Scalars['String']['input'];
-  order: Scalars['Int']['input'];
-  price: Scalars['Float']['input'];
-  productId: Scalars['Int']['input'];
-  quantity: Scalars['Int']['input'];
-  store: Scalars['Int']['input'];
 };
 
 
@@ -204,11 +165,6 @@ export type MutationCreateUserArgs = {
 };
 
 
-export type MutationDeleteCartItemArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
 export type MutationDeleteCategoryArgs = {
   id: Scalars['Int']['input'];
 };
@@ -241,16 +197,6 @@ export type MutationDeleteStoreArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateCartItemArgs = {
-  id: Scalars['Int']['input'];
-  name: Scalars['String']['input'];
-  order: Scalars['Int']['input'];
-  price: Scalars['Float']['input'];
-  quantity: Scalars['Int']['input'];
-  store: Scalars['Int']['input'];
 };
 
 
@@ -364,8 +310,6 @@ export type Product = {
 
 export type Query = {
   __typename?: 'Query';
-  /** Get all cart items by order ID */
-  cartItemsByOrder?: Maybe<Array<Maybe<CartItem>>>;
   /** List of Categories for a Company */
   categories?: Maybe<Array<Maybe<Category>>>;
   /** Category by ID for a Company */
@@ -398,11 +342,6 @@ export type Query = {
   usersByCompany?: Maybe<Array<Maybe<User>>>;
   /** Get all user by store ID */
   usersByStore?: Maybe<Array<Maybe<User>>>;
-};
-
-
-export type QueryCartItemsByOrderArgs = {
-  orderId: Scalars['Int']['input'];
 };
 
 
@@ -600,7 +539,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  CartItem: ResolverTypeWrapper<CartItem>;
   Category: ResolverTypeWrapper<Category>;
   Company: ResolverTypeWrapper<Company>;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
@@ -620,7 +558,6 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
-  CartItem: CartItem;
   Category: Category;
   Company: Company;
   Date: Scalars['Date']['output'];
@@ -634,19 +571,6 @@ export type ResolversParentTypes = {
   Store: Store;
   String: Scalars['String']['output'];
   User: User;
-};
-
-export type CartItemResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['CartItem'] = ResolversParentTypes['CartItem']> = {
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  order?: Resolver<ResolversTypes['Order'], ParentType, ContextType>;
-  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  productId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  totalPrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CategoryResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
@@ -678,7 +602,6 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type MutationResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createCartItem?: Resolver<Maybe<ResolversTypes['CartItem']>, ParentType, ContextType, RequireFields<MutationCreateCartItemArgs, 'name' | 'order' | 'price' | 'productId' | 'quantity' | 'store'>>;
   createCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'company' | 'description' | 'name'>>;
   createCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationCreateCompanyArgs, 'address' | 'name' | 'phone'>>;
   createOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'message' | 'paymentMethod' | 'register' | 'status' | 'store' | 'total'>>;
@@ -686,7 +609,6 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   createRegister?: Resolver<Maybe<ResolversTypes['Register']>, ParentType, ContextType, RequireFields<MutationCreateRegisterArgs, 'store' | 'user'>>;
   createStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationCreateStoreArgs, 'address' | 'companyId' | 'maxRegisters' | 'name' | 'phone'>>;
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'companyId' | 'email' | 'name' | 'role' | 'storeId'>>;
-  deleteCartItem?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCartItemArgs, 'id'>>;
   deleteCategory?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCategoryArgs, 'id'>>;
   deleteCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationDeleteCompanyArgs, 'id'>>;
   deleteOrder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteOrderArgs, 'id'>>;
@@ -694,7 +616,6 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   deleteRegister?: Resolver<Maybe<ResolversTypes['Register']>, ParentType, ContextType, RequireFields<MutationDeleteRegisterArgs, 'id'>>;
   deleteStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationDeleteStoreArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
-  updateCartItem?: Resolver<Maybe<ResolversTypes['CartItem']>, ParentType, ContextType, RequireFields<MutationUpdateCartItemArgs, 'id' | 'name' | 'order' | 'price' | 'quantity' | 'store'>>;
   updateCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'company' | 'id'>>;
   updateCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationUpdateCompanyArgs, 'address' | 'id' | 'name' | 'phone'>>;
   updateOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationUpdateOrderArgs, 'id'>>;
@@ -731,7 +652,6 @@ export type ProductResolvers<ContextType = DataSourcesContext, ParentType extend
 };
 
 export type QueryResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  cartItemsByOrder?: Resolver<Maybe<Array<Maybe<ResolversTypes['CartItem']>>>, ParentType, ContextType, RequireFields<QueryCartItemsByOrderArgs, 'orderId'>>;
   categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'id'>>;
   companies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Company']>>>, ParentType, ContextType>;
@@ -788,7 +708,6 @@ export type UserResolvers<ContextType = DataSourcesContext, ParentType extends R
 };
 
 export type Resolvers<ContextType = DataSourcesContext> = {
-  CartItem?: CartItemResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   Company?: CompanyResolvers<ContextType>;
   Date?: GraphQLScalarType;

@@ -55,7 +55,7 @@ async function setupApolloServer() {
   await server.start();
   // GraphQL API Routes
   app.use(
-    "/graphql",
+    "/graphql/v1",
     expressMiddleware(server, {
       context: async ({ req }) => await graphQLContext({ req }),
     })
