@@ -62,6 +62,10 @@ export class UserEntity {
   @Column({ nullable: true })
   note!: string;
 
+  // Account verification token
+  @Column({ nullable: true })
+  accountVerificationToken!: string;
+
   // Reset password token
   @Column({ nullable: true })
   resetPasswordToken!: string;

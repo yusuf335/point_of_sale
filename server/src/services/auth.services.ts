@@ -34,6 +34,7 @@ export class AuthServices extends DataSource {
     return this.instance;
   }
 
+  // Login
   async login(email: string, password: string) {
     // Validate email
     if (!validator.isEmail(email)) {
@@ -65,6 +66,7 @@ export class AuthServices extends DataSource {
     return { token };
   }
 
+  // Signup
   async signup(name: string, email: string, password: string) {
     // Validate email
     if (!validator.isEmail(email)) {
@@ -98,7 +100,7 @@ export class AuthServices extends DataSource {
         name,
         email,
         password: passwordHash as string,
-        resetPasswordToken: uuidv4(),
+        accountVerificationToken: uuidv4(),
       })
       .execute();
 
@@ -112,7 +114,7 @@ export class AuthServices extends DataSource {
     sendAccountVerificationEmail(
       getNewUser.email,
       `Welcome to Our Platform! Please Verify Your Account.`,
-      getNewUser.resetPasswordToken
+      getNewUser.accountVerificationToken
     );
 
     const token = generateToken({
@@ -124,6 +126,32 @@ export class AuthServices extends DataSource {
     return { token };
   }
 
+  // Verify account
+  async verifyAccount(token: string) {
+    const user = await this.userRepository
+      .createQueryBuilder("user")
+      .where("user.accountVerificationToken = :token", { token })
+      .getOne();
+
+    if (!user) {
+      throw new CustomError("Invalid token", "UNAUTHORIZED", 401);
+    }
+
+    // Update user
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        isVerified: true,
+        accountVerificationToken: null,
+      })
+      .where("id = :id", { id: user.id })
+      .execute();
+
+    return true;
+  }
+
+  // Forgot password
   async forgotPassword(email: string) {
     const user = await this.userRepository
       .createQueryBuilder("user")
@@ -133,6 +161,39 @@ export class AuthServices extends DataSource {
     if (!user) {
       throw new Error("User not found");
     }
+
+    return true;
+  }
+
+  // Reset password
+  async resetPassword(token: string, password: string) {
+    const user = await this.userRepository
+      .createQueryBuilder("user")
+      .where("user.resetPasswordToken = :token", { token })
+      .getOne();
+
+    if (!user) {
+      throw new CustomError("Invalid token", "UNAUTHORIZED", 401);
+    }
+
+    // Hash password
+    const passwordHash = await hashPassword(password);
+
+    // Check if password hash was successful
+    if (passwordHash instanceof CustomError) {
+      throw passwordHash;
+    }
+
+    // Update user
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        password: passwordHash as string,
+        resetPasswordToken: null,
+      })
+      .where("id = :id", { id: user.id })
+      .execute();
 
     return true;
   }
