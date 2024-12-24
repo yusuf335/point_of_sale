@@ -55,7 +55,9 @@ export class ProductEntity {
   company: CompanyEntity;
 
   // One-to-Many relationship with ProductStock
-  @OneToMany(() => ProductStockEntity, (productStock) => productStock.product)
+  @OneToMany(() => ProductStockEntity, (productStock) => productStock.product, {
+    cascade: true,
+  })
   @JoinColumn({ name: "product_stock_id" })
   productStock: ProductStockEntity;
 

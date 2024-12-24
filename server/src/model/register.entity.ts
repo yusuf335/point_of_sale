@@ -47,7 +47,7 @@ export class RegisterEntity {
   user: UserEntity;
 
   // One-to-Many relationship with Order
-  @OneToMany(() => OrderEntity, (order) => order.register)
+  @OneToMany(() => OrderEntity, (order) => order.register, { cascade: true })
   orders: OrderEntity[];
 
   // Method to calculate total of the register

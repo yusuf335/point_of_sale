@@ -48,19 +48,27 @@ export class StoreEntity {
   company: CompanyEntity;
 
   // One-to-Many relationship with User
-  @OneToMany(() => UserEntity, (user) => user.store)
+  @OneToMany(() => UserEntity, (user) => user.store, {
+    cascade: ["insert", "update"],
+  })
   users: UserEntity[];
 
   // One-to-Many relationship with Product Stock
-  @OneToMany(() => ProductStockEntity, (productStock) => productStock.store)
+  @OneToMany(() => ProductStockEntity, (productStock) => productStock.store, {
+    cascade: ["insert", "update"],
+  })
   productStocks: ProductStockEntity[];
 
   // One-to-Many relationship with Register
-  @OneToMany(() => RegisterEntity, (register) => register.store)
+  @OneToMany(() => RegisterEntity, (register) => register.store, {
+    cascade: ["insert", "update"],
+  })
   registers: RegisterEntity[];
 
   // One-to-Many relationship with Order
-  @OneToMany(() => OrderEntity, (order) => order.store)
+  @OneToMany(() => OrderEntity, (order) => order.store, {
+    cascade: ["insert", "update"],
+  })
   orders: OrderEntity[];
 
   // Record of the store

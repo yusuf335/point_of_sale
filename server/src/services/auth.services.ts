@@ -1,3 +1,5 @@
+import validator from "validator";
+import { v4 as uuidv4 } from "uuid";
 import { DataSource } from "apollo-datasource";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../utils/database";
@@ -5,8 +7,15 @@ import { AppDataSource } from "../utils/database";
 // Import models
 import { UserEntity } from "../model/user.entity";
 import { CustomError } from "../utils/customError";
+
+// Import utils
 import { hashPassword, comparePassword } from "../utils/auth/bcrypt";
 import { generateToken } from "../utils/auth/jwt";
+
+// Import Email Service
+import { emailTransporter, mailOptions } from "../utils/mail/nodeMailer";
+import { sendAccountVerificationEmail } from "../utils/mail/template/verifyAccount";
+import { get } from "http";
 
 export class AuthServices extends DataSource {
   private static instance: AuthServices;
@@ -26,6 +35,11 @@ export class AuthServices extends DataSource {
   }
 
   async login(email: string, password: string) {
+    // Validate email
+    if (!validator.isEmail(email)) {
+      throw new Error("Invalid email address");
+    }
+
     const user = await this.userRepository
       .createQueryBuilder("user")
       .where("user.email = :email", { email })
@@ -52,6 +66,11 @@ export class AuthServices extends DataSource {
   }
 
   async signup(name: string, email: string, password: string) {
+    // Validate email
+    if (!validator.isEmail(email)) {
+      throw new Error("Invalid email address");
+    }
+
     const user = await this.userRepository
       .createQueryBuilder("user")
       .where("user.email = :email", { email })
@@ -75,7 +94,12 @@ export class AuthServices extends DataSource {
       .createQueryBuilder()
       .insert()
       .into(UserEntity)
-      .values({ name, email, password: passwordHash as string })
+      .values({
+        name,
+        email,
+        password: passwordHash as string,
+        resetPasswordToken: uuidv4(),
+      })
       .execute();
 
     // Get new user
@@ -84,7 +108,13 @@ export class AuthServices extends DataSource {
       .where("user.id = :id", { id: newUser.identifiers[0].id })
       .getOne();
 
-    // Generate JWT token
+    // Send email to user
+    sendAccountVerificationEmail(
+      getNewUser.email,
+      `Welcome to Our Platform! Please Verify Your Account.`,
+      getNewUser.resetPasswordToken
+    );
+
     const token = generateToken({
       userId: getNewUser.id,
       role: getNewUser.role,

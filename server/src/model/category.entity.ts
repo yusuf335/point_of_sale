@@ -29,13 +29,13 @@ export class CategoryEntity {
   description!: string;
 
   // One-to-Many relationship with Product
-  @OneToMany(() => ProductEntity, (product) => product.category)
+  @OneToMany(() => ProductEntity, (product) => product.category, {
+    cascade: ["insert", "update"],
+  })
   products: ProductEntity[];
 
-  // Many-to-One relationship with Store
-  @ManyToOne(() => CompanyEntity, (company) => company.categories, {
-    onDelete: "CASCADE",
-  })
+  // Many-to-One relationship with Company
+  @ManyToOne(() => CompanyEntity, (company) => company.categories)
   @JoinColumn({ name: "company_id" })
   company: CompanyEntity;
 

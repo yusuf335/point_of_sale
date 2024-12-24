@@ -3,8 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  ManyToMany,
-  JoinTable,
+  CreateDateColumn,
   ManyToOne,
   JoinColumn,
 } from "typeorm";
@@ -67,6 +66,10 @@ export class UserEntity {
   @Column({ nullable: true })
   resetPasswordToken!: string;
 
+  // Reset password token generated
+  @CreateDateColumn({ type: "timestamp", nullable: true })
+  resetPasswordTokenGenerated!: Date;
+
   // Many-to-One relationship with Company
   @ManyToOne(() => CompanyEntity, (company) => company.users)
   @JoinColumn({ name: "company_id" })
@@ -78,7 +81,9 @@ export class UserEntity {
   store: StoreEntity;
 
   // One-to-Many relationship with Register
-  @OneToMany(() => RegisterEntity, (register) => register.user)
+  @OneToMany(() => RegisterEntity, (register) => register.user, {
+    cascade: true,
+  })
   registers: RegisterEntity[];
 
   // Record of the user
