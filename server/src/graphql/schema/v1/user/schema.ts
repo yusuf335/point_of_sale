@@ -22,10 +22,10 @@ export const UserTypeDefs = gql`
       name: String!
       "Enter User Email"
       email: String!
+      "Enter User Password"
+      password: String!
       "Enter User Role"
       role: UserRole!
-      "Enter User Company"
-      companyId: Int!
       "Enter User Store"
       storeId: Int!
     ): User

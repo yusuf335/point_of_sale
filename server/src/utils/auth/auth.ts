@@ -14,7 +14,7 @@ export const authenticate = (
 
   try {
     const decoded = verifyToken(token) as {
-      userId: string;
+      userId: number;
       role: string;
       isActive: boolean;
     };

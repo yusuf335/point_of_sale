@@ -1,3 +1,4 @@
+import { CustomError } from "../../../../utils/customError";
 import { Resolvers } from "../../../types";
 
 export const userResolver: Resolvers = {
@@ -28,14 +29,18 @@ export const userResolver: Resolvers = {
     // Create a user
     createUser: async (
       _,
-      { name, email, role, companyId, storeId },
-      { dataSources }
+      { name, email, password, role, storeId },
+      { userInfo, dataSources }
     ) => {
+      if (userInfo.role !== "ADMIN" && userInfo.role !== "MANAGER")
+        throw new CustomError("Permission Denied", "UNAUTHORIZED", 401);
+
       return dataSources.userAPI.createUser(
+        userInfo.userId,
         name,
         email,
+        password,
         role,
-        companyId,
         storeId
       );
     },

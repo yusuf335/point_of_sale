@@ -2,6 +2,7 @@ import { verifyToken } from "./auth/jwt";
 import { CustomError } from "./customError";
 
 // Import DataSources
+import { AuthServices } from "../services/auth.services";
 import { CompanyServices } from "../services/company.services";
 import { StoreServices } from "../services/store.services";
 import { UserServices } from "../services/user.services";
@@ -11,6 +12,7 @@ import { CartItemService } from "../services/cartItem.services";
 
 // Graphql DataSources
 const dataSources = {
+  authAPI: AuthServices.getInstance(),
   companyAPI: CompanyServices.getInstance(),
   storeAPI: StoreServices.getInstance(),
   userAPI: UserServices.getInstance(),
@@ -19,11 +21,21 @@ const dataSources = {
   cartAPI: CartItemService.getInstance(),
 };
 
+// Pulic GraphQL DataSources
+const publicDataSources = {
+  authAPI: AuthServices.getInstance(),
+};
+
 export const graphQLContext = async ({ req }) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   // Check if token is provided
-  if (!token) throw new CustomError("Invalid token", "INVALID_TOKEN", 401);
+  if (!token) {
+    return {
+      user: { userId: undefined, role: undefined, isActive: undefined },
+      dataSources: publicDataSources,
+    };
+  }
 
   try {
     // Verify token
@@ -55,6 +67,12 @@ export const graphQLContext = async ({ req }) => {
     if (error instanceof CustomError) {
       throw error; // Let Apollo handle this
     }
-    throw new CustomError("Invalid token", "INVALID_TOKEN", 401);
+
+    console.error("Token verification error:", error.message);
+
+    return {
+      user: { userId: undefined, role: undefined, isActive: undefined },
+      dataSources: publicDataSources,
+    };
   }
 };

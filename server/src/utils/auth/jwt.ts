@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export const generateToken = (payload: {
-  userId: string;
+  userId: number;
   role: string;
   isActive: boolean;
 }) => {

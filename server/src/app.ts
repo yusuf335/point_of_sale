@@ -14,9 +14,6 @@ import resolvers from "./graphql/resolvers";
 // Import Routes
 import authRoutes from "./router/auth.router";
 
-// Import Custom Error Handler
-import { CustomError } from "./utils/customError";
-
 // GraphQL Context
 import { graphQLContext } from "./utils/graphQLContext";
 
@@ -39,12 +36,14 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   formatError: (error: GraphQLError) => {
     // Default fallback for unexpected errors
+
     return {
       message: error.message,
       code: error?.extensions.code || "INTERNAL_SERVER_ERROR",
       statusCode: error?.extensions.statusCode || 500,
     };
   },
+  introspection: true, // Disable this in production
 });
 
 // Rest API Routes
@@ -55,7 +54,7 @@ async function setupApolloServer() {
   await server.start();
   // GraphQL API Routes
   app.use(
-    "/graphql/v1",
+    "/graphql",
     expressMiddleware(server, {
       context: async ({ req }) => await graphQLContext({ req }),
     })

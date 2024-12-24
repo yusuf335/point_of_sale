@@ -1,3 +1,4 @@
+import { AuthServices } from "../services/auth.services";
 import { CompanyServices } from "../services/company.services";
 import { StoreServices } from "../services/store.services";
 import { UserServices } from "../services/user.services";
@@ -7,6 +8,7 @@ import { CartItemService } from "../services/cartItem.services";
 
 export type DataSourcesContext = {
   dataSources: {
+    authAPI: AuthServices;
     companyAPI: CompanyServices;
     storeAPI: StoreServices;
     userAPI: UserServices;

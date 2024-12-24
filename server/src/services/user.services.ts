@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import { DataSource } from "apollo-datasource";
 import { AppDataSource } from "../utils/database";
+import bcrypt from "bcrypt";
 
 // Import Entities
 import { UserEntity, UserRole } from "../model/user.entity";
@@ -31,21 +32,43 @@ export class UserServices extends DataSource {
   }
 
   // Create a new user
+  // The company ID is retrieved from the database throught the user currently logged in (userInfoId)
   async createUser(
+    userInfoId: number,
     name: string,
     email: string,
+    password: string,
     role: UserRole,
-    companyId: number,
     storeId: number
   ): Promise<UserEntity> {
     const user = new UserEntity();
+    const userCompany = await this.userRepo.findOne({
+      where: { id: userInfoId },
+      relations: ["company"],
+    });
+
+    // Get store by ID in the same company
+    const store = await this.storeRepo.findOne({
+      where: { id: storeId, company: userCompany.company },
+    });
+
     user.name = name;
     user.email = email;
     user.role = role;
-    user.company.id = companyId;
-    user.store.id = storeId;
+    user.company = userCompany.company;
+    user.store = store;
 
-    return await this.userRepo.save(user);
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    try {
+      await this.userRepo.save(user);
+    } catch (error) {
+      throw new CustomError("User already exists", "BAD_REQUEST", 400);
+    }
+
+    return user;
   }
 
   // Update a user

@@ -1,6 +1,7 @@
 import { mergeTypeDefs } from "@graphql-tools/merge";
 
 // Import TypeDefs, Queries and Mutations
+import { AuthTypeDefs } from "./schema/v1/auth/schema";
 import { CompanyTypeDefs } from "./schema/v1/company/schema";
 import { StoreTypeDefs } from "./schema/v1/store/schema";
 import { UserTypeDefs } from "./schema/v1/user/schema";
@@ -11,6 +12,7 @@ import { OrderTypeDefs } from "./schema/v1/order/schema";
 import { CartItemTypeDefs } from "./schema/v1/cartItem/schema";
 
 const typeDefs = mergeTypeDefs([
+  AuthTypeDefs,
   CompanyTypeDefs,
   StoreTypeDefs,
   UserTypeDefs,
