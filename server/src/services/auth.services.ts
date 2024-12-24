@@ -5,7 +5,7 @@ import { AppDataSource } from "../utils/database";
 // Import models
 import { UserEntity } from "../model/user.entity";
 import { CustomError } from "../utils/customError";
-import { hashPassword } from "../utils/auth/bcrypt";
+import { hashPassword, comparePassword } from "../utils/auth/bcrypt";
 import { generateToken } from "../utils/auth/jwt";
 
 export class AuthServices extends DataSource {
@@ -31,15 +31,24 @@ export class AuthServices extends DataSource {
       .where("user.email = :email", { email })
       .getOne();
 
+    // Check if user exists
     if (!user) {
       throw new CustomError("User not found", "NOT_FOUND", 404);
     }
 
-    if (user.password !== password) {
+    // Check if password is correct by matching the input password with the stored password
+    if (!(await comparePassword(password, user.password))) {
       throw new CustomError("Invalid password", "UNAUTHORIZED", 401);
     }
 
-    return user;
+    // Generate JWT token
+    const token = generateToken({
+      userId: user.id,
+      role: user.role,
+      isActive: user.isActive,
+    });
+
+    return { token };
   }
 
   async signup(name: string, email: string, password: string) {
@@ -48,16 +57,20 @@ export class AuthServices extends DataSource {
       .where("user.email = :email", { email })
       .getOne();
 
+    // Check if user already exists
     if (user) {
       throw new CustomError("User already exists", "CONFLICT", 409);
     }
 
+    // Hash password
     const passwordHash = await hashPassword(password);
 
+    // Check if password hash was successful
     if (passwordHash instanceof CustomError) {
       throw passwordHash;
     }
 
+    // Create new user
     const newUser = await this.userRepository
       .createQueryBuilder()
       .insert()
@@ -65,16 +78,20 @@ export class AuthServices extends DataSource {
       .values({ name, email, password: passwordHash as string })
       .execute();
 
-    // Access the generated identifiers
-    console.log("Generated Identifiers:", newUser.identifiers);
+    // Get new user
+    const getNewUser = await this.userRepository
+      .createQueryBuilder("user")
+      .where("user.id = :id", { id: newUser.identifiers[0].id })
+      .getOne();
 
-    // Access the generated maps (e.g., auto-generated fields like `id`)
-    console.log("Generated Maps:", newUser.generatedMaps);
+    // Generate JWT token
+    const token = generateToken({
+      userId: getNewUser.id,
+      role: getNewUser.role,
+      isActive: getNewUser.isActive,
+    });
 
-    // Database-specific raw output
-    console.log("Raw Result:", newUser.raw);
-
-    return true;
+    return { token };
   }
 
   async forgotPassword(email: string) {

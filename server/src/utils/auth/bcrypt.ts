@@ -42,3 +42,24 @@ export const hashPassword = async (
     );
   }
 };
+
+export const comparePassword = async (
+  userInputPassword: string,
+  storedHashedPassword: string
+): Promise<boolean | CustomError> => {
+  try {
+    const compare = await bcrypt.compare(
+      userInputPassword,
+      storedHashedPassword
+    );
+
+    return compare;
+  } catch (err) {
+    console.error(err);
+    throw new CustomError(
+      "Error comparing password",
+      "INTERNAL_SERVER_ERROR",
+      500
+    );
+  }
+};
