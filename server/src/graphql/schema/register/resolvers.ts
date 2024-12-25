@@ -1,5 +1,5 @@
 import { Resolvers } from "../../types";
-import { DateScalar } from "../../../scalars/DateScalar";
+import { DateScalar } from "../../scalars/DateScalar";
 
 export const registerResolver: Resolvers = {
   Date: DateScalar,

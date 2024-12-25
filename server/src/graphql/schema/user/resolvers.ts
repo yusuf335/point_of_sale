@@ -1,4 +1,4 @@
-import { CustomError } from "../../../../utils/customError";
+import { CustomError } from "../../../utils/customError";
 import { Resolvers } from "../../types";
 
 export const userResolver: Resolvers = {
