@@ -25,12 +25,14 @@ export const emailTransporter = nodemailer.createTransport({
 export const mailOptions = (
   recipientEmail: string,
   subject: string,
-  text: string
+  text?: string,
+  html?: string
 ) => {
   return {
     from: `[POS] - Point of Sales <${process.env.MAIL_USER}>`,
     to: recipientEmail,
     subject: subject,
     text: text || "", // Include the text parameter
+    html: html || "", // Include the html parameter
   };
 };

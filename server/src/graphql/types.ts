@@ -20,7 +20,7 @@ export type Scalars = {
 
 export type Auth = {
   __typename?: 'Auth';
-  token?: Maybe<Scalars['String']['output']>;
+  jwtToken?: Maybe<Scalars['String']['output']>;
 };
 
 /** Cart Item  */
@@ -410,7 +410,7 @@ export type Query = {
   store?: Maybe<Store>;
   /** Get all Stores for a Company by Company ID */
   stores?: Maybe<Array<Maybe<Store>>>;
-  /** User By ID for Admin */
+  /** User By ID for User */
   userById?: Maybe<User>;
   /** All Users for Admin */
   users?: Maybe<Array<Maybe<User>>>;
@@ -428,11 +428,6 @@ export type QueryCartItemsByOrderArgs = {
 
 export type QueryCategoryArgs = {
   id: Scalars['Int']['input'];
-};
-
-
-export type QueryCompanyArgs = {
-  id?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -470,6 +465,11 @@ export type QueryStoreArgs = {
 
 export type QueryStoresArgs = {
   companyID: Scalars['Int']['input'];
+};
+
+
+export type QueryUserByIdArgs = {
+  id?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -665,7 +665,7 @@ export type ResolversParentTypes = {
 };
 
 export type AuthResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  jwtToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -770,7 +770,7 @@ export type QueryResolvers<ContextType = DataSourcesContext, ParentType extends 
   categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'id'>>;
   companies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Company']>>>, ParentType, ContextType>;
-  company?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, Partial<QueryCompanyArgs>>;
+  company?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType>;
   login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
   order?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>;
   orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
@@ -780,7 +780,7 @@ export type QueryResolvers<ContextType = DataSourcesContext, ParentType extends 
   registersByStore?: Resolver<Maybe<Array<Maybe<ResolversTypes['Register']>>>, ParentType, ContextType, RequireFields<QueryRegistersByStoreArgs, 'storeId'>>;
   store?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<QueryStoreArgs, 'id'>>;
   stores?: Resolver<Maybe<Array<Maybe<ResolversTypes['Store']>>>, ParentType, ContextType, RequireFields<QueryStoresArgs, 'companyID'>>;
-  userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<QueryUserByIdArgs>>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   usersByCompany?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUsersByCompanyArgs, 'companyId'>>;
   usersByStore?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryUsersByStoreArgs, 'storeId'>>;

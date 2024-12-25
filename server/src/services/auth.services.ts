@@ -13,9 +13,8 @@ import { hashPassword, comparePassword } from "../utils/auth/bcrypt";
 import { generateToken } from "../utils/auth/jwt";
 
 // Import Email Service
-import { emailTransporter, mailOptions } from "../utils/mail/nodeMailer";
-import { sendAccountVerificationEmail } from "../utils/mail/template/verifyAccount";
-import { get } from "http";
+import { sendAccountVerificationEmail } from "../templates/verifyAccount";
+import { sendChangePasswordEmail } from "../templates/changePassword";
 
 export class AuthServices extends DataSource {
   private static instance: AuthServices;
@@ -41,6 +40,7 @@ export class AuthServices extends DataSource {
       throw new Error("Invalid email address");
     }
 
+    // Check if user exists
     const user = await this.userRepository
       .createQueryBuilder("user")
       .where("user.email = :email", { email })
@@ -57,13 +57,13 @@ export class AuthServices extends DataSource {
     }
 
     // Generate JWT token
-    const token = generateToken({
+    const jwtToken = generateToken({
       userId: user.id,
       role: user.role,
       isActive: user.isActive,
     });
 
-    return { token };
+    return { jwtToken };
   }
 
   // Signup
@@ -73,6 +73,7 @@ export class AuthServices extends DataSource {
       throw new Error("Invalid email address");
     }
 
+    // Check if user already exists
     const user = await this.userRepository
       .createQueryBuilder("user")
       .where("user.email = :email", { email })
@@ -91,8 +92,11 @@ export class AuthServices extends DataSource {
       throw passwordHash;
     }
 
+    // Generate token
+    const verificationToken = uuidv4();
+
     // Create new user
-    const newUser = await this.userRepository
+    const createNewUser = await this.userRepository
       .createQueryBuilder()
       .insert()
       .into(UserEntity)
@@ -100,30 +104,66 @@ export class AuthServices extends DataSource {
         name,
         email,
         password: passwordHash as string,
-        accountVerificationToken: uuidv4(),
+        accountVerificationToken: verificationToken,
       })
       .execute();
 
-    // Get new user
-    const getNewUser = await this.userRepository
+    // Send email to user
+    sendAccountVerificationEmail(
+      email,
+      `Welcome to Our Platform! Please Verify Your Account.`,
+      verificationToken
+    );
+
+    // Get user
+    const newUser = await this.userRepository
       .createQueryBuilder("user")
-      .where("user.id = :id", { id: newUser.identifiers[0].id })
+      .where("user.id = :id", { id: createNewUser.identifiers[0].id })
       .getOne();
+
+    // Generate JWT token
+    const jwtToken = generateToken({
+      userId: newUser.id,
+      role: newUser.role,
+      isActive: newUser.isActive,
+    });
+
+    return { jwtToken };
+  }
+
+  // Resend verification email
+  async resendVerificationEmail(id: number) {
+    const user = await this.userRepository
+      .createQueryBuilder("user")
+      .where("user.id = :id", { id })
+      .getOne();
+
+    // Check if user exists
+    if (!user) {
+      throw new CustomError("User not found", "NOT_FOUND", 404);
+    }
+
+    // Generate token
+    const verificationToken = uuidv4();
+
+    // Generate token and update user
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        accountVerificationToken: verificationToken,
+      })
+      .where("id = :id", { id: user.id })
+      .execute();
 
     // Send email to user
     sendAccountVerificationEmail(
-      getNewUser.email,
+      user.email,
       `Welcome to Our Platform! Please Verify Your Account.`,
-      getNewUser.accountVerificationToken
+      verificationToken
     );
 
-    const token = generateToken({
-      userId: getNewUser.id,
-      role: getNewUser.role,
-      isActive: getNewUser.isActive,
-    });
-
-    return { token };
+    return true;
   }
 
   // Verify account
@@ -133,6 +173,7 @@ export class AuthServices extends DataSource {
       .where("user.accountVerificationToken = :token", { token })
       .getOne();
 
+    // Check if user exists
     if (!user) {
       throw new CustomError("Invalid token", "UNAUTHORIZED", 401);
     }
@@ -148,6 +189,13 @@ export class AuthServices extends DataSource {
       .where("id = :id", { id: user.id })
       .execute();
 
+    // Send email to user
+    sendAccountVerificationEmail(
+      user.email,
+      `Thank you for verifying your account!`,
+      user.accountVerificationToken
+    );
+
     return true;
   }
 
@@ -158,9 +206,26 @@ export class AuthServices extends DataSource {
       .where("user.email = :email", { email })
       .getOne();
 
+    // Check if user exists
     if (!user) {
       throw new Error("User not found");
     }
+
+    // Generate token
+    const passwordResetToken = uuidv4();
+
+    // Generate token and update user
+    await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({
+        resetPasswordToken: passwordResetToken,
+        resetPasswordTokenGeneratedAt: new Date(),
+      })
+      .where("id = :id", { id: user.id })
+      .execute();
+
+    sendChangePasswordEmail(email, `Reset Your Password`, passwordResetToken);
 
     return true;
   }
@@ -172,6 +237,7 @@ export class AuthServices extends DataSource {
       .where("user.resetPasswordToken = :token", { token })
       .getOne();
 
+    // Check if user exists
     if (!user) {
       throw new CustomError("Invalid token", "UNAUTHORIZED", 401);
     }
@@ -191,6 +257,7 @@ export class AuthServices extends DataSource {
       .set({
         password: passwordHash as string,
         resetPasswordToken: null,
+        resetPasswordTokenGeneratedAt: null,
       })
       .where("id = :id", { id: user.id })
       .execute();

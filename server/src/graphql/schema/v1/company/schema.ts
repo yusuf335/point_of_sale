@@ -3,7 +3,7 @@ import { gql } from "graphql-tag";
 export const CompanyTypeDefs = gql`
   extend type Query {
     "Get a Company by ID"
-    company(id: Int): Company
+    company: Company
 
     "Get all Companies"
     companies: [Company]

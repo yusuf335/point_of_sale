@@ -11,6 +11,6 @@ export const AuthTypeDefs = gql`
   }
 
   type Auth {
-    token: String
+    jwtToken: String
   }
 `;

@@ -9,9 +9,14 @@ export const userResolver: Resolvers = {
     },
 
     // Get user by ID
-    userById: async (_, __, { userInfo, dataSources }) => {
-      const user = await dataSources.userAPI.getUserById(userInfo.userId);
-      return user;
+    userById: async (_, { id }, { userInfo, dataSources }) => {
+      // If ID is provided, get user by ID
+      if (id) {
+        return await dataSources.userAPI.getUserById(id);
+      }
+
+      // If no ID is provided, get user by token
+      return await dataSources.userAPI.getUserById(userInfo.userId);
     },
 
     // Get all users by company ID

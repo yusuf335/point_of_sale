@@ -70,11 +70,13 @@ export class CompanyServices extends DataSource {
 
   //   Get a company by id
   async getCompany(id: number): Promise<CompanyEntity> {
-    const company = await this.companyRepo.findOne({
-      where: { id },
-      relations: ["stores", "users", "products", "categories"],
-    });
+    const company = await this.companyRepo
+      .createQueryBuilder("company")
+      .innerJoin("company.users", "users")
+      .where("users.id = :id", { id })
+      .getOne();
 
+    // If company not found
     if (!company) {
       throw new Error("Company not found");
     }

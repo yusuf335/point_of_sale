@@ -123,10 +123,12 @@ export class UserServices extends DataSource {
 
   // Get user by ID
   async getUserById(id: number): Promise<UserEntity> {
-    const user = await this.userRepo.findOne({
-      where: { id },
-      relations: ["company", "store"],
-    });
+    const user = await this.userRepo
+      .createQueryBuilder("user")
+      .where("user.id = :id", { id })
+      .innerJoinAndSelect("user.store", "store")
+      .innerJoinAndSelect("user.company", "company")
+      .getOne();
 
     if (!user) {
       throw new CustomError("User not found", "NOT_FOUND", 404);

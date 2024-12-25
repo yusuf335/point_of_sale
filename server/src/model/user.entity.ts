@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  CreateDateColumn,
   ManyToOne,
   JoinColumn,
 } from "typeorm";
@@ -71,8 +70,8 @@ export class UserEntity {
   resetPasswordToken!: string;
 
   // Reset password token generated
-  @CreateDateColumn({ type: "timestamp", nullable: true })
-  resetPasswordTokenGenerated!: Date;
+  @Column({ nullable: true })
+  resetPasswordTokenGeneratedAt!: Date;
 
   // Many-to-One relationship with Company
   @ManyToOne(() => CompanyEntity, (company) => company.users)

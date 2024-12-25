@@ -2,8 +2,8 @@ import { gql } from "graphql-tag";
 
 export const UserTypeDefs = gql`
   type Query {
-    "User By ID for Admin"
-    userById: User
+    "User By ID for User"
+    userById(id: Int): User
 
     "All Users for Admin"
     users: [User]

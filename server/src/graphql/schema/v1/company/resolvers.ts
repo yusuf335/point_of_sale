@@ -3,8 +3,8 @@ import { Resolvers } from "../../../types";
 export const companyResolver: Resolvers = {
   Query: {
     // Get a company by ID
-    company: async (_, { id }, { dataSources }) => {
-      return dataSources.companyAPI.getCompany(id);
+    company: async (_, __, { userInfo, dataSources }) => {
+      return dataSources.companyAPI.getCompany(userInfo.userId);
     },
 
     // Get all companies
