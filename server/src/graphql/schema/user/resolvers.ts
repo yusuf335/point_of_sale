@@ -1,5 +1,5 @@
 import { CustomError } from "../../../../utils/customError";
-import { Resolvers } from "../../../types";
+import { Resolvers } from "../../types";
 
 export const userResolver: Resolvers = {
   Query: {

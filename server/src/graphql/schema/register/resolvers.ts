@@ -1,4 +1,4 @@
-import { Resolvers } from "../../../types";
+import { Resolvers } from "../../types";
 import { DateScalar } from "../../../scalars/DateScalar";
 
 export const registerResolver: Resolvers = {
