@@ -15,9 +15,6 @@ The system is built with a **frontend** using **React** and **Next.js**, and a *
 
 ## API Type
 
-This project have two types of API
-
-- **REST API**
 - **GraphQL**
 
 ## Technologies Used

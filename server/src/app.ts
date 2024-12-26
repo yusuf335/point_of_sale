@@ -11,9 +11,6 @@ import http from "http";
 import typeDefs from "./graphql/schema";
 import resolvers from "./graphql/resolvers";
 
-// Import Routes
-import authRoutes from "./router/auth.router";
-
 // GraphQL Context
 import { graphQLContext } from "./utils/graphQLContext";
 
@@ -45,9 +42,6 @@ const server = new ApolloServer({
   },
   introspection: true, // Disable this in production
 });
-
-// Rest API Routes
-app.use("/api/v1/auth", authRoutes);
 
 // Apollo Server Startup
 async function setupApolloServer() {

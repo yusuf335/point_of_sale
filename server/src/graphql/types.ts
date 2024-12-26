@@ -206,6 +206,7 @@ export type MutationCreateUserArgs = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  role: UserRole;
   storeId: Scalars['Int']['input'];
 };
 
@@ -330,7 +331,7 @@ export type MutationUpdateUserArgs = {
   companyId: Scalars['Int']['input'];
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  role?: InputMaybe<UserRole>;
+  role: UserRole;
   storeId: Scalars['Int']['input'];
 };
 
@@ -717,7 +718,7 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   createProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'category' | 'company' | 'description' | 'image' | 'name' | 'price'>>;
   createRegister?: Resolver<Maybe<ResolversTypes['Register']>, ParentType, ContextType, RequireFields<MutationCreateRegisterArgs, 'store' | 'user'>>;
   createStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationCreateStoreArgs, 'address' | 'companyId' | 'maxRegisters' | 'name' | 'phone'>>;
-  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'name' | 'password' | 'storeId'>>;
+  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'name' | 'password' | 'role' | 'storeId'>>;
   deleteCartItem?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCartItemArgs, 'id'>>;
   deleteCategory?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCategoryArgs, 'id'>>;
   deleteCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationDeleteCompanyArgs, 'id'>>;
@@ -735,7 +736,7 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   updateProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id'>>;
   updateRegister?: Resolver<Maybe<ResolversTypes['Register']>, ParentType, ContextType, RequireFields<MutationUpdateRegisterArgs, 'id'>>;
   updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'address' | 'id' | 'maxRegisters' | 'name' | 'phone'>>;
-  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'companyId' | 'email' | 'name' | 'storeId'>>;
+  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'companyId' | 'email' | 'name' | 'role' | 'storeId'>>;
 };
 
 export type OrderResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {

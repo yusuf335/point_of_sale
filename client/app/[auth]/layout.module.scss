@@ -5,38 +5,26 @@
   }
 
   .rightSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
     padding-top: 2rem;
 
     .logo {
       width: 4rem;
       height: auto;
       display: block;
-    }
-
-    .form {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      margin-bottom: 2rem;
     }
   }
 }
 
 /* xs */
 @media (min-width: 475px) {
-  .container {
+  .mainContainer {
     max-width: 475px;
-
-    .rightSide {
-      .logo {
-        width: 14rem;
-        margin-top: 2rem;
-      }
-
-      .form {
-        top: 50%;
-      }
-    }
   }
 }
 /* sm */
@@ -81,7 +69,6 @@
       background-color: #fff;
       position: relative;
       width: 25%;
-      overflow-y: scroll;
 
       .logo {
         width: 4rem;

@@ -62,7 +62,9 @@ const AuthLayout = ({
           <div>
             <Image src={logo} alt="logo" className={styles.logo} />
           </div>
-          <div className={styles.form}>{children}</div>
+          <div className={styles.form}>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          </div>
         </div>
       </div>
     </div>
