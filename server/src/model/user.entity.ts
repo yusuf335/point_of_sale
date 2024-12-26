@@ -45,7 +45,7 @@ export class UserEntity {
   @Column({
     type: "enum",
     enum: UserRole,
-    default: UserRole.Cashier,
+    default: UserRole.Admin,
   })
   role!: UserRole;
 

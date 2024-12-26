@@ -1,0 +1,109 @@
+@import "@/app/styles/colors.module.scss";
+
+/* Default Button Styling */
+.btn {
+  margin-top: 2rem;
+  height: 2.25rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  outline: 0 !important;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Disabled State */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+/* Variants */
+.btn_primary {
+  background-color: $primary;
+  color: #fff;
+  border: 1px solid $primary-600;
+
+  &:hover {
+    background-color: $primary-600;
+    border-color: $primary-700;
+  }
+}
+
+.btn_secondary {
+  background-color: $secondary;
+  color: #fff;
+  border: 1px solid $secondary-600;
+
+  &:hover {
+    background-color: $secondary-600;
+    border-color: $secondary-700;
+  }
+}
+
+.btn_danger {
+  background-color: $danger;
+  color: #fff;
+  border: 1px solid $red-600;
+
+  &:hover {
+    background-color: $red-600;
+    border-color: $red-700;
+  }
+}
+
+.btn_success {
+  background-color: $success;
+  color: #fff;
+  border: 1px solid $green-600;
+
+  &:hover {
+    background-color: $green-600;
+    border-color: $green-700;
+  }
+}
+
+/* Outline Style */
+.btn_outline {
+  background-color: transparent;
+  color: inherit; /* Matches text color from variant */
+  //   border: 1px solid currentColor;
+
+  &:hover {
+    color: #fff; /* Adjust text color for contrast */
+  }
+}
+
+/* Sizes */
+.btn_small {
+  padding: 0.75rem 0.47rem;
+}
+
+.btn_medium {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.btn_large {
+  padding: 15px 30px;
+  font-size: 20px;
+}
+
+/* Icon Styling */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.5rem;
+
+  /* Adjust size if needed */
+  svg {
+    font-size: 1.25rem;
+  }
+}
