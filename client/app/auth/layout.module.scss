@@ -10,13 +10,22 @@
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
-    padding-top: 2rem;
 
-    .logo {
-      width: 4rem;
-      height: auto;
-      display: block;
-      margin-bottom: 2rem;
+    .logoContainer {
+      margin-top: 4rem;
+      .logo {
+        width: 4rem;
+        height: auto;
+        display: block;
+      }
+    }
+
+    .form {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 86%;
     }
   }
 }
@@ -69,12 +78,13 @@
       background-color: #fff;
       position: relative;
       width: 25%;
+      overflow-y: scroll;
 
       .logo {
         width: 4rem;
         height: auto;
         position: absolute;
-        top: 1rem;
+        top: 2rem;
         left: 1rem;
         display: block;
       }

@@ -59,7 +59,7 @@ const AuthLayout = ({
         {/* right Side */}
         <div className={styles.rightSide}>
           {/* Logo */}
-          <div>
+          <div className={styles.logoContainer}>
             <Image src={logo} alt="logo" className={styles.logo} />
           </div>
           <div className={styles.form}>

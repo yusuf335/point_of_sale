@@ -1,11 +1,13 @@
 // Color system
+
+@use "sass:color";
 // Helper functions for tints and shades
 @function tint-color($color, $percentage) {
-  @return mix(white, $color, $percentage);
+  @return color.mix(white, $color, $percentage);
 }
 
 @function shade-color($color, $percentage) {
-  @return mix(black, $color, $percentage);
+  @return color.mix(black, $color, $percentage);
 }
 
 // scss-docs-start gray-color-variables

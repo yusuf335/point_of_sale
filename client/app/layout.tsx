@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.scss";
 
-// Apollo Client
-import { ApolloProvider } from "@apollo/client";
-import client from "@/app/lib/apollo-client";
+// Import Apollo Client
+import GraphQlClient from "./graphql-client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +22,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ApolloProvider client={client}>{children}</ApolloProvider>
+        <GraphQlClient>{children}</GraphQlClient>
       </body>
     </html>
   );

@@ -11,7 +11,7 @@ import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

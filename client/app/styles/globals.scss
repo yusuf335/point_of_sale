@@ -26,6 +26,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+input {
+  &:autofill {
+    background-color: #f0f8ff !important; // Change to your desired background color
+    color: $secondary !important; // Optional: adjust text color
+  }
+
+  &:autofill::first-line {
+    color: $secondary !important; // Ensure the text color is visible
+  }
+}
 * {
   box-sizing: border-box;
   padding: 0;
