@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./styles/globals.scss";
+import "@/app/styles/globals.scss";
 
 // Import Apollo Client
-import GraphQlClient from "./graphql-client";
+import GraphQlClient from "../graphql-client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <GraphQlClient>{children}</GraphQlClient>
+        <p>HJello</p>
+        {children}
       </body>
     </html>
   );

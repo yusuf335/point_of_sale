@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import styles from "./styles/error.module.scss";
-import not_found from "../public/images/not_found.webp";
+import styles from "@/app/styles/error.module.scss";
+import not_found from "@/public/images/not_found.webp";
 import Button from "@/components/ui/button/Button";
 
 export default function NotFound() {
@@ -19,7 +19,7 @@ export default function NotFound() {
         src={not_found}
         alt="Not found"
         className={styles.errorImage}
-        placeholder="blur"
+        placeholder="empty"
       />
       <div className={styles.errorContent}>
         <h1>Not Found</h1>
