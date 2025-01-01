@@ -82,7 +82,8 @@ const Login = () => {
             </div>
             <div className={styles.signupLink}>
               <p>
-                Don't have an account? <Link href="/signup">Signup Now</Link>
+                Don't have an account?{" "}
+                <Link href="/auth/signup">Signup Now</Link>
               </p>
             </div>
           </div>
