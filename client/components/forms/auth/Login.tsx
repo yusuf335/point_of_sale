@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import styles from "./Login.module.scss";
+import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
 
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 
 const Login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -26,13 +28,17 @@ const Login = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const handleForgotPassword = () => {
+    router.push("/auth/forgot-password");
+  };
+
   return (
     <>
       {/* Welcome Text */}
-      <div className={styles.loginContainer}>
+      <div className={styles.authContainer}>
         {/* Form */}
 
-        <div className={styles.loginForm}>
+        <div className={styles.authForm}>
           {/* Welcome Text */}
           <div className={styles.welcomeText}>
             <h4>Welcome back!</h4>
@@ -68,7 +74,7 @@ const Login = () => {
               )
             }
             rightLabelLink="Forgot password?"
-            onClickRightlabel={() => console.log("Forgot password clicked")}
+            onClickRightlabel={handleForgotPassword}
           />
 
           <div>
@@ -80,7 +86,7 @@ const Login = () => {
                 variant="primary"
               />
             </div>
-            <div className={styles.signupLink}>
+            <div className={styles.authLink}>
               <p>
                 Don't have an account?{" "}
                 <Link href="/auth/signup">Signup Now</Link>

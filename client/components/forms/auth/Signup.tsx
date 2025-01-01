@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import styles from "./Signup.module.scss";
+import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
 
@@ -11,7 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +39,10 @@ const Signup = () => {
   return (
     <>
       {/* Welcome Text */}
-      <div className={styles.signupContainer}>
+      <div className={styles.authContainer}>
         <div>
           {/* Form */}
-          <div className={styles.signupForm}>
+          <div className={styles.authForm}>
             {/* Welcome Text */}
             <div className={styles.welcomeText}>
               <h4>Register account</h4>
@@ -58,8 +58,8 @@ const Signup = () => {
               key="full_name"
               value={name}
               onChange={handleNameChange}
-              error={true}
-              helperText="Name is required"
+              error={error}
+              // helperText="Name is required"
             />
 
             {/* Email */}
@@ -71,8 +71,8 @@ const Signup = () => {
               key="email"
               value={email}
               onChange={handleEmailChange}
-              error={true}
-              helperText="Email is required"
+              error={error}
+              // helperText="Email is required"
             />
 
             {/* Password */}
@@ -84,8 +84,8 @@ const Signup = () => {
               key="password"
               value={password}
               onChange={handlePasswordChange}
-              error={true}
-              helperText="Password is required"
+              error={error}
+              // helperText="Password is required"
             />
 
             <div>
@@ -98,7 +98,7 @@ const Signup = () => {
                 />
               </div>
 
-              <div className={styles.signupLink}>
+              <div className={styles.authLink}>
                 <p>
                   Already have an account? <Link href="/auth/login">Login</Link>
                 </p>

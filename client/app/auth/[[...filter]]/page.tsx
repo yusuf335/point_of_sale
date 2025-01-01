@@ -5,12 +5,13 @@ import ChangePassword from "@/components/forms/auth/changePassword";
 
 interface AuthProps {
   params: Promise<{
-    slug: string;
+    filter: string;
   }>;
 }
 
 const AuthPage = async ({ params }: AuthProps) => {
-  const page = (await params).slug;
+  const filter = (await params).filter;
+  const page = filter?.[0];
 
   return page === "login" ? (
     <Login />
