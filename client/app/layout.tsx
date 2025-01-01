@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/styles/globals.scss";
 
-// Import Apollo Client
-import GraphQlClient from "../graphql-client";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

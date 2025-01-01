@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./InputField.module.scss";
+import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
   label: string;
@@ -34,8 +34,8 @@ const InputField: React.FC<InputFieldProps> = ({
   onClickRightlabel,
 }) => {
   return (
-    <div className={classes.inputContainer}>
-      <label htmlFor={name} className={`${classes.inputLabel} ${labelStyle}`}>
+    <div className={styles.inputContainer}>
+      <label htmlFor={name} className={`${styles.inputLabel} ${labelStyle}`}>
         {label}
       </label>
       <input
@@ -44,22 +44,22 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         required
         onChange={onChange}
-        className={`${classes.inputFeild} ${
-          error ? classes.error : ""
+        className={`${styles.inputFeild} ${
+          error ? styles.error : ""
         } ${inputStyle}`}
         value={value}
       />
 
       {/* Error Text */}
       {error && helperText && (
-        <p className={classes.errorHelperText}>{helperText}</p>
+        <p className={styles.errorHelperText}>{helperText}</p>
       )}
-      <div className={classes.icon}>{icon}</div>
+      <div className={styles.icon}>{icon}</div>
 
       {rightLabelLink && (
         <label
           htmlFor={name}
-          className={classes.rightLabel}
+          className={styles.rightLabel}
           onClick={onClickRightlabel}
         >
           {rightLabelLink}

@@ -1,0 +1,67 @@
+@import "./colors.module.scss";
+
+/* xs */
+@media (min-width: 475px) {
+  .container {
+    max-width: 475px;
+  }
+}
+/* sm */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+/* md tablet*/
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+/* lg laptop */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+
+  .layout {
+    display: flex;
+    height: 100vh;
+
+    .sidebar {
+      display: block;
+      width: 15rem;
+      color: $white;
+      background-color: $secondary;
+
+      img {
+        width: 4rem;
+        height: auto;
+        display: block;
+        margin: 2rem auto;
+      }
+
+      .nav {
+        display: flex;
+        flex-direction: column;
+        margin-left: 1.4rem;
+        gap: 1.6rem;
+      }
+    }
+    .content {
+      display: block;
+      flex-grow: 1;
+      margin-left: 1rem;
+      background-color: #fff;
+    }
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}

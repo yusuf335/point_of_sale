@@ -11,7 +11,7 @@ export default function NotFound() {
 
   const handleReturnHome = () => {
     // Redirect to the Dashbaord page
-    router.push("/dashboard");
+    router.push("/client/dashboard");
   };
   return (
     <div className={styles.errorPage}>
@@ -25,7 +25,11 @@ export default function NotFound() {
         <h1>Not Found</h1>
         <p>Could not find requested resource</p>
       </div>
-      <Button onClick={handleReturnHome} label="Retun Home" variant="primary" />
+      <Button
+        onClick={handleReturnHome}
+        label="Return Home"
+        variant="primary"
+      />
     </div>
   );
 }
