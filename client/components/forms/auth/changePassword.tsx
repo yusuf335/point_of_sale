@@ -3,7 +3,12 @@ import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
 
-const ChangePassword = () => {
+interface ChangePasswordProps {
+  token: string;
+}
+
+const ChangePassword = ({ token }: ChangePasswordProps) => {
+  console.log(token);
   return (
     <>
       {/* Welcome Text */}

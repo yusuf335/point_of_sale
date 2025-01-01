@@ -12,6 +12,7 @@ interface AuthProps {
 const AuthPage = async ({ params }: AuthProps) => {
   const filter = (await params).filter;
   const page = filter?.[0];
+  const token = filter?.[1];
 
   return page === "login" ? (
     <Login />
@@ -20,7 +21,7 @@ const AuthPage = async ({ params }: AuthProps) => {
   ) : page === "forgot-password" ? (
     <ForgotPassword />
   ) : page === "change-password" ? (
-    <ChangePassword />
+    <ChangePassword token={token} />
   ) : (
     <Login />
   );
