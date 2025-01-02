@@ -14,7 +14,9 @@ import type { IconType } from "react-icons";
 import { RiHome3Fill, RiUser3Fill } from "react-icons/ri";
 import { FaBoxes, FaReceipt, FaCashRegister } from "react-icons/fa";
 import { PiChartDonutFill } from "react-icons/pi";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogOut, IoStorefront } from "react-icons/io5";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { BsBuildingsFill } from "react-icons/bs";
 
 interface NavItems {
   label: string;
@@ -22,15 +24,31 @@ interface NavItems {
   icon: IconType;
 }
 
-const navItems: NavItems[] = [
-  { label: "Dashboard", href: "/client/dashboard", icon: RiHome3Fill },
-  { label: "Report", href: "/client/dashboard", icon: PiChartDonutFill },
-  { label: "Register", href: "/client/dashboard", icon: FaCashRegister },
-  { label: "Products", href: "/client/products", icon: FaBoxes },
-  { label: "Orders", href: "/client/orders", icon: FaReceipt },
-  { label: "Profile", href: "/client/settings", icon: RiUser3Fill },
-  { label: "Logout", href: "/client/settings", icon: IoLogOut },
-];
+const user: string = "cashier";
+
+const navItems: NavItems[] =
+  user === "manager"
+    ? [
+        { label: "Dashboard", href: "/admin/dashboard", icon: RiHome3Fill },
+        { label: "Report", href: "/admin/dashboard", icon: PiChartDonutFill },
+        { label: "Registers", href: "/admin/dashboard", icon: FaCashRegister },
+        { label: "Products", href: "/admin/products", icon: FaBoxes },
+        { label: "Orders", href: "/admin/orders", icon: FaReceipt },
+        { label: "Company", href: "/admin/orders", icon: BsBuildingsFill },
+        { label: "Stores", href: "/admin/orders", icon: IoStorefront },
+        { label: "Employee", href: "/admin/orders", icon: FaPeopleGroup },
+        { label: "Profile", href: "/client/settings", icon: RiUser3Fill },
+        { label: "Logout", href: "/client/settings", icon: IoLogOut },
+      ]
+    : [
+        { label: "Dashboard", href: "/client/dashboard", icon: RiHome3Fill },
+        { label: "Report", href: "/client/dashboard", icon: PiChartDonutFill },
+        { label: "Registers", href: "/client/dashboard", icon: FaCashRegister },
+        { label: "Products", href: "/client/products", icon: FaBoxes },
+        { label: "Orders", href: "/client/orders", icon: FaReceipt },
+        { label: "Profile", href: "/client/settings", icon: RiUser3Fill },
+        { label: "Logout", href: "/client/settings", icon: IoLogOut },
+      ];
 
 const SideBar = () => {
   return (

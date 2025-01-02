@@ -8,6 +8,7 @@ import GraphQlClient from "@/app/graphql-client";
 
 // Import SideBar
 import SideBar from "@/components/nav/sidebar/Sidebar";
+import MobileNav from "@/components/nav/mobileNav/MobileNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {/* Layout */}
         <div className={styles.layout}>
+          {/* Mobile nav */}
+          <MobileNav />
           {/* Sidebar */}
           <SideBar />
           {/* Content */}

@@ -1,0 +1,33 @@
+@import "@/app/styles/colors.module.scss";
+
+.cartItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  width: 100%;
+  max-width: 100%;
+
+  .cartItemHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .removeicon {
+      color: $danger;
+      cursor: pointer;
+    }
+
+    h2 {
+      color: $secondary-600;
+    }
+  }
+}
