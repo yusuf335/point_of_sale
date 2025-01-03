@@ -7,6 +7,8 @@ import Button from "@/components/ui/button/Button";
 import CartItem from "@/components/cart/CartItem";
 import useOrientation from "@/app/utils/useOrientation";
 
+import PaymentModal from "@/components/payment/PaymentModal";
+
 import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
 
 interface CartItem {
@@ -143,6 +145,7 @@ export default function Home() {
   const isLandscape = useOrientation();
 
   const [search, setSearch] = useState("");
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -191,7 +194,16 @@ export default function Home() {
           {/* Cart Items List */}
           <div className={styles.cartItemsList}>
             {cart.map((item) => (
-              <CartItem key={item.id} {...item} />
+              <CartItem
+                key={item.id}
+                {...item}
+                onQuantityChange={(id, quantity) => {
+                  // handle quantity change
+                }}
+                onRemove={(id) => {
+                  // handle remove item
+                }}
+              />
             ))}
           </div>
 
@@ -200,11 +212,20 @@ export default function Home() {
             <div className={styles.cartTotalAmount}>
               <h2>Order ID: #123</h2>
               <h2>Total Items: 10</h2>
+              <hr />
               <h2>Total Amount: $300</h2>
             </div>
-            <div className={styles.cartTotalActions}>
-              <Button label="Pay" />
+            <div
+              className={styles.cartTotalActions}
+              onClick={() => setIsPaymentModalOpen(true)}
+            >
+              <Button label="Pay" size="medium" />
             </div>
+            <PaymentModal
+              isOpen={isPaymentModalOpen}
+              onClose={() => setIsPaymentModalOpen(false)}
+              totalAmount={300}
+            />
           </div>
         </div>
       </div>

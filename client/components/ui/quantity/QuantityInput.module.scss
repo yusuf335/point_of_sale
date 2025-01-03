@@ -1,0 +1,61 @@
+@import "@/app/styles/colors.module.scss";
+
+.quantityInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 8rem;
+  height: 2.5rem;
+  border: 1px solid $primary;
+  border-radius: 0.25rem;
+  overflow: hidden;
+
+  button {
+    width: 2.5rem;
+    height: 100%;
+    background-color: $primary; // Teal color
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-700; // Slightly darker teal
+    }
+
+    &:disabled {
+      background-color: #e0e0e0; // Light gray for disabled state
+      color: #9e9e9e; // Dark gray text for disabled state
+      cursor: not-allowed;
+    }
+  }
+
+  .input {
+    width: 3rem;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: $secondary;
+    background-color: #fff;
+    outline: none;
+    appearance: none;
+  }
+
+  // To remove the number input increment (up) and decrement (down) buttons
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

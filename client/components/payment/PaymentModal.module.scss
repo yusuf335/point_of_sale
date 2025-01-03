@@ -1,0 +1,159 @@
+@import "@/app/styles/colors.module.scss";
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 28rem;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.totalAmount {
+  color: #14b8a6;
+  font-size: 1.25rem;
+}
+
+.closeButton {
+  color: $danger;
+  cursor: pointer;
+  background-color: $white;
+  border: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: $gray-600;
+  margin-bottom: 0.25rem;
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.change {
+  color: $danger;
+}
+
+.balance {
+  color: $success;
+}
+
+.paymentInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+
+  input,
+  select {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+    color: $secondary;
+    background-color: $white;
+
+    &:focus {
+      outline: 2px solid #14b8a6;
+      outline-offset: -2px;
+    }
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.popularAmounts {
+  .amountGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+
+    button {
+      padding: 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+
+      &:hover {
+        background-color: #f9fafb;
+      }
+    }
+  }
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.numpadButton {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  text-align: center;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+}
+
+.payButton {
+  background-color: #14b8a6;
+  color: white;
+  grid-row: span 2;
+  border: none;
+
+  &:hover {
+    background-color: #0d9488;
+  }
+}
+
+.backButton {
+  background-color: $danger;
+  border: none;
+}

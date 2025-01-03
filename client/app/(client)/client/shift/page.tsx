@@ -17,7 +17,7 @@ type Person = {
   register: number;
   start: string;
   end: string;
-  total: string;
+  total_amount: number;
 };
 
 //nested data is ok, see accessorKeys in ColumnDef below
@@ -27,77 +27,77 @@ const data: Person[] = [
     register: 1,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 2,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 3,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 4,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 5,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 6,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 7,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 8,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 9,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 10,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
   {
     date: "2021-06-01",
     register: 11,
     start: "06:00",
     end: "14:00",
-    total: "8:00",
+    total_amount: 8,
   },
 ];
 
@@ -128,8 +128,8 @@ const Shift = () => {
         size: 150,
       },
       {
-        accessorKey: "total",
-        header: "Total",
+        accessorKey: "total_amount",
+        header: "Total Sales",
         size: 150,
       },
     ],

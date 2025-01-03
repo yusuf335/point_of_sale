@@ -45,7 +45,6 @@ const navItems: NavItems[] =
         { label: "Dashboard", href: "/client/dashboard", icon: RiHome3Fill },
         { label: "Shifts", href: "/client/shift", icon: MdWorkHistory },
         { label: "Products", href: "/client/products", icon: FaBoxes },
-        { label: "Orders", href: "/client/orders", icon: FaReceipt },
         { label: "Logout", href: "/client/settings", icon: IoLogOut },
       ];
 

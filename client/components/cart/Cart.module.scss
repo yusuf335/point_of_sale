@@ -1,11 +1,12 @@
 @import "@/app/styles/colors.module.scss";
 
 .cartItem {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: auto auto;
   justify-content: space-between;
+  row-gap: 2rem;
   align-items: center;
+
   margin-bottom: 1rem;
 
   padding: 1rem;
@@ -29,5 +30,22 @@
     h2 {
       color: $secondary-600;
     }
+  }
+
+  .price {
+    font-weight: 700;
+    color: $gray-600;
+  }
+
+  .totalPrice {
+    font-weight: 700;
+    color: $secondary-700;
+  }
+}
+
+/* md tablet*/
+@media (min-width: 768px) {
+  .cartItem {
+    grid-template-columns: auto auto auto auto;
   }
 }

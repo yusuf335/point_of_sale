@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
+  ref?: React.RefObject<HTMLInputElement>;
   label: string;
   rightLabelLink?: string;
   name: string;
@@ -14,14 +15,15 @@ interface InputFieldProps {
   labelStyle?: string;
   inputStyle?: string;
   autofocus?: boolean;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickRightlabel?: () => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
+  ref,
   label,
   rightLabelLink,
-
   name,
   type,
   placeholder,
@@ -32,6 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
   labelStyle,
   inputStyle,
   autofocus = false,
+  onBlur,
   onChange,
   onClickRightlabel,
 }) => {

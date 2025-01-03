@@ -89,23 +89,14 @@
           align-items: center;
           margin-bottom: 0.5rem;
 
+          hr {
+            display: none;
+          }
+
           h2 {
             font-size: 1rem;
             color: $white;
             margin: 0;
-          }
-        }
-
-        .cartTotalActions {
-          // display: flex;
-          // justify-content: space-between;
-          // align-items: center;
-          // gap: 1rem;
-
-          .removeCartIcon {
-            color: $danger;
-            padding: 0.5rem;
-            cursor: pointer;
           }
         }
       }
@@ -150,6 +141,11 @@
             align-items: flex-end;
             gap: 1rem;
             margin-bottom: 0.5rem;
+
+            hr {
+              display: block;
+              width: 100%;
+            }
             h2 {
               color: $secondary;
             }
