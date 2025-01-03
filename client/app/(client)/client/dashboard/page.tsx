@@ -1,10 +1,13 @@
 "use client";
+import { useState } from "react";
 import InputField from "@/components/ui/Input/InputField";
 import styles from "./page.module.scss";
-import { FaShoppingCart } from "react-icons/fa";
+
 import Button from "@/components/ui/button/Button";
 import CartItem from "@/components/cart/CartItem";
 import useOrientation from "@/app/utils/useOrientation";
+
+import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
 
 interface CartItem {
   id: number;
@@ -139,6 +142,12 @@ const cart: CartItem[] = [
 export default function Home() {
   const isLandscape = useOrientation();
 
+  const [search, setSearch] = useState("");
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   if (isLandscape) {
     return (
       <div className={styles.container}>
@@ -156,16 +165,25 @@ export default function Home() {
           label="Search Product"
           placeholder="Search Product with name or id"
           type="text"
-          value=""
-          onChange={() => {}}
+          value={search}
+          onChange={handleSearchChange}
+          autofocus={true}
         />
       </div>
 
       {/* Cart Items */}
       <div className={styles.cartItems}>
         <div className={styles.cartItemHeader}>
-          <FaShoppingCart size="1.5rem" className={styles.cartIcon} />
-          <h2>Cart</h2>
+          <div className={styles.cartHeaderTitle}>
+            <MdShoppingCart size="1.6rem" className={styles.cartIcon} />
+            <h2>Cart Items</h2>
+          </div>
+          <div>
+            <MdRemoveShoppingCart
+              size="1.6rem"
+              className={styles.emptyCartIcon}
+            />
+          </div>
         </div>
         <hr />
 
@@ -180,11 +198,11 @@ export default function Home() {
           {/* Cart Total and Payment */}
           <div className={styles.cartTotal}>
             <div className={styles.cartTotalAmount}>
+              <h2>Order ID: #123</h2>
               <h2>Total Items: 10</h2>
               <h2>Total Amount: $300</h2>
             </div>
             <div className={styles.cartTotalActions}>
-              <Button label="Empty Cart" variant="danger" />
               <Button label="Pay" />
             </div>
           </div>

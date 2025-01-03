@@ -13,6 +13,7 @@ interface InputFieldProps {
   helperText?: string;
   labelStyle?: string;
   inputStyle?: string;
+  autofocus?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickRightlabel?: () => void;
 }
@@ -30,6 +31,7 @@ const InputField: React.FC<InputFieldProps> = ({
   error = false,
   labelStyle,
   inputStyle,
+  autofocus = false,
   onChange,
   onClickRightlabel,
 }) => {
@@ -43,6 +45,7 @@ const InputField: React.FC<InputFieldProps> = ({
         type={type}
         placeholder={placeholder}
         required
+        autoFocus={autofocus}
         onChange={onChange}
         className={`${styles.inputFeild} ${
           error ? styles.error : ""

@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
@@ -9,6 +11,20 @@ interface ChangePasswordProps {
 
 const ChangePassword = ({ token }: ChangePasswordProps) => {
   console.log(token);
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPassword(e.target.value);
+  };
+
   return (
     <>
       {/* Welcome Text */}
@@ -28,9 +44,10 @@ const ChangePassword = ({ token }: ChangePasswordProps) => {
             label="New Password"
             type="password"
             placeholder="Enter new password"
-            value=""
+            value={password}
             error={false}
             helperText="Email is required"
+            onChange={handlePasswordChange}
           />
 
           <InputField
@@ -38,9 +55,10 @@ const ChangePassword = ({ token }: ChangePasswordProps) => {
             label="Confirm Password"
             type="password"
             placeholder="Enter confirm password"
-            value=""
+            value={confirmPassword}
             error={false}
             helperText="Email is required"
+            onChange={handleConfirmPasswordChange}
           />
 
           <div>

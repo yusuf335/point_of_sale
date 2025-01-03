@@ -1,7 +1,7 @@
 import Login from "@/components/forms/auth/Login";
 import Signup from "@/components/forms/auth/Signup";
-import ForgotPassword from "@/components/forms/auth/forgotPassword";
-import ChangePassword from "@/components/forms/auth/changePassword";
+import ForgotPassword from "@/components/forms/auth/ForgotPassword";
+import ChangePassword from "@/components/forms/auth/ChangePassword";
 
 interface AuthProps {
   params: Promise<{

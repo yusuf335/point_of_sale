@@ -17,6 +17,7 @@ import { PiChartDonutFill } from "react-icons/pi";
 import { IoLogOut, IoStorefront } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { BsBuildingsFill } from "react-icons/bs";
+import { MdWorkHistory } from "react-icons/md";
 
 interface NavItems {
   label: string;
@@ -42,11 +43,9 @@ const navItems: NavItems[] =
       ]
     : [
         { label: "Dashboard", href: "/client/dashboard", icon: RiHome3Fill },
-        { label: "Report", href: "/client/dashboard", icon: PiChartDonutFill },
-        { label: "Registers", href: "/client/dashboard", icon: FaCashRegister },
+        { label: "Shifts", href: "/client/shift", icon: MdWorkHistory },
         { label: "Products", href: "/client/products", icon: FaBoxes },
         { label: "Orders", href: "/client/orders", icon: FaReceipt },
-        { label: "Profile", href: "/client/settings", icon: RiUser3Fill },
         { label: "Logout", href: "/client/settings", icon: IoLogOut },
       ];
 

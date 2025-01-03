@@ -1,9 +1,17 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <>
       {/* Welcome Text */}
@@ -23,9 +31,10 @@ const ForgotPassword = () => {
             label="Email"
             type="email"
             placeholder="Enter email address"
-            value=""
+            value={email}
             error={false}
             helperText="Email is required"
+            onChange={handleEmailChange}
           />
 
           <div>

@@ -32,6 +32,10 @@ const Login = () => {
     router.push("/auth/forgot-password");
   };
 
+  const handleLogin = () => {
+    router.push("/client/dashboard");
+  };
+
   return (
     <>
       {/* Welcome Text */}
@@ -68,9 +72,9 @@ const Login = () => {
             onChange={handlePasswordChange}
             icon={
               showPassword ? (
-                <PiEyeSlash size="1.5rem" onClick={handelShowPassword} />
-              ) : (
                 <PiEyeLight size="1.5rem" onClick={handelShowPassword} />
+              ) : (
+                <PiEyeSlash size="1.5rem" onClick={handelShowPassword} />
               )
             }
             rightLabelLink="Forgot password?"
@@ -84,6 +88,7 @@ const Login = () => {
                 size="small"
                 type="submit"
                 variant="primary"
+                onClick={handleLogin}
               />
             </div>
             <div className={styles.authLink}>
