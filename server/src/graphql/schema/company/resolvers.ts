@@ -1,32 +1,37 @@
 import { Resolvers } from "../../types";
+import { withErrorHandling } from "../../../utils/withErrorHandling";
 
 export const companyResolver: Resolvers = {
   Query: {
     // Get a company by ID
-    company: async (_, __, { userInfo, dataSources }) => {
+    company: withErrorHandling(async (_, __, { userInfo, dataSources }) => {
       return dataSources.companyAPI.getCompany(userInfo.userId);
-    },
+    }),
 
     // Get all companies
-    companies: async (_, __, { dataSources }) => {
-      return dataSources.companyAPI.getCompanies();
-    },
+    companies: withErrorHandling(async (_, __, { dataSources }) => {
+      return await dataSources.companyAPI.getCompanies();
+    }),
   },
 
   Mutation: {
     // Create a new company
-    createCompany: async (_, { name, phone, address }, { dataSources }) => {
-      return dataSources.companyAPI.createCompany(name, phone, address);
-    },
+    createCompany: withErrorHandling(
+      async (_, { name, phone, address }, { dataSources }) => {
+        return dataSources.companyAPI.createCompany(name, phone, address);
+      }
+    ),
 
     // Update company
-    updateCompany: async (_, { id, name, phone, address }, { dataSources }) => {
-      return dataSources.companyAPI.updateCompany(id, name, phone, address);
-    },
+    updateCompany: withErrorHandling(
+      async (_, { id, name, phone, address }, { dataSources }) => {
+        return dataSources.companyAPI.updateCompany(id, name, phone, address);
+      }
+    ),
 
     // Delete company
-    deleteCompany: async (_, { id }, { dataSources }) => {
+    deleteCompany: withErrorHandling(async (_, { id }, { dataSources }) => {
       return dataSources.companyAPI.deleteCompany(id);
-    },
+    }),
   },
 };

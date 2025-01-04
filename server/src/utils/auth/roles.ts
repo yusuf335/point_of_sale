@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { UserServices } from "../../services/user.services";
 
 export const authorizeRoles = (role: string) => {
   return (req: Request, res: Response, next: NextFunction) => {

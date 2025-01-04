@@ -16,9 +16,15 @@ export type DataSourcesContext = {
     registerAPI: RegisterService;
     cartItemAPI: CartItemService;
   };
-  userInfo: {
+  userInfo?: {
+    // Make userInfo optional
     userId: number;
     role: string;
     isActive: boolean;
+  };
+  error?: {
+    message: string;
+    code: string;
+    statusCode: number;
   };
 };

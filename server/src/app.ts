@@ -10,6 +10,7 @@ import cors from "cors";
 import http from "http";
 import typeDefs from "./graphql/schema";
 import resolvers from "./graphql/resolvers";
+import { CustomError } from "./utils/customError";
 
 // GraphQL Context
 import { graphQLContext } from "./utils/graphQLContext";
@@ -33,6 +34,13 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   formatError: (error: GraphQLError) => {
     // Default fallback for unexpected errors
+    if (error.originalError instanceof CustomError) {
+      return {
+        message: error.message,
+        code: error.originalError.code,
+        statusCode: error.originalError.statusCode,
+      };
+    }
 
     return {
       message: error.message,
