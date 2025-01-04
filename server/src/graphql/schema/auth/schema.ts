@@ -6,7 +6,14 @@ export const AuthTypeDefs = gql`
   }
 
   type Mutation {
-    signup(name: String!, email: String!, password: String!): Auth
+    signup(
+      name: String!
+      email: String!
+      password: String!
+      companyName: String!
+      companyAddress: String!
+      companyPhone: String!
+    ): Auth
     forgotPassword(email: String!): Boolean
   }
 

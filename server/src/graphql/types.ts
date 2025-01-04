@@ -257,6 +257,9 @@ export type MutationForgotPasswordArgs = {
 
 
 export type MutationSignupArgs = {
+  companyAddress: Scalars['String']['input'];
+  companyName: Scalars['String']['input'];
+  companyPhone: Scalars['String']['input'];
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -728,7 +731,7 @@ export type MutationResolvers<ContextType = DataSourcesContext, ParentType exten
   deleteStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationDeleteStoreArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   forgotPassword?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationForgotPasswordArgs, 'email'>>;
-  signup?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignupArgs, 'email' | 'name' | 'password'>>;
+  signup?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignupArgs, 'companyAddress' | 'companyName' | 'companyPhone' | 'email' | 'name' | 'password'>>;
   updateCartItem?: Resolver<Maybe<ResolversTypes['CartItem']>, ParentType, ContextType, RequireFields<MutationUpdateCartItemArgs, 'id' | 'name' | 'order' | 'price' | 'quantity' | 'store'>>;
   updateCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'company' | 'id'>>;
   updateCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationUpdateCompanyArgs, 'address' | 'id' | 'name' | 'phone'>>;

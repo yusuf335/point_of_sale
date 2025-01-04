@@ -128,7 +128,7 @@ export class AuthServices extends DataSource {
       isActive: newUser.isActive,
     });
 
-    return { jwtToken };
+    return { jwtToken, ...newUser };
   }
 
   // Resend verification email

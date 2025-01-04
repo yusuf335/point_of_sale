@@ -5,6 +5,21 @@ import { useState } from "react";
 import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
+import { gql, useMutation } from "@apollo/client";
+import {
+  Mutation,
+  MutationCreateUserArgs,
+} from "@/app/lib/__generated__/graphql";
+
+const CREATE_USER = gql`
+  mutation CreateUser($name: String!, $email: String!, $password: String!) {
+    createUser(name: $name, email: $email, password: $password) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -13,6 +28,29 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [createUser, { loading, error: mutationError }] = useMutation<
+    Mutation,
+    MutationCreateUserArgs
+  >(CREATE_USER);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError(true);
+      return;
+    }
+    try {
+      const { data } = await createUser({
+        variables: { name, email, password },
+      });
+      if (data) {
+        // Handle successful user creation (e.g., redirect to login page)
+      }
+    } catch (err) {
+      // Handle error
+    }
+  };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

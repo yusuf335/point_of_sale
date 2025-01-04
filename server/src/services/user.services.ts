@@ -144,6 +144,26 @@ export class UserServices extends DataSource {
     });
   }
 
+  // Get users by Company
+  async updateUsersByCompany(
+    userId: number,
+    companyId: number
+  ): Promise<UserEntity> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+
+    const company = await this.companyRepo.findOne({
+      where: { id: companyId },
+    });
+
+    if (!user) {
+      throw new CustomError("User not found", "NOT_FOUND", 404);
+    }
+
+    user.company = company;
+
+    return await this.userRepo.save(user);
+  }
+
   // Get users by store
   async getUsersByStore(storeId: number): Promise<UserEntity[]> {
     return await this.userRepo.find({
