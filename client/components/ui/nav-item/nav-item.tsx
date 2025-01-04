@@ -5,12 +5,13 @@ interface NavItemProps {
   label: string;
   href: string;
   icon?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const NavItem = ({ label, href, icon }: NavItemProps) => {
+const NavItem = ({ label, href, icon, onClick }: NavItemProps) => {
   return (
     <>
-      <Link href={href}>
+      <Link href={href} onClick={onClick}>
         <div className={styles.navItem}>
           {icon}
           {label}

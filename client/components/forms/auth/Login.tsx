@@ -2,12 +2,22 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { gql, useLazyQuery } from "@apollo/client";
+import { Query, QueryLoginArgs } from "@/app/lib/__generated__/graphql";
 
 import styles from "./AuthForm.module.scss";
 import InputField from "@/components/ui/Input/InputField";
 import Button from "@/components/ui/button/Button";
 
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
+
+const LOGIN_QUERY = gql`
+  query Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      jwtToken
+    }
+  }
+`;
 
 const Login = () => {
   const router = useRouter();
@@ -16,40 +26,40 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const [executeLogin, { loading, data }] = useLazyQuery<Query, QueryLoginArgs>(
+    LOGIN_QUERY,
+    { fetchPolicy: "network-only" } // Ensure no cached data is used
+  );
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const handleLogin = async () => {
+    try {
+      const response = await executeLogin({
+        variables: { email, password },
+      });
 
-  const handelShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
+      const token = response.data?.login?.jwtToken;
 
-  const handleForgotPassword = () => {
-    router.push("/auth/forgot-password");
-  };
-
-  const handleLogin = () => {
-    router.push("/client/dashboard");
+      if (token) {
+        document.cookie = `token=${token}; path=/`; // Store the token in cookies
+        router.push("/client/dashboard");
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(true);
+    }
   };
 
   return (
     <>
-      {/* Welcome Text */}
       <div className={styles.authContainer}>
-        {/* Form */}
-
         <div className={styles.authForm}>
-          {/* Welcome Text */}
           <div className={styles.welcomeText}>
             <h4>Welcome back!</h4>
             <p>Sign in to continue</p>
           </div>
 
-          {/* Form starts from here */}
           <InputField
             name="email"
             label="Email"
@@ -57,8 +67,10 @@ const Login = () => {
             placeholder="Enter email address"
             value={email}
             error={error}
-            helperText="Email is required"
-            onChange={handleEmailChange}
+            helperText={
+              error ? "Invalid email or password" : "Email is required"
+            }
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <InputField
@@ -69,16 +81,22 @@ const Login = () => {
             helperText="Password is required"
             value={password}
             error={error}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             icon={
               showPassword ? (
-                <PiEyeLight size="1.5rem" onClick={handelShowPassword} />
+                <PiEyeLight
+                  size="1.5rem"
+                  onClick={() => setShowPassword(false)}
+                />
               ) : (
-                <PiEyeSlash size="1.5rem" onClick={handelShowPassword} />
+                <PiEyeSlash
+                  size="1.5rem"
+                  onClick={() => setShowPassword(true)}
+                />
               )
             }
             rightLabelLink="Forgot password?"
-            onClickRightlabel={handleForgotPassword}
+            onClickRightlabel={() => router.push("/auth/forgot-password")}
           />
 
           <div>
@@ -89,6 +107,7 @@ const Login = () => {
                 type="submit"
                 variant="primary"
                 onClick={handleLogin}
+                disabled={loading}
               />
             </div>
             <div className={styles.authLink}>
