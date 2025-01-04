@@ -1,10 +1,8 @@
 @import "@/app/styles/colors.module.scss";
 
-/* Default Button Styling */
-.btn {
+/* Placeholder for shared styles */
+%btn_base {
   margin-top: 2rem;
-  height: 2.25rem;
-  width: 100%;
   border-radius: 0.25rem;
   border-width: 1px;
   outline: 0 !important;
@@ -18,11 +16,16 @@
   justify-content: center;
   align-items: center;
 
-  /* Disabled State */
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
   }
+}
+
+/* Default Button Styling */
+.btn {
+  @extend %btn_base;
+  width: 100%; // Default width, can override via props
 }
 
 /* Variants */
@@ -73,27 +76,37 @@
 /* Outline Style */
 .btn_outline {
   background-color: transparent;
-  color: inherit; /* Matches text color from variant */
-  //   border: 1px solid currentColor;
+  border: 1px solid currentColor;
 
   &:hover {
     color: #fff; /* Adjust text color for contrast */
+    background-color: currentColor;
   }
 }
 
 /* Sizes */
 .btn_small {
-  padding: 0.75rem 0.47rem;
+  height: 2rem;
+  min-width: 3rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.2;
 }
 
 .btn_medium {
-  padding: 10px 20px;
-  font-size: 16px;
+  height: 2.5rem;
+  min-width: 4rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .btn_large {
-  padding: 15px 30px;
-  font-size: 20px;
+  height: 3rem;
+  min-width: 5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.25rem;
+  line-height: 1.75;
 }
 
 /* Icon Styling */
@@ -102,8 +115,7 @@
   align-items: center;
   margin: 0 0.5rem;
 
-  /* Adjust size if needed */
   svg {
-    font-size: 1.25rem;
+    font-size: 1.25rem; // Icon size, adjust as needed
   }
 }

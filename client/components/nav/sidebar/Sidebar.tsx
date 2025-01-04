@@ -55,7 +55,7 @@ const SideBar = () => {
       <div className={styles.sidebar}>
         {/* Logo */}
         <Link href={"/client/dashboard"}>
-          <Image src={Logo} alt="Logo" />
+          <Image src={Logo} alt="Logo" placeholder="empty" />
         </Link>
         {/* Nav */}
         <div className={styles.nav}>

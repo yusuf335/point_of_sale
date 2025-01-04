@@ -3,6 +3,10 @@
 .container {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track);
+  }
   overflow: hidden;
   margin: 0 auto;
   padding: 1rem 1rem 0 1rem;
@@ -64,6 +68,7 @@
       overflow: hidden;
       .cartItemsList {
         width: 100%;
+        padding-right: 0.5rem;
         height: 56vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -129,6 +134,7 @@
 
         .cartTotal {
           position: sticky;
+          height: 100%;
           width: 20rem;
           margin: 0.5rem 0;
           border-radius: 0.5rem;

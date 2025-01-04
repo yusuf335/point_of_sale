@@ -5,7 +5,6 @@ import styles from "./page.module.scss";
 
 import Button from "@/components/ui/button/Button";
 import CartItem from "@/components/cart/CartItem";
-import useOrientation from "@/app/utils/useOrientation";
 
 import PaymentModal from "@/components/payment/PaymentModal";
 
@@ -142,8 +141,6 @@ const cart: CartItem[] = [
 ];
 
 export default function Home() {
-  const isLandscape = useOrientation();
-
   const [search, setSearch] = useState("");
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
 
@@ -151,13 +148,10 @@ export default function Home() {
     setSearch(e.target.value);
   };
 
-  if (isLandscape) {
-    return (
-      <div className={styles.container}>
-        <h1>Please use the app in portrait mode</h1>
-      </div>
-    );
-  }
+  // Handle on blur\
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>): boolean => {
+    return !isPaymentModalOpen;
+  };
 
   return (
     <div className={styles.container}>
@@ -170,6 +164,7 @@ export default function Home() {
           type="text"
           value={search}
           onChange={handleSearchChange}
+          onBlur={handleBlur}
           autofocus={true}
         />
       </div>
@@ -179,7 +174,7 @@ export default function Home() {
         <div className={styles.cartItemHeader}>
           <div className={styles.cartHeaderTitle}>
             <MdShoppingCart size="1.6rem" className={styles.cartIcon} />
-            <h2>Cart Items</h2>
+            <h2>Cart Items </h2>
           </div>
           <div>
             <MdRemoveShoppingCart

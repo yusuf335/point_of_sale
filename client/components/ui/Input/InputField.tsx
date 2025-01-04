@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
@@ -15,7 +15,7 @@ interface InputFieldProps {
   labelStyle?: string;
   inputStyle?: string;
   autofocus?: boolean;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void | boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickRightlabel?: () => void;
 }
@@ -38,6 +38,17 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   onClickRightlabel,
 }) => {
+  const inputRef = ref || useRef<HTMLInputElement>(null);
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (onBlur) {
+      const shouldRefocus = onBlur(event); // Call the provided onBlur handler
+      if (shouldRefocus && inputRef.current) {
+        inputRef.current.focus(); // Refocus the input if necessary
+      }
+    }
+  };
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={name} className={`${styles.inputLabel} ${labelStyle}`}>
@@ -49,7 +60,9 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         required
         autoFocus={autofocus}
+        ref={inputRef}
         onChange={onChange}
+        onBlur={handleBlur}
         className={`${styles.inputFeild} ${
           error ? styles.error : ""
         } ${inputStyle}`}

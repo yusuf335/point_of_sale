@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import Image, { StaticImageData } from "next/image";
 
@@ -62,9 +61,7 @@ const AuthLayout = ({
           <div className={styles.logoContainer}>
             <Image src={logo} alt="logo" className={styles.logo} />
           </div>
-          <div className={styles.form}>
-            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-          </div>
+          <div className={styles.form}>{children}</div>
         </div>
       </div>
     </div>

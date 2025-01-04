@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable,
