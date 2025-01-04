@@ -9,7 +9,7 @@ import styles from "@/app/styles/layout.module.scss";
 import Logo from "@/public/images/logo-small-white.png";
 
 // Import Nav Item Component
-import NavItem from "@/components/ui/nav-item/nav-item";
+import NavItem from "@/app/components/ui/nav-item/nav-item";
 
 import type { IconType } from "react-icons";
 

@@ -1,6 +1,6 @@
 import { IoIosRemoveCircle } from "react-icons/io";
 import styles from "./Cart.module.scss";
-import QuantityInput from "@/components/ui/quantity/QuantityInput";
+import QuantityInput from "@/app/components/ui/quantity/QuantityInput";
 
 interface CartItemProps {
   id: number;

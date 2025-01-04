@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/app/styles/error.module.scss";
 import not_found from "@/public/images/not_found.webp";
-import Button from "@/components/ui/button/Button";
+import Button from "@/app/components/ui/button/Button";
 
 export default function NotFound() {
   const router = useRouter();

@@ -208,7 +208,7 @@ export class AuthServices extends DataSource {
 
     // Check if user exists
     if (!user) {
-      throw new Error("User not found");
+      throw new CustomError("User not found", "NOT_FOUND", 404);
     }
 
     // Generate token
@@ -239,7 +239,7 @@ export class AuthServices extends DataSource {
 
     // Check if user exists
     if (!user) {
-      throw new CustomError("Invalid token", "UNAUTHORIZED", 401);
+      throw new CustomError("Invalid token", "INVALID_RESET_TOKEN", 401);
     }
 
     // Hash password

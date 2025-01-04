@@ -2,8 +2,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./AuthForm.module.scss";
-import InputField from "@/components/ui/Input/InputField";
-import Button from "@/components/ui/button/Button";
+import InputField from "@/app/components/ui/Input/InputField";
+import Button from "@/app/components/ui/button/Button";
 
 interface ChangePasswordProps {
   token: string;

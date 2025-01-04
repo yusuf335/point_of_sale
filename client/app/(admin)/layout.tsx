@@ -7,7 +7,7 @@ import styles from "@/app/styles/layout.module.scss";
 import GraphQlClient from "@/app/graphql-client";
 
 // Import SideBar
-import SideBar from "@/components/nav/sidebar/Sidebar";
+import SideBar from "@/app/components/nav/sidebar/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

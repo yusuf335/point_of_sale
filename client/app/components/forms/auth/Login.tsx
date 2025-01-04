@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { gql, useLazyQuery } from "@apollo/client";
-import { Query, QueryLoginArgs } from "@/app/lib/__generated__/graphql";
+import { Query, QueryLoginArgs } from "@/app/lib/__generated__/types";
 
 import styles from "./AuthForm.module.scss";
-import InputField from "@/components/ui/Input/InputField";
-import Button from "@/components/ui/button/Button";
+import InputField from "@/app/components/ui/Input/InputField";
+import Button from "@/app/components/ui/button/Button";
 
 import { PiEyeSlash, PiEyeLight } from "react-icons/pi";
 
@@ -26,7 +26,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [executeLogin, { loading, data }] = useLazyQuery<Query, QueryLoginArgs>(
+  const [executeLogin, { loading }] = useLazyQuery<Query, QueryLoginArgs>(
     LOGIN_QUERY,
     { fetchPolicy: "network-only" } // Ensure no cached data is used
   );
@@ -103,7 +103,7 @@ const Login = () => {
             <div>
               <Button
                 label="Login"
-                size="small"
+                size="medium"
                 type="submit"
                 variant="primary"
                 onClick={handleLogin}

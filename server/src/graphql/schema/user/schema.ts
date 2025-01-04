@@ -27,7 +27,7 @@ export const UserTypeDefs = gql`
       "Enter User Role"
       role: UserRole!
       "Enter User Store"
-      storeId: Int!
+      storeId: Int
     ): User
 
     "Update User for Admin"

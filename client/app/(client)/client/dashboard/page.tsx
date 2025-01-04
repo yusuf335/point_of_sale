@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import InputField from "@/components/ui/Input/InputField";
+import InputField from "@/app/components/ui/Input/InputField";
 import styles from "./page.module.scss";
 
-import Button from "@/components/ui/button/Button";
-import CartItem from "@/components/cart/CartItem";
+import Button from "@/app/components/ui/button/Button";
+import CartItem from "@/app/components/cart/CartItem";
 
-import PaymentModal from "@/components/payment/PaymentModal";
+import PaymentModal from "@/app/components/payment/PaymentModal";
 
 import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
 

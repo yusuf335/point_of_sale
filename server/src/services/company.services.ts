@@ -4,6 +4,7 @@ import { AppDataSource } from "../utils/database";
 
 // Import Entity
 import { CompanyEntity } from "../model/company.entity";
+import { CustomError } from "../utils/customError";
 
 export class CompanyServices extends DataSource {
   private static instance: CompanyServices;
@@ -27,12 +28,39 @@ export class CompanyServices extends DataSource {
     phone: string,
     address: string
   ): Promise<CompanyEntity> {
+    const existingCompany = await this.companyRepo.findOne({
+      where: [{ name }, { phone }],
+    });
+
+    // Check if company already exists
+    if (existingCompany && existingCompany.name === name) {
+      throw new CustomError(
+        `A company with the name ${name} already exists.`,
+        "CREATE_COMPANY_DUPLICATE",
+        400
+      );
+    }
+
+    // Check if company phone number already exists
+    if (existingCompany && existingCompany.phone === phone) {
+      console.log(phone);
+      throw new CustomError(
+        `A company with the phone number ${phone} already exists.`,
+        "CREATE_COMPANY_DUPLICATE",
+        400
+      );
+    }
+
     const company = new CompanyEntity();
     company.name = name;
     company.phone = phone;
     company.address = address;
 
-    return await this.companyRepo.save(company);
+    try {
+      return await this.companyRepo.save(company);
+    } catch (error) {
+      throw new CustomError(error.message, "CREATE_COMPANY_FAILED", 400);
+    }
   }
 
   //   Update a company details

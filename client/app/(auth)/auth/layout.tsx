@@ -7,7 +7,7 @@ import Image, { StaticImageData } from "next/image";
 import styles from "./layout.module.scss";
 
 // Import AuthSlide Component
-import AuthSlide from "@/components/slides/authPage/AuthSlide";
+import AuthSlide from "@/app/components/slides/authPage/AuthSlide";
 
 // Images
 import store from "@/public/authSlide/store.webp";

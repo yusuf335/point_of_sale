@@ -18,6 +18,25 @@
     }
   }
 
+  .errorContainer,
+  .successContainer {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: $white;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+
+    &.errorContainer {
+      background-color: $danger;
+    }
+
+    &.successContainer {
+      background-color: $success;
+    }
+  }
+
   .authForm {
     .authLink {
       margin-top: 2rem;
@@ -27,8 +46,8 @@
       font-weight: 400;
       text-align: center;
       color: #2b2b2b;
-      margin-top: 2rem;
       cursor: pointer;
+
       a {
         font-weight: 500;
         color: #3062e3;

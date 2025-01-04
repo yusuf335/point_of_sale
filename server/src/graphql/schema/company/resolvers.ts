@@ -1,5 +1,6 @@
 import { Resolvers } from "../../types";
 import { withErrorHandling } from "../../../utils/withErrorHandling";
+import { CustomError } from "../../../utils/customError";
 
 export const companyResolver: Resolvers = {
   Query: {
@@ -17,8 +18,28 @@ export const companyResolver: Resolvers = {
   Mutation: {
     // Create a new company
     createCompany: withErrorHandling(
-      async (_, { name, phone, address }, { dataSources }) => {
-        return dataSources.companyAPI.createCompany(name, phone, address);
+      async (_, { name, phone, address }, { userInfo, dataSources }) => {
+        try {
+          const company = await dataSources.companyAPI.createCompany(
+            name,
+            phone,
+            address
+          );
+
+          // Update user with company ID
+          const user = await dataSources.userAPI.updateUser(
+            userInfo.userId,
+            userInfo.name,
+            userInfo.email,
+            userInfo.role,
+            company.id,
+            userInfo.storeId
+          );
+
+          return company;
+        } catch (error) {
+          throw new CustomError(error.message, error.code, error.statusCode);
+        }
       }
     ),
 

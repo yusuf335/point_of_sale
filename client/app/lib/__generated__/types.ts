@@ -204,7 +204,7 @@ export type MutationCreateUserArgs = {
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   role: UserRole;
-  storeId: Scalars['Int']['input'];
+  storeId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -550,3 +550,27 @@ export enum UserRole {
   Cashier = 'CASHIER',
   Manager = 'MANAGER'
 }
+
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword?: boolean | null };
+
+export type LoginQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type LoginQuery = { __typename?: 'Query', login?: { __typename?: 'Auth', jwtToken?: string | null } | null };
+
+export type SingUpMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type SingUpMutation = { __typename?: 'Mutation', signup?: { __typename?: 'Auth', jwtToken?: string | null } | null };

@@ -14,13 +14,13 @@ export class CompanyEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
   address: string;
 
-  @Column()
+  @Column({ unique: true })
   phone: string;
 
   @OneToMany(() => StoreEntity, (store) => store.company, {
