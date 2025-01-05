@@ -18,7 +18,7 @@ export const sendAccountVerificationEmail = async (
 
     // Generate the HTML content by injecting dynamic data
     const html = template({
-      verificationLink: `${process.env.DOMAIN}/verify-account?token=${token}`,
+      verificationLink: `${process.env.CLIENT_URL}/auth/verify-account/${token}`,
     });
     // Send email
     const options = mailOptions(recipientEmail, subject, undefined, html);

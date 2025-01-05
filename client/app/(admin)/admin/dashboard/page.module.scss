@@ -1,0 +1,36 @@
+@import "@/app/styles/colors.module.scss";
+
+.statContainer {
+  margin-top: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* xs */
+@media (min-width: 475px) {
+}
+/* sm */
+@media (min-width: 640px) {
+}
+
+/* md tablet*/
+@media (min-width: 768px) {
+  .statContainer {
+    flex-direction: row;
+  }
+
+  .chartContainer {
+    padding: 2rem;
+  }
+}
+
+/* lg laptop */
+@media (min-width: 1024px) {
+}
+
+/* xl */
+@media (min-width: 1280px) {
+}

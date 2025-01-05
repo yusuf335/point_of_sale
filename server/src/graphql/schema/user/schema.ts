@@ -9,10 +9,13 @@ export const UserTypeDefs = gql`
     users: [User]
 
     "Get all user by Company ID"
-    usersByCompany(companyId: Int!): [User]
+    usersByCompany: [User]
 
     "Get all user by store ID"
     usersByStore(storeId: Int!): [User]
+
+    "Get user role and status"
+    getUserRoleAndStatus: User
   }
 
   type Mutation {

@@ -1,0 +1,45 @@
+@import "@/app/styles/colors.module.scss";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: 1px solid #eaeaea;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(145deg, #f9f9f9, #ffffff);
+    box-shadow: 8px 8px 15px #d6d6d6, -8px -8px 15px #ffffff;
+  }
+}
+
+.icon {
+  font-size: 3rem;
+  color: $primary;
+  margin-bottom: 1rem;
+}
+
+.categoryName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  text-transform: capitalize;
+  margin: 0.5rem 0;
+}
+
+.productCount {
+  font-size: 1rem;
+  color: #666;
+  background-color: rgba(0, 123, 255, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}

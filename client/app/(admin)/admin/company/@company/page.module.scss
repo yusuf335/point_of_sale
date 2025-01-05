@@ -1,0 +1,18 @@
+@import "@/app/styles/colors.module.scss";
+
+.companyStyles {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  background-color: $white;
+  box-sizing: border-box;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  .companyCard {
+    padding: 2rem;
+  }
+}

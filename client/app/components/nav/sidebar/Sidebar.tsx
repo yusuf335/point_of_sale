@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useLoading } from "../../providers/loading-providers";
 import styles from "@/app/styles/layout.module.scss";
 
 // Import Logo
@@ -14,7 +15,7 @@ import NavItem from "@/app/components/ui/nav-item/nav-item";
 import type { IconType } from "react-icons";
 
 // Import icons
-import { RiHome3Fill, RiUser3Fill } from "react-icons/ri";
+import { RiHome3Fill } from "react-icons/ri";
 import { FaBoxes, FaReceipt, FaCashRegister } from "react-icons/fa";
 import { PiChartDonutFill } from "react-icons/pi";
 import { IoLogOut, IoStorefront } from "react-icons/io5";
@@ -26,24 +27,26 @@ interface NavItems {
   label: string;
   href: string;
   icon: IconType;
-  onClick?: () => void; // Optional onClick for logout
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-const user: string = "cashier";
+const user: string = "admin";
+const cashier: string = "cashier";
 
 const SideBar = () => {
   const router = useRouter();
+  const { setIsLoading } = useLoading();
 
   // Logout handler
-  const handleLogout = () => {
-    // Clear the token cookie
+  const handleLogout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
     document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    // Redirect to the login page
     router.push("/auth/login");
   };
 
   const navItems: NavItems[] =
-    user === "manager"
+    user === "admin"
       ? [
           { label: "Dashboard", href: "/admin/dashboard", icon: RiHome3Fill },
           { label: "Report", href: "/admin/dashboard", icon: PiChartDonutFill },
@@ -52,18 +55,20 @@ const SideBar = () => {
             href: "/admin/dashboard",
             icon: FaCashRegister,
           },
-          { label: "Products", href: "/admin/products", icon: FaBoxes },
-          { label: "Orders", href: "/admin/orders", icon: FaReceipt },
-          { label: "Company", href: "/admin/orders", icon: BsBuildingsFill },
-          { label: "Stores", href: "/admin/orders", icon: IoStorefront },
-          { label: "Employee", href: "/admin/orders", icon: FaPeopleGroup },
-          { label: "Profile", href: "/client/settings", icon: RiUser3Fill },
+          { label: "Categories", href: "/admin/categories", icon: FaBoxes },
+          { label: "Orders", href: "/admin/order", icon: FaReceipt },
+          { label: "Company", href: "/admin/company", icon: BsBuildingsFill },
+          { label: "Users", href: "/admin/users", icon: FaPeopleGroup },
           { label: "Logout", href: "#", icon: IoLogOut, onClick: handleLogout },
         ]
       : [
-          { label: "Dashboard", href: "/client/dashboard", icon: RiHome3Fill },
-          { label: "Shifts", href: "/client/shift", icon: MdWorkHistory },
-          { label: "Products", href: "/client/products", icon: FaBoxes },
+          {
+            label: "Dashboard",
+            href: `/${cashier}/dashboard`,
+            icon: RiHome3Fill,
+          },
+          { label: "Shifts", href: `/${cashier}/shift`, icon: MdWorkHistory },
+          { label: "Products", href: `/${cashier}/products`, icon: FaBoxes },
           { label: "Logout", href: "#", icon: IoLogOut, onClick: handleLogout },
         ];
 

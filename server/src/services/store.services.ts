@@ -42,7 +42,6 @@ export class StoreServices extends DataSource {
     store.name = name;
     store.address = address;
     store.phone = phone;
-    store.maxRegisters = maxRegisters;
     store.company = await this.companyRepo.findOne({
       where: { id: companyId },
     });
@@ -65,7 +64,6 @@ export class StoreServices extends DataSource {
     store.name = name;
     store.address = address;
     store.phone = phone;
-    store.maxRegisters = maxRegisters;
 
     return await this.storeRepo.save(store);
   }
@@ -94,7 +92,12 @@ export class StoreServices extends DataSource {
   }
 
   //   Get all stores
-  async getStores(): Promise<StoreEntity[]> {
-    return await this.storeRepo.find({ relations: ["company"] });
+  async getStores(userId: number): Promise<StoreEntity[]> {
+    return await this.storeRepo
+      .createQueryBuilder("store")
+      .innerJoin("store.company", "company")
+      .innerJoin("company.users", "users")
+      .where("users.id = :id", { id: userId })
+      .getMany();
   }
 }

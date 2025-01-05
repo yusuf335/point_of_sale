@@ -38,14 +38,18 @@ const ForgotPassword = () => {
       const response = await forgotPassword({
         variables: { email },
       });
-
+      console.log(response.data?.forgotPassword);
       if (response.data?.forgotPassword) {
         setServerSuccess("Password reset link has been sent to your email");
       } else {
         setServerError("Failed to send password reset link. Please try again.");
       }
     } catch (err) {
-      setServerError("An unexpected error occurred");
+      if (err instanceof Error) {
+        setServerError(err.message || "An unexpected error occurred.");
+      } else {
+        setServerError("An unexpected error occurred.");
+      }
     }
   };
 
@@ -103,8 +107,8 @@ const ForgotPassword = () => {
           )}
 
           {serverSuccess && (
-            <div className={styles.sucessConatiner}>
-              <p>{serverError}</p>
+            <div className={styles.successContainer}>
+              <p>{serverSuccess}</p>
             </div>
           )}
 

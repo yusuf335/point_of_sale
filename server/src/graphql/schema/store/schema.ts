@@ -6,7 +6,7 @@ export const StoreTypeDefs = gql`
     store(id: Int!): Store
 
     "Get all Stores for a Company by Company ID"
-    stores(companyID: Int!): [Store]
+    stores: [Store]
   }
 
   type Mutation {

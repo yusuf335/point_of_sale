@@ -45,7 +45,7 @@ const Signup = () => {
 
       if (token) {
         document.cookie = `token=${token}; path=/`; // Store the token in cookies
-        router.push("/client/dashboard");
+        router.push("/cashier/dashboard");
       } else {
         setServerError("Failed to register. Please try again.");
       }

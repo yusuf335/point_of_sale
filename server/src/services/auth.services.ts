@@ -231,7 +231,7 @@ export class AuthServices extends DataSource {
   }
 
   // Reset password
-  async resetPassword(token: string, password: string) {
+  async changePassword(token: string, password: string) {
     const user = await this.userRepository
       .createQueryBuilder("user")
       .where("user.resetPasswordToken = :token", { token })

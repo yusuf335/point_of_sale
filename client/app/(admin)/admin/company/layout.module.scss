@@ -1,0 +1,19 @@
+@import "@/app/styles/colors.module.scss";
+
+.h2Centered {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: $secondary;
+    margin: 0.5rem auto 0;
+  }
+}

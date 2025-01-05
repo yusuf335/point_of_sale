@@ -2,6 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import { GraphQLError } from "graphql";
+import cookieParser from "cookie-parser";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
@@ -24,7 +25,14 @@ const app = express();
 const httpServer = http.createServer(app);
 
 // Middlewares
-app.use(cors<cors.CorsRequest>(), express.json());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL, // Your frontend URL
+    credentials: true, // Enable cookies to be sent
+  }),
+  express.json(),
+  cookieParser()
+);
 
 // Apollo Server Setup
 const server = new ApolloServer({

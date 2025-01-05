@@ -17,7 +17,7 @@ export const sendChangePasswordEmail = async (
 
     // Generate the HTML content by injecting dynamic data
     const html = template({
-      verificationLink: `${process.env.DOMAIN}/auth/change-password/token=${token}`,
+      verificationLink: `${process.env.CLIENT_URL}/auth/change-password/${token}`,
     });
     // Send email
     const options = mailOptions(recipientEmail, subject, undefined, html);

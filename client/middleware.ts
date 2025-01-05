@@ -2,36 +2,30 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export const config = {
-  matcher: ["/client/:path*", "/admin/:path*", "/auth/:path*"], // Specify the routes
+  matcher: ["/cashier/:path*", "/admin/:path*"], // Specify the routes
 };
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
-  const loginUrl = new URL("/auth/login", request.url);
-  const dashboardUrl = new URL("/client/dashboard", request.url);
-
-  // Handle requests to the login page
-  if (request.nextUrl.pathname.startsWith("/auth/login")) {
-    if (token) {
-      // Redirect to dashboard if already logged in
-      return NextResponse.redirect(dashboardUrl);
-    }
-    // Allow access to the login page if no token
+  // Exclude the login and root pages from middleware logic
+  if (
+    request.nextUrl.pathname.startsWith("/auth") ||
+    request.nextUrl.pathname === "/"
+  ) {
     return NextResponse.next();
   }
 
-  // Handle requests to protected routes
-  if (
-    request.nextUrl.pathname.startsWith("/client") ||
-    request.nextUrl.pathname.startsWith("/admin")
-  ) {
-    if (!token) {
-      // Redirect to login if no token
-      return NextResponse.redirect(loginUrl);
-    }
+  // Define the login page URL
+  const loginUrl = new URL("/auth/login", request.url);
+
+  // Define the dashboard page URL
+  const dashboardUrl = new URL("/cashier/dashboard", request.url);
+
+  // If no token, redirect to login
+  if (!token) {
+    return NextResponse.redirect(loginUrl);
   }
 
-  // Allow all other requests to proceed
   return NextResponse.next();
 }

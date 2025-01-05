@@ -30,7 +30,14 @@ const publicDataSources = {
 };
 
 export const graphQLContext = async ({ req }) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  // Get token from the request cookies
+  let token = undefined;
+
+  if (req.cookies) {
+    token = req.cookies.token;
+  } else {
+    token = req.headers.authorization?.split(" ")[1];
+  }
 
   if (!token) {
     return {

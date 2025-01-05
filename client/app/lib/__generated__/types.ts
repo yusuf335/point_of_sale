@@ -87,6 +87,7 @@ export type Company = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  changePassword?: Maybe<Scalars['Boolean']['output']>;
   /** Create a Cart Item */
   createCartItem?: Maybe<CartItem>;
   /** Create a Category for a Company */
@@ -137,6 +138,12 @@ export type Mutation = {
   updateStore?: Maybe<Store>;
   /** Update User for Admin */
   updateUser?: Maybe<User>;
+};
+
+
+export type MutationChangePasswordArgs = {
+  password: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 };
 
 
@@ -390,6 +397,8 @@ export type Query = {
   companies?: Maybe<Array<Maybe<Company>>>;
   /** Get a Company by ID */
   company?: Maybe<Company>;
+  /** Get user role and status */
+  getUserRoleAndStatus?: Maybe<User>;
   login?: Maybe<Auth>;
   /** Order by ID for a Store */
   order?: Maybe<Order>;
@@ -460,18 +469,8 @@ export type QueryStoreArgs = {
 };
 
 
-export type QueryStoresArgs = {
-  companyID: Scalars['Int']['input'];
-};
-
-
 export type QueryUserByIdArgs = {
   id?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryUsersByCompanyArgs = {
-  companyId: Scalars['Int']['input'];
 };
 
 
@@ -550,6 +549,29 @@ export enum UserRole {
   Cashier = 'CASHIER',
   Manager = 'MANAGER'
 }
+
+export type CompanyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CompanyQuery = { __typename?: 'Query', company?: { __typename?: 'Company', id: number, name?: string | null, address?: string | null, phone?: string | null } | null };
+
+export type StoresQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StoresQuery = { __typename?: 'Query', stores?: Array<{ __typename?: 'Store', name?: string | null, address?: string | null, phone?: string | null } | null> | null };
+
+export type UsersByCompanyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UsersByCompanyQuery = { __typename?: 'Query', usersByCompany?: Array<{ __typename?: 'User', name?: string | null, email?: string | null, role?: UserRole | null, isVerified?: boolean | null } | null> | null };
+
+export type ChangePasswordMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword?: boolean | null };
 
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String']['input'];

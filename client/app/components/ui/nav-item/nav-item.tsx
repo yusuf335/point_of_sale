@@ -5,7 +5,7 @@ interface NavItemProps {
   label: string;
   href: string;
   icon?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const NavItem = ({ label, href, icon, onClick }: NavItemProps) => {

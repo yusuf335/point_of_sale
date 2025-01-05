@@ -1,22 +1,12 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql", // Replace with your GraphQL endpoint
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("token"); // Replace with your token storage logic
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : "",
-    },
-  };
+  uri: process.env.GRAPHQL_API_URL || "http://localhost:4000/graphql",
+  credentials: "include", // Ensure cookies are sent
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 

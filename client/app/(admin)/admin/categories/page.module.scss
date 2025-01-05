@@ -1,0 +1,58 @@
+@import "@/app/styles/colors.module.scss";
+
+.categoryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.topControlContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 10rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 1rem;
+  background-color: $white;
+  transition: border-color 0.3s;
+
+  &:focus {
+    border-color: $primary;
+    outline: none;
+  }
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+}

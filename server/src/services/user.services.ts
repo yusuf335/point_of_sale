@@ -138,10 +138,16 @@ export class UserServices extends DataSource {
   }
 
   // Get users by Company
-  async getUsersByCompany(companyId: number): Promise<UserEntity[]> {
-    return await this.userRepo.find({
-      where: { company: { id: companyId } },
-    });
+  async getUsersByCompany(userId: number): Promise<UserEntity[]> {
+    const users = await this.userRepo
+      .createQueryBuilder("user")
+      .where(
+        "user.company = (SELECT u.company_id FROM user u WHERE u.id = :userId)",
+        { userId }
+      )
+      .getMany();
+
+    return users;
   }
 
   // Get users by Company

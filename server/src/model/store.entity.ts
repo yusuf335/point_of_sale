@@ -36,10 +36,6 @@ export class StoreEntity {
   @Column()
   phone: string;
 
-  // Maximum number of registers in the store
-  @Column({ type: "int" })
-  maxRegisters: number;
-
   // Many to One relationship with Company
   @ManyToOne(() => CompanyEntity, (company) => company.stores, {
     onDelete: "CASCADE",

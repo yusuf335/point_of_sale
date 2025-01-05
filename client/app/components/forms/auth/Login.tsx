@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLoading } from "../../providers/loading-providers";
 import { gql, useLazyQuery } from "@apollo/client";
 import { Query, QueryLoginArgs } from "@/app/lib/__generated__/types";
 
@@ -25,6 +26,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { setIsLoading } = useLoading();
 
   const [executeLogin, { loading }] = useLazyQuery<Query, QueryLoginArgs>(
     LOGIN_QUERY,
@@ -32,6 +34,7 @@ const Login = () => {
   );
 
   const handleLogin = async () => {
+    setIsLoading(true);
     try {
       const response = await executeLogin({
         variables: { email, password },
@@ -41,12 +44,14 @@ const Login = () => {
 
       if (token) {
         document.cookie = `token=${token}; path=/`; // Store the token in cookies
-        router.push("/client/dashboard");
+        setIsLoading(false);
+        router.push("/cashier/dashboard");
       } else {
+        setIsLoading(false);
         setError(true);
       }
     } catch (err) {
-      console.error("Login failed:", err);
+      setIsLoading(false);
       setError(true);
     }
   };
