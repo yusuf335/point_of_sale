@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useMemo } from "react";
 import Image, { StaticImageData } from "next/image";
 import {
   EmblaOptionsType,
@@ -31,37 +31,12 @@ type PropType = {
   options?: EmblaOptionsType;
 };
 
-const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
+const EmblaCarousel: React.FC<PropType> = React.memo(({ slides, options }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ delay: 5000 }),
   ]);
-  const tweenFactor = useRef(0);
+  const tweenFactor = useRef(TWEEN_FACTOR_BASE);
   const tweenNodes = useRef<HTMLElement[]>([]);
-
-  const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
-    const autoplay = emblaApi?.plugins()?.autoplay;
-    if (!autoplay) return;
-
-    const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-        ? autoplay.reset
-        : autoplay.stop;
-
-    resetOrStop();
-  }, []);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
-    emblaApi,
-    onNavButtonClick
-  );
-
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick,
-  } = usePrevNextButtons(emblaApi, onNavButtonClick);
 
   const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -71,46 +46,25 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     });
   }, []);
 
-  const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
-    tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
-  }, []);
-
   const tweenScale = useCallback(
     (emblaApi: EmblaCarouselType, eventName?: EmblaEventType) => {
-      const engine = emblaApi.internalEngine();
       const scrollProgress = emblaApi.scrollProgress();
       const slidesInView = emblaApi.slidesInView();
-      const isScrollEvent = eventName === "scroll";
 
       emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
-        let diffToTarget = scrollSnap - scrollProgress;
-        const slidesInSnap = engine.slideRegistry[snapIndex];
+        const diffToTarget = scrollSnap - scrollProgress;
+        const scale = numberWithinRange(
+          1 - Math.abs(diffToTarget * tweenFactor.current),
+          0,
+          1
+        ).toString();
 
-        slidesInSnap.forEach((slideIndex) => {
-          if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
-
-          if (engine.options.loop) {
-            engine.slideLooper.loopPoints.forEach((loopItem) => {
-              const target = loopItem.target();
-
-              if (slideIndex === loopItem.index && target !== 0) {
-                const sign = Math.sign(target);
-
-                if (sign === -1) {
-                  diffToTarget = scrollSnap - (1 + scrollProgress);
-                }
-                if (sign === 1) {
-                  diffToTarget = scrollSnap + (1 - scrollProgress);
-                }
-              }
-            });
+        if (slidesInView.includes(snapIndex)) {
+          const tweenNode = tweenNodes.current[snapIndex];
+          if (tweenNode) {
+            tweenNode.style.transform = `scale(${scale})`;
           }
-
-          const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-          const scale = numberWithinRange(tweenValue, 0, 1).toString();
-          const tweenNode = tweenNodes.current[slideIndex];
-          tweenNode.style.transform = `scale(${scale})`;
-        });
+        }
       });
     },
     []
@@ -120,52 +74,59 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     if (!emblaApi) return;
 
     setTweenNodes(emblaApi);
-    setTweenFactor(emblaApi);
-    tweenScale(emblaApi);
 
     emblaApi
       .on("reInit", setTweenNodes)
-      .on("reInit", setTweenFactor)
-      .on("reInit", tweenScale)
       .on("scroll", tweenScale)
       .on("slideFocus", tweenScale);
-  }, [emblaApi, tweenScale]);
+  }, [emblaApi, setTweenNodes, tweenScale]);
+
+  const renderSlides = useMemo(
+    () =>
+      slides.map((slide, index) => (
+        <div className={classes.embla__slide} key={index}>
+          <div className={classes.embla__slide__number}>
+            <Image
+              src={slide.image}
+              alt={slide.alt}
+              priority={index === 0} // Set priority only for the first slide
+              loading={index === 0 ? undefined : "lazy"} // Lazy load all other slides
+              quality={75}
+            />
+            <p>{slide.text}</p>
+          </div>
+        </div>
+      )),
+    [slides]
+  );
 
   return (
     <section className={classes.embla}>
       <div className={classes.embla__viewport} ref={emblaRef}>
-        <div className={classes.embla__container}>
-          {slides.map((value, index) => (
-            <div className={classes.embla__slide} key={index}>
-              <div className={classes.embla__slide__number}>
-                <Image key={index} src={value.image} alt={value.alt} priority />
-                <p>{value.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className={classes.embla__container}>{renderSlides}</div>
       </div>
 
       <div className={classes.embla__controls}>
         <div className={classes.embla__buttons}>
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+          <PrevButton onClick={() => emblaApi?.scrollPrev()} />
+          <NextButton onClick={() => emblaApi?.scrollNext()} />
         </div>
-
         <div className={classes.embla__dots}>
-          {scrollSnaps.map((_, index) => (
+          {slides.map((_, index) => (
             <DotButton
               key={index}
-              onClick={() => onDotButtonClick(index)}
               className={`${classes.embla__dot} ${
-                index === selectedIndex ? classes.embla__dotSelected : ""
+                emblaApi?.selectedScrollSnap() === index
+                  ? classes.embla__dotSelected
+                  : ""
               }`}
+              onClick={() => emblaApi?.scrollTo(index)}
             />
           ))}
         </div>
       </div>
     </section>
   );
-};
+});
 
 export default EmblaCarousel;

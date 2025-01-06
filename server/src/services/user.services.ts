@@ -179,9 +179,10 @@ export class UserServices extends DataSource {
 
   // Get user Role and isActive status
   async getUserRoleAndStatus(id: number): Promise<UserEntity> {
-    return await this.userRepo.findOne({
-      where: { id },
-      select: ["role", "isActive"],
-    });
+    return await this.userRepo
+      .createQueryBuilder("user")
+      .select(["user.role", "user.isActive", "user.isVerified"])
+      .where("user.id = :id", { id })
+      .getOne();
   }
 }

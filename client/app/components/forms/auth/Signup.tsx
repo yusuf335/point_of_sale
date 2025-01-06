@@ -103,10 +103,6 @@ const Signup = () => {
     setPassword(e.target.value);
   };
 
-  const handleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
   return (
     <div className={styles.authContainer}>
       <div>
@@ -125,6 +121,7 @@ const Signup = () => {
             onChange={handleNameChange}
             error={!!nameError}
             helperText={nameError}
+            inputStyle={styles.input}
           />
 
           <InputField
@@ -136,17 +133,19 @@ const Signup = () => {
             onChange={handleEmailChange}
             error={!!emailError}
             helperText={emailError}
+            inputStyle={styles.input}
           />
 
           <InputField
             label="Password"
             name="password"
             placeholder="Enter password"
-            type={showPassword ? "text" : "password"}
+            type="text"
             value={password}
             onChange={handlePasswordChange}
             error={!!passwordError}
             helperText={passwordError}
+            inputStyle={styles.input}
           />
           {serverError && (
             <div className={styles.errorContainer}>

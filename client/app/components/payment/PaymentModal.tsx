@@ -7,12 +7,14 @@ interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
   totalAmount: number;
+  onDashboardSearchFocus?: () => void;
 }
 
 const PaymentModal: React.FC<PaymentModalProps> = ({
   isOpen,
   onClose,
   totalAmount,
+  onDashboardSearchFocus,
 }) => {
   const [amountPaying, setAmountPaying] = useState<string>("");
   const [paymentOption, setPaymentOption] = useState<string>("Cash");
@@ -42,8 +44,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
+    } else if (!isOpen && onDashboardSearchFocus) {
+      onDashboardSearchFocus(); // Refocus dashboard search when modal closes
     }
-  }, [isOpen]);
+  }, [isOpen, onDashboardSearchFocus]);
 
   //   Check if the user is using keyboard to input the amount
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

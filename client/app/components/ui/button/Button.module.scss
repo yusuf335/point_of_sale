@@ -1,11 +1,10 @@
 @import "@/app/styles/colors.module.scss";
 
-/* Placeholder for shared styles */
+/* Shared Button Styles */
 %btn_base {
-  margin-top: 2rem;
   border-radius: 0.25rem;
   border-width: 1px;
-  outline: 0 !important;
+  outline: 0;
   font-weight: 400;
   text-align: center;
   vertical-align: middle;
@@ -16,7 +15,8 @@
   justify-content: center;
   align-items: center;
 
-  &:disabled {
+  &:disabled,
+  &[aria-disabled="true"] {
     cursor: not-allowed;
     opacity: 0.6;
   }
@@ -25,7 +25,7 @@
 /* Default Button Styling */
 .btn {
   @extend %btn_base;
-  width: 100%; // Default width, can override via props
+  width: 100%;
 }
 
 /* Variants */
@@ -34,7 +34,7 @@
   color: #fff;
   border: 1px solid $primary-600;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: $primary-600;
     border-color: $primary-700;
   }
@@ -45,7 +45,7 @@
   color: #fff;
   border: 1px solid $secondary-600;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: $secondary-600;
     border-color: $secondary-700;
   }
@@ -56,7 +56,7 @@
   color: #fff;
   border: 1px solid $red-600;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: $red-600;
     border-color: $red-700;
   }
@@ -67,7 +67,7 @@
   color: #fff;
   border: 1px solid $green-600;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: $green-600;
     border-color: $green-700;
   }
@@ -78,7 +78,7 @@
   background-color: transparent;
   border: 1px solid currentColor;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: #fff; /* Adjust text color for contrast */
     background-color: currentColor;
   }

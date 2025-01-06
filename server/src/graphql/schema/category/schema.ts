@@ -15,8 +15,6 @@ export const CategoryTypeDefs = gql`
       name: String!
       "Enter the Category Description"
       description: String!
-      "Enter the Category Company ID"
-      company: Int!
     ): Category
 
     "Update a Category for a Company"

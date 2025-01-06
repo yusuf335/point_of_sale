@@ -12,111 +12,95 @@ import styles from "./page.module.scss";
 import { MdWorkHistory } from "react-icons/md";
 
 //example data type
-type Person = {
+type Register = {
   date: string;
-  register: number;
   start: string;
   end: string;
   total_amount: number;
 };
 
 //nested data is ok, see accessorKeys in ColumnDef below
-const data: Person[] = [
+const data: Register[] = [
   {
     date: "2021-06-01",
-    register: 1,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 2,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 3,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 4,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 5,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 6,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 7,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 8,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 9,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 10,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
   {
     date: "2021-06-01",
-    register: 11,
     start: "06:00",
     end: "14:00",
     total_amount: 8,
   },
 ];
 
-const Shift = () => {
+const ProductPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   //should be memoized or stable
-  const columns = useMemo<MRT_ColumnDef<Person>[]>(
+  const columns = useMemo<MRT_ColumnDef<Register>[]>(
     () => [
       {
         accessorKey: "date", //access nested data with dot notation
         header: "Date",
         size: 150,
       },
-      {
-        accessorKey: "register",
-        header: "Register",
-        size: 150,
-      },
+
       {
         accessorKey: "start", //normal accessorKey
         header: "Start",
@@ -154,7 +138,7 @@ const Shift = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <MdWorkHistory size="1.5rem" className={styles.shiftIcon} />
-        <h2>Shift</h2>
+        <h2>Registers</h2>
       </div>
       <hr />
       <MaterialReactTable table={table} />
@@ -162,4 +146,4 @@ const Shift = () => {
   );
 };
 
-export default Shift;
+export default ProductPage;

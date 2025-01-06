@@ -33,45 +33,6 @@ const GET_USERS = gql`
   }
 `;
 
-//nested data is ok, see accessorKeys in ColumnDef below
-const data1: Person[] = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    role: "Admin",
-    isVerified: true,
-    storeName: "Main Store",
-  },
-  {
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    role: "Manager",
-    isVerified: false,
-    storeName: "Branch Store",
-  },
-  {
-    name: "Alice Johnson",
-    email: "alice.johnson@example.com",
-    role: "Cashier",
-    isVerified: true,
-    storeName: "Main Store",
-  },
-  {
-    name: "Bob Brown",
-    email: "bob.brown@example.com",
-    role: "Stock Clerk",
-    isVerified: false,
-    storeName: "Warehouse",
-  },
-  {
-    name: "Charlie Davis",
-    email: "charlie.davis@example.com",
-    role: "Security",
-    isVerified: true,
-    storeName: "Main Store",
-  },
-];
-
 const UsersPage = () => {
   const { loading, error, data } = useQuery(GET_USERS);
 

@@ -1,4 +1,3 @@
-import { withErrorHandling } from "../../../utils/withErrorHandling";
 import { Resolvers } from "../../types";
 
 export const authResolver: Resolvers = {

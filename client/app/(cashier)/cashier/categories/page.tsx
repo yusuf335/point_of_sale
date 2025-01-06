@@ -6,11 +6,10 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from "material-react-table";
-import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
 
-import TableHeader from "@/app/components/header/table-header/TableHeader";
+import { MdWorkHistory } from "react-icons/md";
 
 //example data type
 type Category = {
@@ -49,12 +48,7 @@ const data: Category[] = [
 ];
 
 const Shift = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleAddCategory = () => {
-    router.push("/admin/categories/add-category");
-  };
 
   //should be memoized or stable
   const columns = useMemo<MRT_ColumnDef<Category>[]>(
@@ -93,14 +87,14 @@ const Shift = () => {
   });
 
   return (
-    <>
-      <TableHeader
-        title="Category"
-        btnLabel={"Add Category"}
-        onClick={handleAddCategory}
-      />
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <MdWorkHistory size="1.5rem" className={styles.shiftIcon} />
+        <h2>Categories</h2>
+      </div>
+      <hr />
       <MaterialReactTable table={table} />
-    </>
+    </div>
   );
 };
 

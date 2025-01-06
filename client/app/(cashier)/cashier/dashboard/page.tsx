@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useMemo, useRef } from "react";
 import InputField from "@/app/components/ui/Input/InputField";
 import styles from "./page.module.scss";
-
 import Button from "@/app/components/ui/button/Button";
 import CartItem from "@/app/components/cart/CartItem";
-
 import PaymentModal from "@/app/components/payment/PaymentModal";
 
 import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
@@ -17,146 +16,61 @@ interface CartItem {
   quantity: number;
 }
 
-const cart: CartItem[] = [
-  {
-    id: 1,
-    name: "Product 1",
-    price: 100,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    price: 200,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    price: 300,
-    quantity: 3,
-  },
-  {
-    id: 4,
-    name: "Product 4",
-    price: 400,
-    quantity: 4,
-  },
-  {
-    id: 5,
-    name: "Product 5",
-    price: 500,
-    quantity: 5,
-  },
-  {
-    id: 6,
-    name: "Product 6",
-    price: 600,
-    quantity: 6,
-  },
-  {
-    id: 7,
-    name: "Product 7",
-    price: 700,
-    quantity: 7,
-  },
-  {
-    id: 8,
-    name: "Product 8",
-    price: 800,
-    quantity: 8,
-  },
-  {
-    id: 9,
-    name: "Product 9",
-    price: 900,
-    quantity: 9,
-  },
-  {
-    id: 10,
-    name: "Product 10",
-    price: 1000,
-    quantity: 10,
-  },
-  {
-    id: 11,
-    name: "Product 11",
-    price: 1100,
-    quantity: 11,
-  },
-  {
-    id: 12,
-    name: "Product 12",
-    price: 1200,
-    quantity: 12,
-  },
-  {
-    id: 13,
-    name: "Product 13",
-    price: 1300,
-    quantity: 13,
-  },
-  {
-    id: 14,
-    name: "Product 14",
-    price: 1400,
-    quantity: 14,
-  },
-  {
-    id: 15,
-    name: "Product 15",
-    price: 1500,
-    quantity: 15,
-  },
-  {
-    id: 16,
-    name: "Product 16",
-    price: 1600,
-    quantity: 16,
-  },
-  {
-    id: 17,
-    name: "Product 17",
-    price: 1700,
-    quantity: 17,
-  },
-  {
-    id: 18,
-    name: "Product 18",
-    price: 1800,
-    quantity: 18,
-  },
-  {
-    id: 19,
-    name: "Product 19",
-    price: 1900,
-    quantity: 19,
-  },
-  {
-    id: 20,
-    name: "Product 20",
-    price: 2000,
-    quantity: 20,
-  },
+const initialCart: CartItem[] = [
+  { id: 1, name: "Product 1", price: 100, quantity: 2 },
+  { id: 2, name: "Product 2", price: 200, quantity: 1 },
+  { id: 3, name: "Product 3", price: 300, quantity: 3 },
 ];
 
 export default function Home() {
   const [search, setSearch] = useState("");
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [cart, setCart] = useState(initialCart);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  // Handle on blur\
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>): boolean => {
-    return !isPaymentModalOpen;
+  const handleQuantityChange = (id: number, quantity: number) => {
+    setCart((prevCart) =>
+      prevCart.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
   };
+
+  const handleRemoveItem = (id: number) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
+  const handlePaymentModalClose = () => {
+    setIsPaymentModalOpen(false);
+    searchInputRef.current?.focus(); // Refocus the search bar when the modal is closed
+  };
+
+  const filteredCart = useMemo(
+    () =>
+      cart.filter(
+        (item) =>
+          item.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.id.toString().includes(search)
+      ),
+    [search, cart]
+  );
+
+  const totalItems = useMemo(
+    () => cart.reduce((acc, item) => acc + item.quantity, 0),
+    [cart]
+  );
+
+  const totalAmount = useMemo(
+    () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    [cart]
+  );
 
   return (
     <div className={styles.container}>
+      {/* Search Bar */}
       <div className={styles.cartHeader}>
-        {/* Search Bar*/}
         <InputField
           name="search-items"
           label="Search Product"
@@ -164,8 +78,8 @@ export default function Home() {
           type="text"
           value={search}
           onChange={handleSearchChange}
-          onBlur={handleBlur}
-          autofocus={true}
+          inputRef={searchInputRef}
+          autoFocus={!isPaymentModalOpen}
         />
       </div>
 
@@ -174,9 +88,9 @@ export default function Home() {
         <div className={styles.cartItemHeader}>
           <div className={styles.cartHeaderTitle}>
             <MdShoppingCart size="1.6rem" className={styles.cartIcon} />
-            <h2>Cart Items </h2>
+            <h2>Cart Items</h2>
           </div>
-          <div>
+          <div onClick={() => setCart([])}>
             <MdRemoveShoppingCart
               size="1.6rem"
               className={styles.emptyCartIcon}
@@ -188,16 +102,12 @@ export default function Home() {
         <div className={styles.cartItemsContainer}>
           {/* Cart Items List */}
           <div className={styles.cartItemsList}>
-            {cart.map((item) => (
+            {filteredCart.map((item) => (
               <CartItem
                 key={item.id}
                 {...item}
-                onQuantityChange={(id, quantity) => {
-                  // handle quantity change
-                }}
-                onRemove={(id) => {
-                  // handle remove item
-                }}
+                onQuantityChange={handleQuantityChange}
+                onRemove={handleRemoveItem}
               />
             ))}
           </div>
@@ -205,10 +115,9 @@ export default function Home() {
           {/* Cart Total and Payment */}
           <div className={styles.cartTotal}>
             <div className={styles.cartTotalAmount}>
-              <h2>Order ID: #123</h2>
-              <h2>Total Items: 10</h2>
+              <h2>Total Items: {totalItems}</h2>
               <hr />
-              <h2>Total Amount: $300</h2>
+              <h2>Total Amount: ${totalAmount}</h2>
             </div>
             <div
               className={styles.cartTotalActions}
@@ -218,8 +127,8 @@ export default function Home() {
             </div>
             <PaymentModal
               isOpen={isPaymentModalOpen}
-              onClose={() => setIsPaymentModalOpen(false)}
-              totalAmount={300}
+              onClose={handlePaymentModalClose}
+              totalAmount={totalAmount}
             />
           </div>
         </div>

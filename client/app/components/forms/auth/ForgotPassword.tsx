@@ -98,6 +98,7 @@ const ForgotPassword = () => {
             onChange={handleEmailChange}
             error={!!emailError}
             helperText={emailError}
+            inputStyle={styles.input}
           />
 
           {serverError && (

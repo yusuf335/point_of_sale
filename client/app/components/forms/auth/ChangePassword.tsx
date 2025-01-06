@@ -111,6 +111,7 @@ const ChangePassword = ({ token }: ChangePasswordProps) => {
             error={!!passwordError}
             helperText={passwordError}
             onChange={handlePasswordChange}
+            inputStyle={styles.input}
           />
 
           <InputField
@@ -122,6 +123,7 @@ const ChangePassword = ({ token }: ChangePasswordProps) => {
             error={!!confirmPasswordError}
             helperText={confirmPasswordError}
             onChange={handleConfirmPasswordChange}
+            inputStyle={styles.input}
           />
 
           {serverError && (

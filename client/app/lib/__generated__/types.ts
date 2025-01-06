@@ -158,7 +158,6 @@ export type MutationCreateCartItemArgs = {
 
 
 export type MutationCreateCategoryArgs = {
-  company: Scalars['Int']['input'];
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
 };
@@ -398,7 +397,7 @@ export type Query = {
   /** Get a Company by ID */
   company?: Maybe<Company>;
   /** Get user role and status */
-  getUserRoleAndStatus?: Maybe<User>;
+  getUserRoleAndStatus?: Maybe<UserStatus>;
   login?: Maybe<Auth>;
   /** Order by ID for a Store */
   order?: Maybe<Order>;
@@ -546,9 +545,26 @@ export type User = {
 /** User Role Enum */
 export enum UserRole {
   Admin = 'ADMIN',
-  Cashier = 'CASHIER',
-  Manager = 'MANAGER'
+  Cashier = 'CASHIER'
 }
+
+export type UserStatus = {
+  __typename?: 'UserStatus';
+  /** User Active Status */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** User Verification Status */
+  isVerified?: Maybe<Scalars['Boolean']['output']>;
+  /** User Role */
+  role?: Maybe<UserRole>;
+};
+
+export type CreateCategoryMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+}>;
+
+
+export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory?: { __typename?: 'Category', id: number } | null };
 
 export type CompanyQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -558,7 +574,7 @@ export type CompanyQuery = { __typename?: 'Query', company?: { __typename?: 'Com
 export type StoresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StoresQuery = { __typename?: 'Query', stores?: Array<{ __typename?: 'Store', name?: string | null, address?: string | null, phone?: string | null } | null> | null };
+export type StoresQuery = { __typename?: 'Query', stores?: Array<{ __typename?: 'Store', id: number, name?: string | null, address?: string | null, phone?: string | null } | null> | null };
 
 export type UsersByCompanyQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -596,3 +612,8 @@ export type SingUpMutationVariables = Exact<{
 
 
 export type SingUpMutation = { __typename?: 'Mutation', signup?: { __typename?: 'Auth', jwtToken?: string | null } | null };
+
+export type GetUserRoleAndStatusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserRoleAndStatusQuery = { __typename?: 'Query', getUserRoleAndStatus?: { __typename?: 'UserStatus', role?: UserRole | null, isActive?: boolean | null, isVerified?: boolean | null } | null };

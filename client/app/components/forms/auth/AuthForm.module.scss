@@ -1,6 +1,10 @@
 @import "@/app/styles/colors.module.scss";
 
 .authContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .welcomeText {
     text-align: left;
     margin-bottom: 2rem;
@@ -12,7 +16,7 @@
       margin-bottom: 0.4rem;
     }
 
-    .subText {
+    p {
       color: #74788d;
       font-weight: 500;
     }
@@ -38,19 +42,22 @@
   }
 
   .authForm {
+    max-width: 25rem;
+    width: 100%;
+
+    .input {
+      margin-bottom: 1rem;
+    }
+
     .authLink {
       margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.4rem;
-      font-weight: 400;
       text-align: center;
-      color: #2b2b2b;
-      cursor: pointer;
+      display: block;
 
       a {
         font-weight: 500;
         color: #3062e3;
+        text-decoration: none;
       }
     }
   }

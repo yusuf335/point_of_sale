@@ -1,0 +1,14 @@
+@import "@/app/styles/colors.module.scss";
+
+.headerContainer {
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+  }
+}
+.hr {
+  margin-bottom: 1rem;
+}

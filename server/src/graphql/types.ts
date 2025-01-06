@@ -161,7 +161,6 @@ export type MutationCreateCartItemArgs = {
 
 
 export type MutationCreateCategoryArgs = {
-  company: Scalars['Int']['input'];
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
 };
@@ -401,7 +400,7 @@ export type Query = {
   /** Get a Company by ID */
   company?: Maybe<Company>;
   /** Get user role and status */
-  getUserRoleAndStatus?: Maybe<User>;
+  getUserRoleAndStatus?: Maybe<UserStatus>;
   login?: Maybe<Auth>;
   /** Order by ID for a Store */
   order?: Maybe<Order>;
@@ -549,9 +548,18 @@ export type User = {
 /** User Role Enum */
 export enum UserRole {
   Admin = 'ADMIN',
-  Cashier = 'CASHIER',
-  Manager = 'MANAGER'
+  Cashier = 'CASHIER'
 }
+
+export type UserStatus = {
+  __typename?: 'UserStatus';
+  /** User Active Status */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** User Verification Status */
+  isVerified?: Maybe<Scalars['Boolean']['output']>;
+  /** User Role */
+  role?: Maybe<UserRole>;
+};
 
 
 
@@ -641,6 +649,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
   UserRole: UserRole;
+  UserStatus: ResolverTypeWrapper<UserStatus>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -661,6 +670,7 @@ export type ResolversParentTypes = {
   Store: Store;
   String: Scalars['String']['output'];
   User: User;
+  UserStatus: UserStatus;
 };
 
 export type AuthResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
@@ -712,7 +722,7 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export type MutationResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   changePassword?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationChangePasswordArgs, 'password' | 'token'>>;
   createCartItem?: Resolver<Maybe<ResolversTypes['CartItem']>, ParentType, ContextType, RequireFields<MutationCreateCartItemArgs, 'name' | 'order' | 'price' | 'productId' | 'quantity' | 'store'>>;
-  createCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'company' | 'description' | 'name'>>;
+  createCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'description' | 'name'>>;
   createCompany?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType, RequireFields<MutationCreateCompanyArgs, 'address' | 'name' | 'phone'>>;
   createOrder?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'message' | 'paymentMethod' | 'register' | 'status' | 'store' | 'total'>>;
   createProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'category' | 'company' | 'description' | 'image' | 'name' | 'price'>>;
@@ -771,7 +781,7 @@ export type QueryResolvers<ContextType = DataSourcesContext, ParentType extends 
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'id'>>;
   companies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Company']>>>, ParentType, ContextType>;
   company?: Resolver<Maybe<ResolversTypes['Company']>, ParentType, ContextType>;
-  getUserRoleAndStatus?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  getUserRoleAndStatus?: Resolver<Maybe<ResolversTypes['UserStatus']>, ParentType, ContextType>;
   login?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
   order?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryOrderArgs, 'id'>>;
   orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
@@ -824,6 +834,13 @@ export type UserResolvers<ContextType = DataSourcesContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserStatusResolvers<ContextType = DataSourcesContext, ParentType extends ResolversParentTypes['UserStatus'] = ResolversParentTypes['UserStatus']> = {
+  isActive?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  isVerified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['UserRole']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = DataSourcesContext> = {
   Auth?: AuthResolvers<ContextType>;
   CartItem?: CartItemResolvers<ContextType>;
@@ -837,5 +854,6 @@ export type Resolvers<ContextType = DataSourcesContext> = {
   Register?: RegisterResolvers<ContextType>;
   Store?: StoreResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserStatus?: UserStatusResolvers<ContextType>;
 };
 

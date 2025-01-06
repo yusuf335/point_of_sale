@@ -76,6 +76,7 @@ const Login = () => {
               error ? "Invalid email or password" : "Email is required"
             }
             onChange={(e) => setEmail(e.target.value)}
+            inputStyle={styles.input}
           />
 
           <InputField
@@ -102,6 +103,7 @@ const Login = () => {
             }
             rightLabelLink="Forgot password?"
             onClickRightlabel={() => router.push("/auth/forgot-password")}
+            inputStyle={styles.input}
           />
 
           <div>

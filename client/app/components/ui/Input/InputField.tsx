@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import clsx from "clsx";
 import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
-  ref?: React.RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
   label: string;
   rightLabelLink?: string;
   name: string;
@@ -14,14 +15,14 @@ interface InputFieldProps {
   helperText?: string;
   labelStyle?: string;
   inputStyle?: string;
-  autofocus?: boolean;
+  autoFocus?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void | boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickRightlabel?: () => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
-  ref,
+  inputRef,
   label,
   rightLabelLink,
   name,
@@ -33,48 +34,68 @@ const InputField: React.FC<InputFieldProps> = ({
   error = false,
   labelStyle,
   inputStyle,
-  autofocus = false,
+  autoFocus = false,
   onBlur,
-  onChange,
+  onChange = () => {},
   onClickRightlabel,
 }) => {
-  const inputRef = ref || useRef<HTMLInputElement>(null);
+  const internalRef = useRef<HTMLInputElement>(null);
+  const ref = inputRef || internalRef;
+
+  useEffect(() => {
+    if (autoFocus && ref.current) {
+      ref.current.focus();
+    }
+  }, [autoFocus, ref]);
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (onBlur) {
-      const shouldRefocus = onBlur(event); // Call the provided onBlur handler
-      if (shouldRefocus && inputRef.current) {
-        inputRef.current.focus(); // Refocus the input if necessary
+      const shouldRefocus = onBlur(event);
+      if (shouldRefocus && ref.current) {
+        ref.current.focus();
       }
     }
   };
 
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={name} className={`${styles.inputLabel} ${labelStyle}`}>
+      {/* Label */}
+      <label htmlFor={name} className={clsx(styles.inputLabel, labelStyle)}>
         {label}
       </label>
-      <input
-        id={name}
-        type={type}
-        placeholder={placeholder}
-        required
-        autoFocus={autofocus}
-        ref={inputRef}
-        onChange={onChange}
-        onBlur={handleBlur}
-        className={`${styles.inputFeild} ${
-          error ? styles.error : ""
-        } ${inputStyle}`}
-        value={value}
-      />
 
-      {/* Error Text */}
+      {/* Input Field Wrapper */}
+      <div className={styles.inputWrapper}>
+        <input
+          id={name}
+          type={type}
+          placeholder={placeholder}
+          required
+          ref={ref}
+          onChange={onChange}
+          onBlur={handleBlur}
+          className={clsx(
+            styles.inputField,
+            { [styles.error]: error },
+            inputStyle
+          )}
+          value={value}
+          aria-invalid={error ? "true" : "false"}
+          aria-describedby={
+            error && helperText ? `${name}-helper-text` : undefined
+          }
+        />
+        {icon && <div className={styles.icon}>{icon}</div>}
+      </div>
+
+      {/* Helper or Error Text */}
       {error && helperText && (
-        <p className={styles.errorHelperText}>{helperText}</p>
+        <p id={`${name}-helper-text`} className={styles.errorHelperText}>
+          {helperText}
+        </p>
       )}
-      <div className={styles.icon}>{icon}</div>
 
+      {/* Right Label Link */}
       {rightLabelLink && (
         <label
           htmlFor={name}

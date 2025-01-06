@@ -11,7 +11,7 @@ export default function NotFound() {
 
   const handleReturnHome = () => {
     // Redirect to the Dashbaord page
-    router.push("/auth");
+    router.push("/client/dashboard");
   };
   return (
     <div className={styles.errorPage}>

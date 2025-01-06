@@ -15,7 +15,7 @@ export const UserTypeDefs = gql`
     usersByStore(storeId: Int!): [User]
 
     "Get user role and status"
-    getUserRoleAndStatus: User
+    getUserRoleAndStatus: UserStatus
   }
 
   type Mutation {
@@ -54,7 +54,6 @@ export const UserTypeDefs = gql`
   "User Role Enum"
   enum UserRole {
     ADMIN
-    MANAGER
     CASHIER
   }
 
@@ -80,5 +79,14 @@ export const UserTypeDefs = gql`
     createdAt: String
     "User Updated At"
     updatedAt: String
+  }
+
+  type UserStatus {
+    "User Role"
+    role: UserRole
+    "User Active Status"
+    isActive: Boolean
+    "User Verification Status"
+    isVerified: Boolean
   }
 `;

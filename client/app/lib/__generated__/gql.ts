@@ -14,13 +14,15 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+    "\n  mutation CreateCategory($name: String!, $description: String!) {\n    createCategory(name: $name, description: $description) {\n      id\n    }\n  }\n": types.CreateCategoryDocument,
     "\n  query Company {\n    company {\n      id\n      name\n      address\n      phone\n    }\n  }\n": types.CompanyDocument,
-    "\n  query Stores {\n    stores {\n      name\n      address\n      phone\n    }\n  }\n": types.StoresDocument,
+    "\n  query Stores {\n    stores {\n      id\n      name\n      address\n      phone\n    }\n  }\n": types.StoresDocument,
     "\n  query UsersByCompany {\n    usersByCompany {\n      name\n      email\n      role\n      isVerified\n    }\n  }\n": types.UsersByCompanyDocument,
     "\n  mutation ChangePassword($token: String!, $password: String!) {\n    changePassword(token: $token, password: $password)\n  }\n": types.ChangePasswordDocument,
     "\n  mutation ForgotPassword($email: String!) {\n    forgotPassword(email: $email)\n  }\n": types.ForgotPasswordDocument,
     "\n  query Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      jwtToken\n    }\n  }\n": types.LoginDocument,
     "\n  mutation SingUp($name: String!, $email: String!, $password: String!) {\n    signup(name: $name, email: $email, password: $password) {\n      jwtToken\n    }\n  }\n": types.SingUpDocument,
+    "\n  query GetUserRoleAndStatus {\n    getUserRoleAndStatus {\n      role\n      isActive\n      isVerified\n    }\n  }\n": types.GetUserRoleAndStatusDocument,
 };
 
 /**
@@ -40,11 +42,15 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation CreateCategory($name: String!, $description: String!) {\n    createCategory(name: $name, description: $description) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateCategory($name: String!, $description: String!) {\n    createCategory(name: $name, description: $description) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  query Company {\n    company {\n      id\n      name\n      address\n      phone\n    }\n  }\n"): (typeof documents)["\n  query Company {\n    company {\n      id\n      name\n      address\n      phone\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Stores {\n    stores {\n      name\n      address\n      phone\n    }\n  }\n"): (typeof documents)["\n  query Stores {\n    stores {\n      name\n      address\n      phone\n    }\n  }\n"];
+export function gql(source: "\n  query Stores {\n    stores {\n      id\n      name\n      address\n      phone\n    }\n  }\n"): (typeof documents)["\n  query Stores {\n    stores {\n      id\n      name\n      address\n      phone\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -65,6 +71,10 @@ export function gql(source: "\n  query Login($email: String!, $password: String!
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation SingUp($name: String!, $email: String!, $password: String!) {\n    signup(name: $name, email: $email, password: $password) {\n      jwtToken\n    }\n  }\n"): (typeof documents)["\n  mutation SingUp($name: String!, $email: String!, $password: String!) {\n    signup(name: $name, email: $email, password: $password) {\n      jwtToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetUserRoleAndStatus {\n    getUserRoleAndStatus {\n      role\n      isActive\n      isVerified\n    }\n  }\n"): (typeof documents)["\n  query GetUserRoleAndStatus {\n    getUserRoleAndStatus {\n      role\n      isActive\n      isVerified\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

@@ -13,19 +13,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <GraphQlClient>
       {/* Layout */}
       <div className={styles.layout}>
         {/* Sidebar */}
         <SideBar />
         {/* Content */}
         <div className={styles.content}>
-          <GraphQlClient>
-            {/* Suspense for Content */}
-            <LoadingProvider>{children}</LoadingProvider>
-          </GraphQlClient>
+          {/* Suspense for Content */}
+          <LoadingProvider>{children}</LoadingProvider>
         </div>
       </div>
-    </>
+    </GraphQlClient>
   );
 }

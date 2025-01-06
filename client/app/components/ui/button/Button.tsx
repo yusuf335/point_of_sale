@@ -1,7 +1,7 @@
 import React from "react";
+import clsx from "clsx";
 import classes from "./Button.module.scss";
 
-// Define the props interface for the Button component
 interface ButtonProps {
   label: string; // The text displayed on the button
   onClick?: () => void; // Optional click event handler
@@ -12,43 +12,48 @@ interface ButtonProps {
   disabled?: boolean; // If true, disables the button
   name?: string; // Optional name attribute for the button
   value?: string; // Optional value attribute for the button
-  icon?: React.ReactNode; // Optional icon element to be displayed with the label
+  icon?: React.ReactNode; // Optional icon element
   iconPosition?: "front" | "back"; // Position of the icon relative to the label (default: "front")
+  ariaLabel?: string; // Accessibility label
+  btnStyle?: string; // Custom styles for the button
 }
 
-// Define the Button functional component
 const Button: React.FC<ButtonProps> = ({
-  label, // Required label for the button
-  onClick, // Optional click event handler
-  type = "button", // Default type is "button"
-  variant = "primary", // Default style variant is "primary"
-  size = "small", // Default size is "small"
-  fill = "solid", // Default fill style is "solid"
-  disabled = false, // Default: button is enabled
-  name, // Optional name attribute
-  value, // Optional value attribute
-  icon, // Optional icon element
-  iconPosition = "front", // Default icon position is "front"
+  label,
+  onClick,
+  type = "button",
+  variant = "primary",
+  size = "small",
+  fill = "solid",
+  disabled = false,
+  name,
+  value,
+  icon,
+  iconPosition = "front",
+  ariaLabel,
+  btnStyle,
 }) => {
   return (
     <button
-      // Dynamically construct class names based on props
-      className={`${classes.btn} ${classes[`btn_${variant}`]} ${
-        classes[`btn_${size}`]
-      } ${classes[`btn_${fill}`]}`}
-      type={type} // Button type attribute
-      onClick={onClick} // Event handler for clicks
-      disabled={disabled} // Disable button if true
-      name={name} // Button name attribute
-      value={value} // Button value attribute
+      className={clsx(
+        classes.btn,
+        classes[`btn_${variant}`],
+        classes[`btn_${size}`],
+        classes[`btn_${fill}`],
+        btnStyle
+      )}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      name={name}
+      value={value}
+      aria-label={ariaLabel || label} // Ensure accessibility
+      aria-disabled={disabled} // Accessibility attribute
     >
-      {/* Render the icon before the label if iconPosition is "front" */}
       {icon && iconPosition === "front" && (
         <span className={classes.icon}>{icon}</span>
       )}
-      {/* Render the button label */}
       {label}
-      {/* Render the icon after the label if iconPosition is "back" */}
       {icon && iconPosition === "back" && (
         <span className={classes.icon}>{icon}</span>
       )}

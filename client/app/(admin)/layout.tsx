@@ -13,19 +13,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      {/* Layout */}
-      <div className={styles.layout}>
-        {/* Sidebar */}
-        <SideBar />
-        {/* Content */}
-        <div className={styles.content}>
-          <GraphQlClient>
+    <GraphQlClient>
+      <LoadingProvider>
+        {/* Layout */}
+        <div className={styles.layout}>
+          {/* Sidebar */}
+          <SideBar />
+          {/* Content */}
+          <div className={styles.content}>
             {/* Suspense for Content */}
-            <LoadingProvider>{children}</LoadingProvider>
-          </GraphQlClient>
+            {children}
+          </div>
         </div>
-      </div>
-    </>
+      </LoadingProvider>
+    </GraphQlClient>
   );
 }

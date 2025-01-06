@@ -18,7 +18,6 @@ import { RegisterEntity } from "./register.entity";
 export enum UserRole {
   Admin = "ADMIN",
   Cashier = "CASHIER",
-  Manager = "MANAGER",
 }
 
 @Entity("user")

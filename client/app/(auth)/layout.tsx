@@ -10,10 +10,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <GraphQlClient>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
-      </GraphQlClient>
-    </>
+    <GraphQlClient>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </GraphQlClient>
   );
 }

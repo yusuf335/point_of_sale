@@ -25,7 +25,7 @@ export class StoreEntity {
   id: number;
 
   // Name of the store
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   // Address of the store

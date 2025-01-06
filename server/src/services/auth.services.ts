@@ -103,6 +103,7 @@ export class AuthServices extends DataSource {
       .values({
         name,
         email,
+        role: () => "ADMIN",
         password: passwordHash as string,
         accountVerificationToken: verificationToken,
       })
@@ -128,7 +129,7 @@ export class AuthServices extends DataSource {
       isActive: newUser.isActive,
     });
 
-    return { jwtToken, ...newUser };
+    return { jwtToken };
   }
 
   // Resend verification email
